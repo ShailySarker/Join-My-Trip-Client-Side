@@ -2,8 +2,11 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { Menu } from "lucide-react";
+import { getCookie } from "@/services/auth/tokenHandler";
+import LogoutButton from "./LogoutButton";
+import { getUserInfo } from "@/services/auth/getUserInfo";
 
-const Navbar = () => {
+const Navbar = async () => {
   const navItems = [
     // { label: "Home", href: "/" },
     { label: "Explore Travelers", href: "/explore-travelers" },
@@ -12,9 +15,12 @@ const Navbar = () => {
     // { label: "NGOs", href: "/ngos" },
   ];
 
+  const accessToken = await getCookie("accessToken");
+  const userInfo = await getUserInfo();
+  console.log(userInfo, "---------from navbar------------");
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur dark:bg-background/95">
-      <div className="xl:mx-12 lg:mx-8 md:mx-6 mx-5 flex h-16 items-center justify-between">
+      <div className="xl:mx-12 lg:mx-8 md:mx-6 mx-5 flex h-16 md:h-20 items-center justify-between">
         <div>
           <Link
             href="/"
@@ -34,17 +40,19 @@ const Navbar = () => {
           </ul>
         </nav>
 
-        <div className="md:block hidden md:flex gap-2">
-          {/* {accessToken ? (
+        <div className="md:block hidden">
+          {accessToken ? (
             <LogoutButton />
-          ) : ( */}
-          <Link href="/login">
-            <Button>Login</Button>
-          </Link>
-          <Link href="/register" className="text-lg font-medium">
-            <Button variant="outline">Register</Button>
-          </Link>
-          {/* )} */}
+          ) : (
+            <div className="md:flex gap-2">
+              <Link href="/login">
+                <Button>Login</Button>
+              </Link>
+              <Link href="/register" className="text-lg font-medium">
+                <Button variant="outline">Register</Button>
+              </Link>
+            </div>
+          )}
         </div>
         <div className="block md:hidden">
           <Sheet>
@@ -67,23 +75,26 @@ const Navbar = () => {
                 ))}
                 <div className="border-t pt-4 flex flex-col space-y-4">
                   <div className="flex justify-center"></div>
-                  {/* {accessToken ? (
+                  {accessToken ? (
                     <LogoutButton />
-                  ) : ( */}
-                  <div className="flex w-full gap-2">
-                    <Link href="/login" className="text-lg font-medium w-full">
-                      <Button className="w-full">Login</Button>
-                    </Link>
-                    <Link
-                      href="/register"
-                      className="text-lg font-medium w-full"
-                    >
-                      <Button className="w-full" variant="outline">
-                        Register
-                      </Button>
-                    </Link>
-                  </div>
-                  {/* )} */}
+                  ) : (
+                    <div className="flex w-full gap-2">
+                      <Link
+                        href="/login"
+                        className="text-lg font-medium w-full"
+                      >
+                        <Button className="w-full">Login</Button>
+                      </Link>
+                      <Link
+                        href="/register"
+                        className="text-lg font-medium w-full"
+                      >
+                        <Button className="w-full" variant="outline">
+                          Register
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </nav>
             </SheetContent>
