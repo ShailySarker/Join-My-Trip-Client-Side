@@ -7,20 +7,59 @@ import LogoutButton from "./LogoutButton";
 import { getUserInfo } from "@/services/auth/getUserInfo";
 
 const Navbar = async () => {
-  const navItems = [
-    // { label: "Home", href: "/" },
-    { label: "Explore Travelers", href: "/explore-travelers" },
-    { label: "Find Travel Buddy", href: "/find-travel-buddy" },
-    { label: "About Us", href: "/about-us" },
-    // { label: "NGOs", href: "/ngos" },
-  ];
-
   const accessToken = await getCookie("accessToken");
   const userInfo = await getUserInfo();
-  console.log(userInfo, "---------from navbar------------");
+  const role = userInfo?.role || null;
+
+  // Define menu items based on role
+  const menuItems = {
+    LOGGED_OUT: [
+      { label: "Explore Travelers", href: "/explore-travelers" },
+      { label: "Find Travel Buddy", href: "/find-travel-buddy" },
+      { label: "About Us", href: "/about-us" },
+      { label: "Subscription", href: "/subscription" },
+    ],
+    USER: [
+      { label: "Explore Travelers", href: "/dashboard/explore-travelers" },
+      { label: "My Travel Plans", href: "/dashboard/my-travel-plans" },
+      { label: "About Us", href: "/about-us" },
+      { label: "Profile", href: "/my-profile" },
+    ],
+    ADMIN: [
+      { label: "Admin Dashboard", href: "/admin/dashboard" },
+      { label: "Manage Users", href: "/admin/dashboard/manage-users" },
+      {
+        label: "Manage Travel Plans",
+        href: "/admin/dashboard/manage-travel-plans",
+      },
+      { label: "About Us", href: "/about-us" },
+      { label: "Profile", href: "/my-profile" },
+    ],
+    SUPER_ADMIN: [
+      { label: "Admin Dashboard", href: "/admin/dashboard" },
+      { label: "Manage Users", href: "/admin/dashboard/manage-users" },
+      {
+        label: "Manage Travel Plans",
+        href: "/admin/dashboard/manage-travel-plans",
+      },
+      { label: "About Us", href: "/about-us" },
+      { label: "Profile", href: "/my-profile" },
+    ],
+  };
+
+  // Select items based on role, default to LOGGED_OUT
+  let currentNavItems = menuItems.LOGGED_OUT;
+  if (role === "USER") {
+    currentNavItems = menuItems.USER;
+  } else if (role === "ADMIN") {
+    currentNavItems = menuItems.ADMIN;
+  } else if (role === "SUPER_ADMIN") {
+    currentNavItems = menuItems.SUPER_ADMIN;
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur dark:bg-background/95">
-      <div className="xl:mx-12 lg:mx-8 md:mx-6 mx-5 flex h-16 md:h-20 items-center justify-between">
+      <div className="xl:mx-12 lg:mx-8 md:mx-6 mx-5 flex xl:h-18 h-16 items-center justify-between">
         <div>
           <Link
             href="/"
@@ -32,9 +71,9 @@ const Navbar = async () => {
 
         <nav className="md:block hidden">
           <ul className="flex gap-6">
-            {navItems?.map((item) => (
-              <li key={item?.label}>
-                <Link href={item?.href}>{item?.label}</Link>
+            {currentNavItems.map((item) => (
+              <li key={item.label}>
+                <Link href={item.href}>{item.label}</Link>
               </li>
             ))}
           </ul>
@@ -64,13 +103,13 @@ const Navbar = async () => {
             <SheetContent side="right" className="w-[300px] sm:w-[400px] p-4">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <nav className="flex flex-col space-y-4 mt-8">
-                {navItems.map((item) => (
+                {currentNavItems.map((item) => (
                   <Link
-                    key={item?.label}
-                    href={item?.href}
+                    key={item.label}
+                    href={item.href}
                     className="text-sm font-medium"
                   >
-                    {item?.label}
+                    {item.label}
                   </Link>
                 ))}
                 <div className="border-t pt-4 flex flex-col space-y-4">

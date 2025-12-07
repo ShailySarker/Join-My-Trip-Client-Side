@@ -23,10 +23,15 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
       if (state.redirectUrl) {
         if (state.success) {
             toast.success(state.message || "Login Successful");
+             // Small delay to ensure cookies are set and toast is seen
+             setTimeout(() => {
+                // Force a hard reload to ensure cookies are sent and middleware allows access
+                window.location.href = state.redirectUrl;
+             }, 500);
         } else {
             toast.error(state.message);
+            router.push(state.redirectUrl);
         }
-        router.push(state.redirectUrl);
       } else if (!state.success && state.message) {
         toast.error(state.message);
       }
