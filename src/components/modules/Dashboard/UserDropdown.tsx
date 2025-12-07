@@ -29,7 +29,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
           size="icon"
           className="rounded-full bg-primary text-white"
         >
-          <span className="text-sm xl:text-base  font-semibold">
+          <span className="text-sm xl:text-base font-semibold">
             {userInfo.fullname.charAt(0).toUpperCase()}
           </span>
         </Button>

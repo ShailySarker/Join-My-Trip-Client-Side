@@ -129,14 +129,42 @@ export const loginValidationZodSchema = z.object({
     }),
 });
 
-export const resetPasswordSchema = z
-  .object({
-    newPassword: z.string().min(6, "Password must be at least 6 characters"),
-    confirmPassword: z
-      .string()
-      .min(6, "Password must be at least 6 characters"),
-  })
-  .refine((data) => data.newPassword === data.confirmPassword, {
+export const changePasswordValidationSchema = z.object({
+    oldPassword: z.string({ message: "Password must be string" })
+      .min(8, { message: "Password must be at least 8 characters long." })
+      .regex(/^(?=.*[A-Z])/, {
+        message: "Password must contain at least 1 uppercase letter.",
+      })
+      .regex(/^(?=.*[!@#$%^&*])/, {
+        message: "Password must contain at least 1 special character.",
+      })
+      .regex(/^(?=.*\d)/, {
+        message: "Password must contain at least 1 number.",
+      }),
+    newPassword:z.string({ message: "Password must be string" })
+      .min(8, { message: "Password must be at least 8 characters long." })
+      .regex(/^(?=.*[A-Z])/, {
+        message: "Password must contain at least 1 uppercase letter.",
+      })
+      .regex(/^(?=.*[!@#$%^&*])/, {
+        message: "Password must contain at least 1 special character.",
+      })
+      .regex(/^(?=.*\d)/, {
+        message: "Password must contain at least 1 number.",
+      }),
+    confirmPassword: z.string({ message: "Password must be string" })
+      .min(8, { message: "Password must be at least 8 characters long." })
+      .regex(/^(?=.*[A-Z])/, {
+        message: "Password must contain at least 1 uppercase letter.",
+      })
+      .regex(/^(?=.*[!@#$%^&*])/, {
+        message: "Password must contain at least 1 special character.",
+      })
+      .regex(/^(?=.*\d)/, {
+        message: "Password must contain at least 1 number.",
+      }),
+})
+.refine((data) => data.newPassword === data.confirmPassword, {
     message: "Passwords don't match",
     path: ["confirmPassword"],
-  });
+});

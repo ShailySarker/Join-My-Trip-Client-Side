@@ -3,7 +3,7 @@ import React, { Suspense } from "react";
 
 const VerifyOTPPage = () => {
   return (
-    <div className="h-screen w-full flex justify-center items-center bg-primary/30">
+    <div className="h-screen w-full flex justify-center items-center bg-primary/20">
       <div className="w-full max-w-md p-8 space-y-4 bg-white rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-2xl font-bold">Verify OTP</h1>

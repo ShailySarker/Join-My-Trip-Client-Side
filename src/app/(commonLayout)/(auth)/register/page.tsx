@@ -10,7 +10,7 @@ import {
 const RegisterPage = () => {
   return (
     <>
-      <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10 bg-primary/30">
+      <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10 bg-primary/20">
         <div className="w-full max-w-xl">
           <Card>
             <CardHeader>

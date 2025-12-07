@@ -8,7 +8,7 @@ const CommonDashboardLayout = async ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-primary/20">
       <DashboardSidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
         <DashboardNavbar />
