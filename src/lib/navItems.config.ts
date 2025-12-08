@@ -1,6 +1,5 @@
 import { NavSection } from "@/types/dashboard.interface";
 import { getDefaultDashboardRoute, UserRole } from "./auth-utils";
-import { ExpandIcon, UserPlus } from "lucide-react";
 
 export const getCommonNavItems = (role: UserRole): NavSection[] => {
   const defaultDashboard = getDefaultDashboardRoute(role);

@@ -59,7 +59,7 @@ const Navbar = async () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur dark:bg-background/95">
-      <div className="xl:mx-12 lg:mx-8 md:mx-6 mx-5 flex xl:h-18 h-16 items-center justify-between">
+      <div className="xl:mx-12 lg:mx-8 md:mx-6 mx-5 flex items-center justify-between xl:py-4.5 py-3.5">
         <div>
           <Link
             href="/"
@@ -70,7 +70,7 @@ const Navbar = async () => {
         </div>
 
         <nav className="md:block hidden">
-          <ul className="flex gap-6">
+          <ul className="flex lg:gap-6 gap-5 lg:text-base text-sm">
             {currentNavItems.map((item) => (
               <li key={item.label}>
                 <Link href={item.href}>{item.label}</Link>

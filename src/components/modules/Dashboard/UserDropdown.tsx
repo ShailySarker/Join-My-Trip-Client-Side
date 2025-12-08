@@ -8,9 +8,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { logoutUser } from "@/services/auth/logoutUser";
 import { IUser } from "@/types/user.interface";
-import { Settings, ShieldUser, User } from "lucide-react";
+import { Settings, User } from "lucide-react";
 import Link from "next/link";
 
 interface UserDropdownProps {
@@ -18,9 +17,6 @@ interface UserDropdownProps {
 }
 
 const UserDropdown = ({ userInfo }: UserDropdownProps) => {
-  const handleLogout = async () => {
-    await logoutUser();
-  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

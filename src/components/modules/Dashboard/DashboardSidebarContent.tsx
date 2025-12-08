@@ -23,9 +23,9 @@ const DashboardSidebarContent = ({
 }: DashboardSidebarContentProps) => {
   const pathname = usePathname();
   return (
-    <div className="hidden md:flex h-full w-64 flex-col border-r bg-card">
+    <div className="hidden md:flex min-h-full overflow-y-scroll lg:w-64 w-52 flex-col border-r bg-card">
       {/* Logo/Brand */}
-      <div className="flex xl:h-18 h-16 items-center border-b px-6">
+      <div className="flex items-center border-b px-6 xl:py-5.5 py-4.5">
         <Link href="/" className="flex items-center space-x-2">
           {/* <Link href={dashboardHome} className="flex items-center space-x-2"> */}
           <span className="text-xl font-bold text-primary">Join My Trip</span>
