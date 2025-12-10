@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IUser } from "@/types/user.interface";
-import { Settings, User } from "lucide-react";
+import { Settings, Shield, ShieldCheck, ShieldUser, User } from "lucide-react";
 import Link from "next/link";
 
 interface UserDropdownProps {
@@ -20,20 +20,67 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="outline"
-          size="icon"
-          className="rounded-full bg-primary text-white"
-        >
-          <span className="text-sm xl:text-base font-semibold">
-            {userInfo.fullname.charAt(0).toUpperCase()}
-          </span>
-        </Button>
+        {/* {userInfo.subscriptionInfo?.status === "ACTIVE" ? (
+          <div>
+            <Button
+              variant="outline"
+              size="icon"
+              className="rounded-full bg-primary text-white"
+            >
+              <span className="text-sm xl:text-base font-semibold">
+                {userInfo.fullname.charAt(0).toUpperCase()}
+              </span>
+            </Button>
+          </div>
+        ) : (
+          <Button
+            variant="outline"
+            size="icon"
+            className="rounded-full bg-primary text-white"
+          >
+            <span className="text-sm xl:text-base font-semibold">
+              {userInfo.fullname.charAt(0).toUpperCase()}
+            </span>
+          </Button>
+        )} */}
+
+        {userInfo.subscriptionInfo?.status === "ACTIVE" ? (
+          <div className="relative">
+            <div className="absolute -inset-1 rounded-full bg-primary/30 blur-md"></div>
+
+            <Button
+              variant="outline"
+              size="icon-sm"
+              className="relative rounded-full shadow-lg bg-primary text-white"
+            >
+              <span className="text-xs xl:text-sm font-semibold">
+                {userInfo.fullname.charAt(0).toUpperCase()}
+              </span>
+            </Button>
+
+            <Shield className="absolute xl:h-14 h-13.5 xl:w-14 w-13.5 xl:-bottom-3 -bottom-[11px] xl:-right-3 -right-[11px] text-primary drop-shadow" />
+          </div>
+        ) : (
+          <Button
+            variant="outline"
+            size="icon"
+            className="rounded-full bg-gray-300 text-black"
+          >
+            <span className="text-sm xl:text-base font-semibold">
+              {userInfo.fullname.charAt(0).toUpperCase()}
+            </span>
+          </Button>
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium">{userInfo.fullname}</p>
+            <p className="text-sm font-medium flex items-center gap-1">
+              {userInfo.fullname}
+              {userInfo.subscriptionInfo?.status === "ACTIVE" && (
+                <ShieldCheck className="h-4 w-4 text-primary" />
+              )}
+            </p>
             <p className="text-xs text-muted-foreground">{userInfo.email}</p>
             <p className="text-xs text-primary capitalize">
               {userInfo.role.toLowerCase()}
@@ -47,12 +94,17 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
             My Profile
           </Link>
         </DropdownMenuItem>
-        {/* <DropdownMenuItem asChild>
-          <Link href={"/my-subscription"} className="cursor-pointer">
-            <ShieldUser className="mr-2 h-4 w-4" />
-            My Subscription Plan
-          </Link>
-        </DropdownMenuItem> */}
+        {userInfo.subscriptionInfo?.status === "ACTIVE" && (
+          <DropdownMenuItem asChild>
+            <Link
+              href={"/dashboard/my-subscription"}
+              className="cursor-pointer"
+            >
+              <ShieldUser className="mr-2 h-4 w-4" />
+              My Subscription Plan
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem asChild>
           <Link href={"/change-password"} className="cursor-pointer">
             <Settings className="mr-2 h-4 w-4" />

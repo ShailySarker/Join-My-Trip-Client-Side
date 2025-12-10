@@ -9,6 +9,7 @@ export enum ISubscriptionPlanStatus {
 }
 
 export interface ISubscription {
+  _id?: string;
   plan: ISubscriptionPlan; // default free
   // status: ISubscriptionPlanStatus; // default WAITING
   amount: number;

@@ -24,9 +24,9 @@ const DashboardMobileSidebar = ({
 }: DashboardMobileSidebarContentProps) => {
   const pathname = usePathname();
   return (
-    <div className=" flex h-full flex-col">
+    <div className=" flex min-h-full overflow-y-auto flex-col">
       {/* Logo */}
-      <div className="flex h-16 items-center border-b px-6">
+      <div className="flex h-16 items-center border-b px-6 xl:py-5.5 py-4.5 sticky top-0  bg-white z-50">
         <Link href={dashboardHome}>
           <span className="text-xl font-bold text-primary">Join My Trip</span>
         </Link>

@@ -20,9 +20,11 @@ const Navbar = async () => {
       { label: "Subscription", href: "/subscription" },
     ],
     USER: [
+      { label: "Dashboard", href: "/dashboard" },
       { label: "Explore Travelers", href: "/dashboard/explore-travelers" },
       { label: "My Travel Plans", href: "/dashboard/my-travel-plans" },
       { label: "About Us", href: "/about-us" },
+      { label: "Subscription", href: "/subscription" },
       { label: "Profile", href: "/my-profile" },
     ],
     ADMIN: [
@@ -70,7 +72,7 @@ const Navbar = async () => {
         </div>
 
         <nav className="md:block hidden">
-          <ul className="flex lg:gap-6 gap-5 lg:text-base text-sm">
+          <ul className="flex xl:gap-6 lg:gap-5 gap-2.5 xl:text-base text-sm">
             {currentNavItems.map((item) => (
               <li key={item.label}>
                 <Link href={item.href}>{item.label}</Link>
