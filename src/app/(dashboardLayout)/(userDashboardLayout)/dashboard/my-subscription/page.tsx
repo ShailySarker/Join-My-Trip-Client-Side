@@ -1,6 +1,9 @@
 import MySubscriptionCard from "@/components/modules/user/subscription/MySubscriptionCard";
 import { getUserInfo } from "@/services/auth/getUserInfo";
 
+// Force dynamic rendering - don't cache this page
+export const dynamic = "force-dynamic";
+
 const MySubscriptionPage = async () => {
   const userInfo = await getUserInfo();
   return (

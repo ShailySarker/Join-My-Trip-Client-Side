@@ -1,6 +1,7 @@
 "use server";
 
 import { serverFetch } from "@/lib/server-fetch";
+import { revalidatePath } from "next/cache";
 
 export const createPaymentIntent = async (subscriptionId: string) => {
   try {
@@ -8,7 +9,12 @@ export const createPaymentIntent = async (subscriptionId: string) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ subscriptionId }),
     });
+
     const data = await res.json();
+    // revalidateTag("user-info", { expire: 0 });
+    // Revalidate user-related paths after payment initiation
+    revalidatePath("/dashboard/my-subscription");
+    revalidatePath("/", "layout");
     return data;
   } catch (error) {
     console.error("Payment Error:", error);
@@ -18,7 +24,10 @@ export const createPaymentIntent = async (subscriptionId: string) => {
 
 export const getMyPaymentHistory = async (): Promise<PaymentItem[]> => {
   try {
-    const res = await serverFetch.get("/payment/history");
+    const res = await serverFetch.get("/payment/history", {
+      cache: "force-cache",
+      next: { tags: ["user-info"] },
+    });
     const data = await res.json();
     return data.data;
   } catch (error) {

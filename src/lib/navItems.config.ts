@@ -135,7 +135,7 @@ export const adminNavItems: NavSection[] = [
     items: [
       {
         title: "Subscriptions",
-        href: "/admin/dashboard/subscription-plans",
+        href: "/subscription",
         icon: "ClipboardList",
         roles: ["ADMIN", "SUPER_ADMIN"],
       },

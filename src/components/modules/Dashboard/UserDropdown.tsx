@@ -44,7 +44,10 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
           </Button>
         )} */}
 
-        {userInfo.subscriptionInfo?.status === "ACTIVE" ? (
+        {userInfo.role === "USER" &&
+        userInfo.subscriptionInfo?.status === "ACTIVE" &&
+        (userInfo.subscriptionInfo?.plan === "MONTHLY" ||
+          userInfo.subscriptionInfo?.plan === "YEARLY") ? (
           <div className="relative">
             <div className="absolute -inset-1 rounded-full bg-primary/30 blur-md"></div>
 
@@ -77,9 +80,12 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium flex items-center gap-1">
               {userInfo.fullname}
-              {userInfo.subscriptionInfo?.status === "ACTIVE" && (
-                <ShieldCheck className="h-4 w-4 text-primary" />
-              )}
+              {userInfo.role === "USER" &&
+                userInfo.subscriptionInfo?.status === "ACTIVE" &&
+                (userInfo.subscriptionInfo?.plan === "MONTHLY" ||
+                  userInfo.subscriptionInfo?.plan === "YEARLY") && (
+                  <ShieldCheck className="h-4 w-4 text-primary" />
+                )}
             </p>
             <p className="text-xs text-muted-foreground">{userInfo.email}</p>
             <p className="text-xs text-primary capitalize">
@@ -94,17 +100,20 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
             My Profile
           </Link>
         </DropdownMenuItem>
-        {userInfo.subscriptionInfo?.status === "ACTIVE" && (
-          <DropdownMenuItem asChild>
-            <Link
-              href={"/dashboard/my-subscription"}
-              className="cursor-pointer"
-            >
-              <ShieldUser className="mr-2 h-4 w-4" />
-              My Subscription Plan
-            </Link>
-          </DropdownMenuItem>
-        )}
+        {userInfo.role === "USER" &&
+          userInfo.subscriptionInfo?.status === "ACTIVE" &&
+          (userInfo.subscriptionInfo?.plan === "MONTHLY" ||
+            userInfo.subscriptionInfo?.plan === "YEARLY") && (
+            <DropdownMenuItem asChild>
+              <Link
+                href={"/dashboard/my-subscription"}
+                className="cursor-pointer"
+              >
+                <ShieldUser className="mr-2 h-4 w-4" />
+                My Subscription Plan
+              </Link>
+            </DropdownMenuItem>
+          )}
         <DropdownMenuItem asChild>
           <Link href={"/change-password"} className="cursor-pointer">
             <Settings className="mr-2 h-4 w-4" />

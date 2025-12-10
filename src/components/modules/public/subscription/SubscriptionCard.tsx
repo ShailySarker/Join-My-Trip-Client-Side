@@ -19,22 +19,24 @@ import { IUser, IUserRole } from "@/types/user.interface";
 
 interface SubscriptionCardProps {
   subscription: ISubscription;
-  subscriptionInfo?: Partial<IUser>;
+  userInfo?: Partial<IUser>;
 }
 
 export default function SubscriptionCard({
   subscription,
-  subscriptionInfo,
+  userInfo,
 }: SubscriptionCardProps) {
   const { _id, plan, amount } = subscription;
   // Check if user already has an active subscription for this plan
   const isSubscribed =
-    subscriptionInfo?.subscriptionInfo?.status ===
-      ISubscriptionPlanStatus.ACTIVE &&
-    subscriptionInfo?.subscriptionInfo?.plan === plan;
+    userInfo?.role === IUserRole.USER &&
+    userInfo?.subscriptionInfo?.status === ISubscriptionPlanStatus.ACTIVE &&
+    userInfo?.subscriptionInfo?.plan === plan;
+
+  console.log(isSubscribed);
+  console.log(userInfo, "------userInfo-----");
 
   const handlePayment = async (subscriptionId: string) => {
-    console.log(_id);
     try {
       const result = await createPaymentIntent(subscriptionId);
       console.log(result);
@@ -73,29 +75,83 @@ export default function SubscriptionCard({
         </ul>
       </CardContent>
 
-      {subscriptionInfo?.role === IUserRole.USER && (
-        <CardFooter>
-          <div
-            className="w-full"
-            onClick={() => {
-              if (isSubscribed) {
-                toast.warning(
-                  `You have already subscribed to the ${plan} plan.`
-                );
-              }
-            }}
-          >
-            <Button
-              className="w-full pointer-events-none"
-              disabled={isSubscribed}
-              variant={isSubscribed ? "secondary" : "default"}
-              onClick={() => !isSubscribed && handlePayment(_id as string)}
+      <CardFooter>
+        {userInfo?.role === IUserRole.USER && (
+          <>
+            {!(
+              // userInfo?.role === IUserRole.USER &&
+              (
+                userInfo.subscriptionInfo?.status === "ACTIVE" &&
+                (userInfo?.subscriptionInfo?.plan === "MONTHLY" ||
+                  userInfo?.subscriptionInfo?.plan === "YEARLY")
+              )
+            ) ? (
+              <Button
+                className="w-full"
+                onClick={() => handlePayment(_id as string)}
+              >
+                Buy {plan} Plan
+              </Button>
+            ) : (
+              <>
+                {userInfo?.subscriptionInfo?.plan === plan ? (
+                  <Button className="w-full" disabled variant="secondary">
+                    Subscribed ({plan})
+                  </Button>
+                ) : (
+                  <Button
+                    className="w-full"
+                    onClick={() =>
+                      toast.warning(
+                        `You already subscribed to the ${userInfo?.subscriptionInfo?.plan} plan.`
+                      )
+                    }
+                  >
+                    Buy {plan} Plan
+                  </Button>
+                )}
+              </>
+            )}
+          </>
+        )}
+      </CardFooter>
+
+      {/* {subscriptionInfo?.role === IUserRole.USER &&
+        (isSubscribed ? (
+          <CardFooter>
+            <div
+              className="w-full"
+              onClick={() => {
+                if (isSubscribed) {
+                  toast.warning(
+                    `You have already subscribed to the ${plan} plan.`
+                  );
+                }
+              }}
             >
-              {isSubscribed ? `Subscribed (${plan})` : `Buy ${plan} Plan`}
-            </Button>
-          </div>
-        </CardFooter>
-      )}
+              <Button
+                className="w-full pointer-events-none"
+                disabled={isSubscribed}
+                variant={isSubscribed ? "secondary" : "default"}
+                onClick={() => !isSubscribed && handlePayment(_id as string)}
+              >
+                {isSubscribed ? `Subscribed (${plan})` : `Buy ${plan} Plan`}
+              </Button>
+            </div>
+          </CardFooter>
+        ) : (
+          <CardFooter>
+            <div className="w-full">
+              <Button
+                className="w-full cursor-pointer"
+                variant="default"
+                onClick={() => handlePayment(_id as string)}
+              >
+                Buy ${plan} Plan
+              </Button>
+            </div>
+          </CardFooter>
+        ))} */}
     </Card>
   );
 }
