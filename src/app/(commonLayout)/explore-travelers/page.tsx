@@ -43,7 +43,6 @@ const PublicExploreTravelersPage = async ({
   const usersResponse = await getAllUsers(queryParams);
   const users = usersResponse.data || [];
   const meta = usersResponse.meta;
-
   return (
     <div className="container mx-auto px-4 py-8 space-y-6">
       {/* Header */}
@@ -60,7 +59,7 @@ const PublicExploreTravelersPage = async ({
       </div>
 
       {/* Subscription CTA */}
-      <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20 rounded-lg p-6">
+      <div className="bg-linear-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20 rounded-lg p-6">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex-1">
             <h3 className="text-xl font-semibold mb-2">

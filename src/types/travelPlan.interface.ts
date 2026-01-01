@@ -50,17 +50,19 @@ export interface IParticipantDetails {
   age: number;
 }
 
+interface hostDetails {
+  _id: string;
+  fullname: string;
+  email: string;
+  profilePhoto?: string;
+}
 export interface ITravelPlan {
-  host: string; //user or admin id
+  // host: string; //user or admin id
+  host: string | hostDetails;
   title: string;
   slug: string;
   description: string;
-  image: string;
-  // budgetRange: {
-  //   min: number;
-  //   max: number;
-  //   // currency: string;
-  // };
+  image: string; // URL string from API (File only used in form submission)
   budget: number;
   destination: {
     city: string;
@@ -68,8 +70,8 @@ export interface ITravelPlan {
   };
   departureLocation?: string;
   arrivalLocation?: string;
-  included?: string[];
-  excluded?: string[];
+  included?: string[] | [""];
+  excluded?: string[] | [""];
   startDate: Date;
   endDate: Date;
   travelType: ITravelType;

@@ -9,6 +9,7 @@ const CommonDashboardLayout = async ({
 }) => {
   return (
     <div className="flex h-screen overflow-hidden bg-primary/20">
+      {/* <div className="flex h-screen overflow-hidden bg-primary/20"> */}
       <DashboardSidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
         <DashboardNavbar />

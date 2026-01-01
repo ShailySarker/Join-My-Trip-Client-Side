@@ -21,7 +21,7 @@ const MyFollowersPage = async () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold flex items-center gap-3">
+          <h1 className="xl:text-4xl lg:text-[32px] text-3xl font-bold flex items-center gap-3">
             <Users className="w-8 h-8 text-primary" />
             My Followers
           </h1>
@@ -29,7 +29,7 @@ const MyFollowersPage = async () => {
             People who are following you
           </p>
         </div>
-        <div className="bg-primary/10 rounded-full px-4 py-2">
+        <div className="flex items-center bg-primary/10 rounded-4xl px-5 py-1.5 border border-primary">
           <span className="text-2xl font-bold text-primary">
             {followers.length}
           </span>
@@ -53,13 +53,13 @@ const MyFollowersPage = async () => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-16">
+        <div className="text-center py-16 bg-white rounded-lg shadow">
           <UserMinus className="w-16 h-16 text-muted-foreground mx-auto mb-4 opacity-50" />
           <h3 className="text-xl font-semibold text-muted-foreground mb-2">
             No followers yet
           </h3>
           <p className="text-muted-foreground">
-            When people follow you, they'll appear here
+            When people follow you, they will appear here
           </p>
         </div>
       )}

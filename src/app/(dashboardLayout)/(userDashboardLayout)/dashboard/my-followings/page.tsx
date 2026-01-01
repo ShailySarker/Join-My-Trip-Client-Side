@@ -21,21 +21,17 @@ const MyFollowingsPage = async () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold flex items-center gap-3">
+          <h1 className="xl:text-4xl lg:text-[32px] text-3xl font-bold flex items-center gap-3">
             <Users className="w-8 h-8 text-primary" />
             My Followings
           </h1>
-          <p className="text-muted-foreground mt-2">
-            People you are following
-          </p>
+          <p className="text-muted-foreground mt-2">People you are following</p>
         </div>
-        <div className="bg-primary/10 rounded-full px-4 py-2">
+        <div className="flex items-center bg-primary/10 rounded-4xl px-5 py-1.5 border border-primary">
           <span className="text-2xl font-bold text-primary">
             {followings.length}
           </span>
-          <span className="text-sm text-muted-foreground ml-2">
-            Following
-          </span>
+          <span className="text-sm text-muted-foreground ml-2">Following</span>
         </div>
       </div>
 
@@ -53,7 +49,7 @@ const MyFollowingsPage = async () => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-16">
+        <div className="text-center py-16 bg-white rounded-lg shadow">
           <UserPlus className="w-16 h-16 text-muted-foreground mx-auto mb-4 opacity-50" />
           <h3 className="text-xl font-semibold text-muted-foreground mb-2">
             Not following anyone yet
@@ -63,7 +59,7 @@ const MyFollowingsPage = async () => {
           </p>
           <a
             href="/dashboard/explore-travelers"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2 rounded-md hover:bg-primary/90 transition-colors"
+            className="font-medium inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2 rounded-md hover:bg-primary/90 transition-colors"
           >
             <Users className="w-4 h-4" />
             Explore Travelers

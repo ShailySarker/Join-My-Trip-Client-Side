@@ -9,10 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  ISubscription,
-  ISubscriptionPlanStatus,
-} from "@/types/subscription.interface";
+import { ISubscription } from "@/types/subscription.interface";
 import { createPaymentIntent } from "@/services/payment/payment.service";
 import { toast } from "sonner";
 import { IUser, IUserRole } from "@/types/user.interface";
@@ -26,16 +23,8 @@ export default function SubscriptionCard({
   subscription,
   userInfo,
 }: SubscriptionCardProps) {
+  console.log(subscription);
   const { _id, plan, amount } = subscription;
-  // Check if user already has an active subscription for this plan
-  const isSubscribed =
-    userInfo?.role === IUserRole.USER &&
-    userInfo?.subscriptionInfo?.status === ISubscriptionPlanStatus.ACTIVE &&
-    userInfo?.subscriptionInfo?.plan === plan;
-
-  console.log(isSubscribed);
-  console.log(userInfo, "------userInfo-----");
-
   const handlePayment = async (subscriptionId: string) => {
     try {
       const result = await createPaymentIntent(subscriptionId);
@@ -76,7 +65,7 @@ export default function SubscriptionCard({
       </CardContent>
 
       <CardFooter>
-        {userInfo?.role === IUserRole.USER && (
+        {userInfo?.role === IUserRole.USER ? (
           <>
             {!(
               // userInfo?.role === IUserRole.USER &&
@@ -113,45 +102,15 @@ export default function SubscriptionCard({
               </>
             )}
           </>
+        ) : (
+          <Button
+            className="w-full"
+            onClick={() => toast.warning("Please login to subscribe.")}
+          >
+            Buy {plan} Plan
+          </Button>
         )}
       </CardFooter>
-
-      {/* {subscriptionInfo?.role === IUserRole.USER &&
-        (isSubscribed ? (
-          <CardFooter>
-            <div
-              className="w-full"
-              onClick={() => {
-                if (isSubscribed) {
-                  toast.warning(
-                    `You have already subscribed to the ${plan} plan.`
-                  );
-                }
-              }}
-            >
-              <Button
-                className="w-full pointer-events-none"
-                disabled={isSubscribed}
-                variant={isSubscribed ? "secondary" : "default"}
-                onClick={() => !isSubscribed && handlePayment(_id as string)}
-              >
-                {isSubscribed ? `Subscribed (${plan})` : `Buy ${plan} Plan`}
-              </Button>
-            </div>
-          </CardFooter>
-        ) : (
-          <CardFooter>
-            <div className="w-full">
-              <Button
-                className="w-full cursor-pointer"
-                variant="default"
-                onClick={() => handlePayment(_id as string)}
-              >
-                Buy ${plan} Plan
-              </Button>
-            </div>
-          </CardFooter>
-        ))} */}
     </Card>
   );
 }

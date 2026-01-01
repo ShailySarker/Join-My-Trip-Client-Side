@@ -39,6 +39,7 @@ export const getAllUsers = async (
 ): Promise<IUserResponse> => {
   try {
     const params = new URLSearchParams(queryParams);
+    console.log(params);
     const response = await serverFetch.get(`/user?${params.toString()}`, {
       next: { tags: ["users"] },
     });

@@ -15,6 +15,7 @@ export const createPaymentIntent = async (subscriptionId: string) => {
     // Revalidate user-related paths after payment initiation
     revalidatePath("/dashboard/my-subscription");
     revalidatePath("/", "layout");
+
     return data;
   } catch (error) {
     console.error("Payment Error:", error);

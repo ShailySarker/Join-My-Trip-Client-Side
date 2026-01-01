@@ -14,7 +14,8 @@ interface SearchParams {
   role?: string;
   travelInterests?: string;
   sortBy?: string;
-  sort?: string;
+  sortOrder?: string;
+  // sort?: string;
   page?: string;
   limit?: string;
 }
@@ -55,7 +56,8 @@ const ManageUsersPage = async ({
     queryParams.travelInterests = params.travelInterests;
   if (params.sortBy) {
     queryParams.sortBy = params.sortBy;
-    queryParams.sort = params.sort || "desc";
+    queryParams.sortOrder = params.sortOrder || "desc";
+    // queryParams.sort = params.sort || "desc";
   }
 
   // Fetch users

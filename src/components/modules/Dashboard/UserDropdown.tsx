@@ -9,7 +9,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IUser } from "@/types/user.interface";
-import { Settings, Shield, ShieldCheck, ShieldUser, User } from "lucide-react";
+import {
+  ArrowLeftToLine,
+  ArrowRightToLine,
+  Settings,
+  Shield,
+  ShieldCheck,
+  ShieldCheckIcon,
+  User,
+} from "lucide-react";
 import Link from "next/link";
 
 interface UserDropdownProps {
@@ -109,11 +117,34 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
                 href={"/dashboard/my-subscription"}
                 className="cursor-pointer"
               >
-                <ShieldUser className="mr-2 h-4 w-4" />
+                <ShieldCheckIcon className="mr-2 h-4 w-4" />
                 My Subscription Plan
               </Link>
             </DropdownMenuItem>
           )}
+
+        {userInfo.role === "USER" && (
+          <>
+            <DropdownMenuItem asChild>
+              <Link
+                href={"/dashboard/received-reviews"}
+                className="cursor-pointer"
+              >
+                <ArrowRightToLine className="mr-2 h-4 w-4" />
+                Received Reviews
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link
+                href={"/dashboard/given-reviews"}
+                className="cursor-pointer"
+              >
+                <ArrowLeftToLine className="mr-2 h-4 w-4" />
+                Given Reviews
+              </Link>
+            </DropdownMenuItem>
+          </>
+        )}
         <DropdownMenuItem asChild>
           <Link href={"/change-password"} className="cursor-pointer">
             <Settings className="mr-2 h-4 w-4" />

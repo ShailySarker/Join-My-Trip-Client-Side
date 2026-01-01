@@ -8,13 +8,12 @@ export const dynamic = "force-dynamic";
 
 const SubscriptionPage = async () => {
   const subscriptions = await getAllSubscriptions();
-  // console.log(subscriptions);
   const userInfo = await getUserInfo();
-  console.log(userInfo);
+
   return (
     <div className="mx-auto lg:max-w-2xl">
       <h2 className="xl:text-3xl lg:text-[28px] md:text-2xl text-xl font-bold text-center">
-        {userInfo.role === "ADMIN" || userInfo.role === "SUPER_ADMIN"
+        {userInfo?.role === "ADMIN" || userInfo?.role === "SUPER_ADMIN"
           ? "Subscription Plan"
           : "Choose Your Plan"}
       </h2>
@@ -23,23 +22,13 @@ const SubscriptionPage = async () => {
       </p>
 
       <div className="grid md:grid-cols-2 gap-6 xl:mt-16 lg:mt-12 md:mt-14 mt-10">
-        {userInfo ? (
-          <>
-            {subscriptions?.data?.map((plan: ISubscription) => (
-              <SubscriptionCard
-                key={plan._id}
-                subscription={plan}
-                userInfo={userInfo}
-              />
-            ))}
-          </>
-        ) : (
-          <>
-            {subscriptions?.data?.map((plan: ISubscription) => (
-              <SubscriptionCard key={plan._id} subscription={plan} />
-            ))}
-          </>
-        )}
+        {subscriptions?.data?.map((plan: ISubscription) => (
+          <SubscriptionCard
+            key={plan?._id}
+            subscription={plan}
+            userInfo={userInfo}
+          />
+        ))}
       </div>
     </div>
   );

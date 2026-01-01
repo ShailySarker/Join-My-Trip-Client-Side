@@ -131,6 +131,28 @@ export const adminNavItems: NavSection[] = [
     ],
   },
   {
+    title: "Booking Management",
+    items: [
+      {
+        title: "Bookings",
+        href: "/admin/dashboard/manage-bookings",
+        icon: "CopyCheck",
+        roles: ["ADMIN", "SUPER_ADMIN"],
+      },
+    ],
+  },
+  {
+    title: "Review Management",
+    items: [
+      {
+        title: "Reviews",
+        href: "/admin/dashboard/manage-reviews",
+        icon: "Rating",
+        roles: ["ADMIN", "SUPER_ADMIN"],
+      },
+    ],
+  },
+  {
     title: "Subscription Plans",
     items: [
       {
