@@ -7,8 +7,8 @@ import { serverFetch } from "@/lib/server-fetch";
  * Create a review (only for completed trip participants)
  */
 export const createReview = async (reviewData: {
-  reviewedUserId: string;
-  travelPlanId: string;
+  revieweeId: string;
+  travelId: string;
   rating: number;
   comment: string;
 }) => {
@@ -92,7 +92,7 @@ export const deleteReview = async (id: string) => {
  */
 export const getMyGivenReviews = async () => {
   try {
-    const response = await serverFetch.get("/reviews/my-given-reviews");
+    const response = await serverFetch.get("/reviews/given-reviews");
     const result = await response.json();
     return result;
   } catch (error: any) {
@@ -153,9 +153,17 @@ export const getUserReviews = async (userId: string) => {
 /**
  * Get all reviews (ADMIN only)
  */
-export const getAllReviews = async () => {
+export const getAllReviews = async (searchParams?: Record<string, any>) => {
   try {
-    const response = await serverFetch.get("/reviews");
+    const params = new URLSearchParams();
+    if (searchParams) {
+      Object.entries(searchParams).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
+          params.append(key, value.toString());
+        }
+      });
+    }
+    const response = await serverFetch.get(`/reviews?${params.toString()}`);
     const result = await response.json();
     return result;
   } catch (error: any) {

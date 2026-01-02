@@ -2,13 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Trash2 } from "lucide-react";
 import { ReviewCard } from "@/components/modules/reviews/ReviewCard";
 import {
   getMyGivenReviews,
   deleteReview,
 } from "@/services/reviews/reviews.service";
-import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -68,6 +66,7 @@ export default function GivenReviewsPage() {
         toast.error(result.message || "Failed to fetch reviews");
       }
     } catch (error) {
+      console.log(error);
       toast.error("An error occurred while fetching reviews");
     } finally {
       setLoading(false);
@@ -91,6 +90,7 @@ export default function GivenReviewsPage() {
         toast.error(result.message || "Failed to delete review");
       }
     } catch (error) {
+      console.log(error);
       toast.error("An error occurred while deleting review");
     } finally {
       setDeleting(false);
@@ -103,7 +103,7 @@ export default function GivenReviewsPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
-          <h1 className="xl:text-4xl lg:text-[32px] text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+          <h1 className="xl:text-4xl lg:text-[32px] text-3xl font-bold bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
             Reviews I Gave
           </h1>
           <p className="text-muted-foreground mt-1">

@@ -197,24 +197,25 @@ export default function TravelPlanTable({ travelPlans }: TravelPlanTableProps) {
                           <Eye className="w-4 h-4" />
                         </Button>
                       </Link>
-                      {plan.isApproved === ITrevelIsApproved.PENDING && (
-                        <>
-                          <Button
-                            size="sm"
-                            variant="default"
-                            onClick={() => setApprovePlanId(plan._id)}
-                          >
-                            <CheckCircle className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={() => setRejectPlanId(plan._id)}
-                          >
-                            <XCircle className="w-4 h-4" />
-                          </Button>
-                        </>
-                      )}
+                      {plan.isApproved === ITrevelIsApproved.PENDING &&
+                        plan.status === ITrevelStatus.UPCOMING && (
+                          <>
+                            <Button
+                              size="sm"
+                              variant="default"
+                              onClick={() => setApprovePlanId(plan._id)}
+                            >
+                              <CheckCircle className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => setRejectPlanId(plan._id)}
+                            >
+                              <XCircle className="w-4 h-4" />
+                            </Button>
+                          </>
+                        )}
                     </div>
                   </TableCell>
                 </TableRow>

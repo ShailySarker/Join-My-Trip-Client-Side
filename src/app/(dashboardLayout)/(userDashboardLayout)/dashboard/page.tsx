@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -31,6 +32,7 @@ import { cn } from "@/lib/utils";
 type DashboardStats = {
   totalTravelPlans: number;
   upcomingTravels: number;
+  ongoingTravels: number;
   completedTravels: number;
   totalBookings: number;
   activeBookings: number;
@@ -60,53 +62,35 @@ export default function UserDashboardPage() {
     fetchDashboardData();
   }, []);
 
+  /* import { getUserDashboardStats } from "@/services/user/userService"; */ /* Make sure to add this import at top if I can't in this block */
+
   const fetchDashboardData = async () => {
     setLoading(true);
     try {
-      // TODO: Call actual API when available
-      // Simulating data for now
-      setTimeout(() => {
-        setStats({
-          totalTravelPlans: 8,
-          upcomingTravels: 3,
-          completedTravels: 5,
-          totalBookings: 12,
-          activeBookings: 4,
-          averageRating: 4.7,
-          totalReviews: 24,
-          givenReviews: 12,
-          receivedReviews: 12,
-          followers: 45,
-          following: 38,
-        });
+      const { getUserDashboardStats } = await import(
+        "@/services/user/userService"
+      );
+      const result = await getUserDashboardStats();
 
-        setRecentActivity([
-          {
-            type: "booking",
-            title: "New Booking Created",
-            description: "Cox's Bazar Beach Tour",
-            date: new Date("2026-01-01"),
-            status: "confirmed",
-          },
-          {
-            type: "review",
-            title: "Received a Review",
-            description: "5 stars from John Doe",
-            date: new Date("2025-12-31"),
-          },
-          {
-            type: "travel",
-            title: "Travel Plan Approved",
-            description: "Sundarbans Adventure",
-            date: new Date("2025-12-30"),
-            status: "approved",
-          },
-        ]);
+      if (result.success && result.data) {
+        setStats(result.data);
 
-        setLoading(false);
-      }, 1000);
+        // Transform dates in recent activity
+        const formattedActivity = result.data.recentActivity.map(
+          (item: any) => ({
+            ...item,
+            date: new Date(item.date),
+          })
+        );
+
+        setRecentActivity(formattedActivity);
+      } else {
+        toast.error(result.message || "Failed to load dashboard data");
+      }
     } catch (error) {
       toast.error("Failed to load dashboard data");
+      console.error(error);
+    } finally {
       setLoading(false);
     }
   };
@@ -213,11 +197,11 @@ export default function UserDashboardPage() {
     <div className="container mx-auto px-4 py-8 space-y-8">
       {/* Header */}
       <div className="space-y-2">
-        <h1 className="xl:text-4xl lg:text-[32px] text-3xl font-bold bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
-          Welcome Back, Traveler! 🌍
+        <h1 className="xl:text-4xl lg:text-[32px] text-3xl font-bold bg-linear-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+          Welcome Back, Traveler!
         </h1>
         <p className="text-muted-foreground text-lg">
-          Here's what's happening with your adventures
+          Here is what is happening with your adventures
         </p>
       </div>
 
@@ -237,7 +221,7 @@ export default function UserDashboardPage() {
                 className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group border-2 hover:border-primary/50"
                 onClick={() => router.push(card.href)}
               >
-                <CardContent className="p-6">
+                <CardContent className="py-0">
                   <div className="flex items-start justify-between">
                     <div className="space-y-2 flex-1">
                       <p className="text-sm font-medium text-muted-foreground">
@@ -397,7 +381,7 @@ export default function UserDashboardPage() {
                     </div>
                   </div>
                   <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
-                    0
+                    {stats?.ongoingTravels || 0}
                   </p>
                 </div>
 

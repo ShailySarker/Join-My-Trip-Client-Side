@@ -7,14 +7,18 @@ import {
   Calendar,
   MapPin,
   Users,
-  DollarSign,
   Clock,
   CheckCircle2,
   XCircle,
   User,
   ArrowRight,
 } from "lucide-react";
-import { ITravelPlan } from "@/types/travelPlan.interface";
+import {
+  ITravelPlan,
+  ITravelType,
+  ITrevelInterest,
+  ITrevelStatus,
+} from "@/types/travelPlan.interface";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -73,6 +77,67 @@ export default function TravelPlanDetails({
     (userInfo?.subscriptionInfo?.plan === "MONTHLY" ||
       userInfo?.subscriptionInfo?.plan === "YEARLY");
 
+  const interestColors: Record<string, string> = {
+    default: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300",
+    [ITrevelInterest.HIKING]:
+      "bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-300",
+    [ITrevelInterest.BEACH]:
+      "bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-300",
+    [ITrevelInterest.ADVENTURE]:
+      "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300",
+    [ITrevelInterest.CAMPING]:
+      "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+    [ITrevelInterest.CITY_EXPLORATION]:
+      "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300",
+    [ITrevelInterest.CULTURAL]:
+      "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+    [ITrevelInterest.FOOD_FESTIVAL]:
+      "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300",
+    [ITrevelInterest.HISTORICAL]:
+      "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300",
+    [ITrevelInterest.INTERNATIONAL]:
+      "bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-900 dark:text-fuchsia-300",
+    [ITrevelInterest.LUXURY_TRAVEL]:
+      "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300",
+    [ITrevelInterest.NATURE]:
+      "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
+    [ITrevelInterest.NIGHTLIFE_EXPLORATION]:
+      "bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-300",
+    [ITrevelInterest.PHOTOGRAPHY]:
+      "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300",
+    [ITrevelInterest.RELAXATION]:
+      "bg-neutral-100 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-300",
+    [ITrevelInterest.ROAD_TRIPS]:
+      "bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-300",
+    [ITrevelInterest.SHOPPING]:
+      "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-300",
+    [ITrevelInterest.VILLAGE_LIFE]:
+      "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300",
+    [ITrevelInterest.WILDLIFE]:
+      "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+  };
+  const travelTypeColors: Record<ITravelType, string> = {
+    [ITravelType.SOLO]:
+      "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300",
+    [ITravelType.FAMILY]:
+      "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
+    [ITravelType.FRIENDS]:
+      "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+    [ITravelType.COUPLE]:
+      "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-300",
+  };
+
+  const travelStatusColors: Record<ITrevelStatus, string> = {
+    [ITrevelStatus.UPCOMING]:
+      "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300",
+    [ITrevelStatus.ONGOING]:
+      "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300",
+    [ITrevelStatus.COMPLETED]:
+      "bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-300",
+    [ITrevelStatus.CANCELLED]:
+      "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
       {/* Hero Image */}
@@ -95,13 +160,27 @@ export default function TravelPlanDetails({
           <h1 className="xl:text-4xl lg:text-[32px] text-3xl md:text-5xl font-bold text-white mb-2">
             {travelPlan.title}
           </h1>
-          <div className="flex flex-wrap gap-2">
+          {/* <div className="flex flex-wrap gap-2">
             <Badge className="bg-white/90 text-black hover:bg-white">
               {travelPlan.travelType}
             </Badge>
             <Badge
               variant={availableSeats > 0 ? "secondary" : "destructive"}
               className="bg-white/90 hover:bg-white"
+            >
+              {availableSeats > 0 ? `${availableSeats} Seats Left` : "FULL"}
+            </Badge>
+          </div> */}
+          <div className="flex flex-wrap gap-2">
+            <Badge className={travelStatusColors[travelPlan.status]}>
+              {travelPlan.status}
+            </Badge>
+            <Badge className={travelTypeColors[travelPlan.travelType]}>
+              {travelPlan.travelType}
+            </Badge>
+            <Badge
+              variant={availableSeats > 0 ? "secondary" : "destructive"}
+              // className="bg-white/90 hover:bg-white"
             >
               {availableSeats > 0 ? `${availableSeats} Seats Left` : "FULL"}
             </Badge>
@@ -142,10 +221,12 @@ export default function TravelPlanDetails({
                   </span>
                 </div>
                 <div className="flex flex-col items-center text-center p-3 bg-primary/5 rounded-lg">
-                  <DollarSign className="w-6 h-6 text-primary mb-2" />
-                  <span className="text-xs text-muted-foreground">Budget</span>
+                  <span className="text-primary mb-1.5">BDT</span>
+                  <span className="text-xs text-muted-foreground mb-0.5">
+                    Budget
+                  </span>
                   <span className="font-semibold text-sm">
-                    ${travelPlan.budget.toLocaleString()}
+                    {travelPlan.budget.toLocaleString()}/-
                   </span>
                 </div>
               </div>
@@ -219,51 +300,54 @@ export default function TravelPlanDetails({
           </Card>
 
           {/* Included & Excluded */}
-          {(travelPlan.included?.length || travelPlan.excluded?.length) && (
-            <Card>
-              <CardHeader>
-                <CardTitle>What is Included & Excluded</CardTitle>
-              </CardHeader>
-              <CardContent className="grid md:grid-cols-2 gap-6">
-                {travelPlan.included && travelPlan.included.length > 0 && (
-                  <div>
-                    <h4 className="font-semibold mb-3 text-green-700 dark:text-green-400">
-                      ✓ Included
-                    </h4>
-                    <ul className="space-y-2">
-                      {travelPlan.included.map((item, index) => (
-                        <li
-                          key={index}
-                          className="flex items-start gap-2 text-sm"
-                        >
-                          <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {travelPlan.excluded && travelPlan.excluded.length > 0 && (
-                  <div>
-                    <h4 className="font-semibold mb-3 text-red-700 dark:text-red-400">
-                      ✗ Excluded
-                    </h4>
-                    <ul className="space-y-2">
-                      {travelPlan.excluded.map((item, index) => (
-                        <li
-                          key={index}
-                          className="flex items-start gap-2 text-sm"
-                        >
-                          <XCircle className="w-4 h-4 text-red-600 mt-0.5 shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          )}
+          {(travelPlan.included === undefined ||
+            travelPlan.included.length > 0) &&
+            (travelPlan.excluded === undefined ||
+              travelPlan.excluded?.length > 0) && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>What is Included & Excluded</CardTitle>
+                </CardHeader>
+                <CardContent className="grid md:grid-cols-2 gap-6">
+                  {travelPlan.included && travelPlan.included.length > 0 && (
+                    <div>
+                      <h4 className="font-semibold mb-3 text-green-700 dark:text-green-400">
+                        ✓ Included
+                      </h4>
+                      <ul className="space-y-2">
+                        {travelPlan.included.map((item, index) => (
+                          <li
+                            key={index}
+                            className="flex items-start gap-2 text-sm"
+                          >
+                            <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {travelPlan.excluded && travelPlan.excluded.length > 0 && (
+                    <div>
+                      <h4 className="font-semibold mb-3 text-red-700 dark:text-red-400">
+                        ✗ Excluded
+                      </h4>
+                      <ul className="space-y-2">
+                        {travelPlan.excluded.map((item, index) => (
+                          <li
+                            key={index}
+                            className="flex items-start gap-2 text-sm"
+                          >
+                            <XCircle className="w-4 h-4 text-red-600 mt-0.5 shrink-0" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
 
           {/* Interests */}
           <Card>
@@ -273,7 +357,13 @@ export default function TravelPlanDetails({
             <CardContent>
               <div className="flex flex-wrap gap-2">
                 {travelPlan.interests.map((interest) => (
-                  <Badge key={interest} variant="secondary" className="text-sm">
+                  <Badge
+                    key={interest}
+                    variant="outline"
+                    className={
+                      interestColors[interest] || interestColors.default
+                    }
+                  >
                     {interest}
                   </Badge>
                 ))}
@@ -369,12 +459,18 @@ export default function TravelPlanDetails({
                     <Button className="w-full" size="lg" disabled>
                       Trip is Full
                     </Button>
+                  ) : travelPlan.participants?.some(
+                      (p) => p.userId === userInfo._id
+                    ) ? (
+                    <Button className="w-full" size="lg" disabled>
+                      Already Joined
+                    </Button>
                   ) : (
                     <Link
                       href={`/dashboard/bookings/create?travelId=${travelPlan._id}`}
                     >
                       <Button className="w-full" size="lg">
-                        Book Now
+                        Join Trip Now
                       </Button>
                     </Link>
                   )}

@@ -65,7 +65,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
-import { IParticipantDetails } from "@/types/travelPlan.interface";
+import {
+  IParticipantDetails,
+  ITrevelStatus,
+} from "@/types/travelPlan.interface";
 import { IUserGender } from "@/types/user.interface";
 import { participantSchema } from "@/zod/travelPlan.validation";
 import { ZodError } from "zod";
@@ -89,6 +92,7 @@ type BookingWithDetails = IBooking & {
     startDate: Date;
     endDate: Date;
     budget: number;
+    status: ITrevelStatus;
     maxGuest: number;
     minAge: number;
     participants: IParticipantDetails[]; // To check seat availability
@@ -172,6 +176,17 @@ export default function BookingDetailsPage({
     : 0;
   const availableSeats = booking.travelId.maxGuest - totalTripParticipants;
 
+  const travelStatusColors: Record<ITrevelStatus, string> = {
+    [ITrevelStatus.UPCOMING]:
+      "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300",
+    [ITrevelStatus.ONGOING]:
+      "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300",
+    [ITrevelStatus.COMPLETED]:
+      "bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-300",
+    [ITrevelStatus.CANCELLED]:
+      "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
       {/* Header */}
@@ -209,13 +224,16 @@ export default function BookingDetailsPage({
               <CardTitle>Travel Plan Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div>
+              <div className="flex justify-between items-center">
                 <h3 className="text-2xl font-bold mb-2">
                   {booking.travelId.title}
                 </h3>
-                <p className="text-muted-foreground">
+                {/* <p className="text-muted-foreground">
                   {booking.travelId.description}
-                </p>
+                </p> */}
+                <Badge className={travelStatusColors[booking.travelId.status]}>
+                  {booking.travelId.status}
+                </Badge>
               </div>
 
               <Separator />
@@ -326,7 +344,8 @@ export default function BookingDetailsPage({
                   Amount per Person:
                 </span>
                 <span className="font-semibold">
-                  {booking.amount / booking.totalPeople}{" "}
+                  {booking.amount}{" "}
+                  {/* {booking.amount / booking.totalPeople}{" "} */}
                   <span className="text-xs">BDT</span>
                 </span>
               </div>
@@ -334,7 +353,7 @@ export default function BookingDetailsPage({
               <div className="flex justify-between items-center">
                 <span className="text-lg font-semibold">Total Amount:</span>
                 <span className="text-2xl font-bold text-primary">
-                  {booking.amount.toLocaleString()}{" "}
+                  {(booking.amount * booking.totalPeople).toLocaleString()}{" "}
                   <span className="text-sm">BDT</span>
                 </span>
               </div>

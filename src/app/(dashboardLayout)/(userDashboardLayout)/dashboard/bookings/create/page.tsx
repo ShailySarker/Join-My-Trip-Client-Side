@@ -6,16 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";
-import {
-  ArrowLeft,
-  Calendar,
-  MapPin,
-  Users,
-  User,
-  Plus,
-  Trash2,
-  X,
-} from "lucide-react";
+import { ArrowLeft, MapPin, Users, User, Plus, X } from "lucide-react";
 import { format } from "date-fns";
 
 import { Button } from "@/components/ui/button";
@@ -52,6 +43,8 @@ import { createBooking } from "@/services/bookings/bookings.service";
 import { getUserInfo } from "@/services/auth/getUserInfo";
 import { IParticipantDetails } from "@/types/travelPlan.interface";
 import { IUserGender } from "@/types/user.interface";
+import { ZodError } from "zod";
+import { participantSchema } from "@/zod/travelPlan.validation";
 
 function BookingForm() {
   const router = useRouter();
@@ -75,6 +68,10 @@ function BookingForm() {
     gender: "MALE" as IUserGender,
     age: 0,
   });
+
+  const [participantErrors, setParticipantErrors] = useState<
+    Partial<Record<keyof IParticipantDetails, string>>
+  >({});
 
   useEffect(() => {
     const init = async () => {
@@ -112,27 +109,69 @@ function BookingForm() {
     init();
   }, [travelId, router]);
 
-  const handleAddParticipant = () => {
-    if (
-      !newParticipant.name ||
-      !newParticipant.phone ||
-      !newParticipant.age ||
-      !newParticipant.gender
-    ) {
-      toast.error("Please fill all participant fields");
-      return;
-    }
+  // const handleAddParticipant = () => {
+  //   if (
+  //     !newParticipant.name ||
+  //     !newParticipant.phone ||
+  //     !newParticipant.age ||
+  //     !newParticipant.gender
+  //   ) {
+  //     toast.error("Please fill all participant fields");
+  //     return;
+  //   }
 
-    setExtraParticipants([
-      ...extraParticipants,
-      newParticipant as IParticipantDetails,
-    ]);
-    setNewParticipant({
-      name: "",
-      phone: "",
-      gender: "MALE" as IUserGender,
-      age: 0,
-    });
+  //   setExtraParticipants([
+  //     ...extraParticipants,
+  //     newParticipant as IParticipantDetails,
+  //   ]);
+  //   setNewParticipant({
+  //     name: "",
+  //     phone: "",
+  //     gender: "MALE" as IUserGender,
+  //     age: 0,
+  //   });
+  // };
+
+  const handleAddParticipant = () => {
+    try {
+      // 🔹 Clear previous errors
+      setParticipantErrors({});
+
+      // 🔹 Validate using Zod
+      const parsedParticipant = participantSchema.parse({
+        name: newParticipant.name,
+        phone: newParticipant.phone,
+        gender: newParticipant.gender,
+        age: newParticipant.age,
+      });
+
+      // 🔹 Add participant if valid
+      setExtraParticipants((prev) => [
+        ...prev,
+        parsedParticipant as IParticipantDetails,
+      ]);
+
+      // 🔹 Reset form
+      setNewParticipant({
+        name: "",
+        phone: "",
+        gender: "MALE" as IUserGender,
+        age: 0,
+      });
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const fieldErrors: Partial<Record<keyof IParticipantDetails, string>> =
+          {};
+
+        error.issues.forEach((issue) => {
+          const field = issue.path[0] as keyof IParticipantDetails;
+          fieldErrors[field] = issue.message;
+        });
+
+        setParticipantErrors(fieldErrors);
+        toast.error("Please fix participant validation errors");
+      }
+    }
   };
 
   const removeParticipant = (index: number) => {
@@ -160,7 +199,8 @@ function BookingForm() {
 
       const bookingPayload = {
         travelId: travelPlan._id,
-        amount: travelPlan.budget * allParticipants.length,
+        amount: travelPlan.budget,
+        // amount: travelPlan.budget * allParticipants.length,
         totalPeople: allParticipants.length,
         participants: allParticipants,
       };
@@ -183,7 +223,7 @@ function BookingForm() {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-4xl space-y-4">
+      <div className="container mx-auto px-4 py-8 space-y-4">
         <Skeleton className="h-10 w-1/3" />
         <Skeleton className="h-64 w-full" />
       </div>
@@ -198,7 +238,7 @@ function BookingForm() {
     travelPlan.maxGuest - (travelPlan.participants?.length || 0);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="container mx-auto px-4 py-8">
       <Link href={`/dashboard/explore-travel-plans/${travelId}`}>
         <Button variant="ghost" className="mb-4">
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -250,9 +290,9 @@ function BookingForm() {
                 </div>
 
                 {/* Add Form */}
-                <div className="grid grid-cols-12 gap-2 items-end bg-slate-50 dark:bg-slate-900 p-3 rounded-lg border">
+                {/* <div className="grid grid-cols-12 gap-2 items-end bg-slate-50 dark:bg-slate-900 p-3 rounded-lg border">
                   <div className="col-span-4">
-                    <Label className="text-xs">Name</Label>
+                    <Label className="text-xs pb-1">Name</Label>
                     <Input
                       value={newParticipant.name}
                       onChange={(e) =>
@@ -266,7 +306,7 @@ function BookingForm() {
                     />
                   </div>
                   <div className="col-span-3">
-                    <Label className="text-xs">Phone</Label>
+                    <Label className="text-xs pb-1">Phone</Label>
                     <Input
                       value={newParticipant.phone}
                       onChange={(e) =>
@@ -280,7 +320,7 @@ function BookingForm() {
                     />
                   </div>
                   <div className="col-span-2">
-                    <Label className="text-xs">Age</Label>
+                    <Label className="text-xs pb-1">Age</Label>
                     <Input
                       type="number"
                       value={newParticipant.age || ""}
@@ -295,7 +335,7 @@ function BookingForm() {
                     />
                   </div>
                   <div className="col-span-2">
-                    <Label className="text-xs">Gender</Label>
+                    <Label className="text-xs pb-1">Gender</Label>
                     <Select
                       value={newParticipant.gender}
                       onValueChange={(v) =>
@@ -305,7 +345,7 @@ function BookingForm() {
                         })
                       }
                     >
-                      <SelectTrigger className="h-8">
+                      <SelectTrigger className=" w-full">
                         <SelectValue placeholder="-" />
                       </SelectTrigger>
                       <SelectContent>
@@ -325,8 +365,104 @@ function BookingForm() {
                       <Plus className="w-4 h-4" />
                     </Button>
                   </div>
-                </div>
+                </div> */}
+                <div className="bg-slate-50 p-3 rounded-lg border">
+                  <div className="grid grid-cols-12 gap-2 items-end">
+                    <div className="col-span-3 flex flex-col gap-1">
+                      <Label className="text-xs">Name</Label>
+                      <Input
+                        value={newParticipant.name}
+                        onChange={(e) =>
+                          setNewParticipant({
+                            ...newParticipant,
+                            name: e.target.value,
+                          })
+                        }
+                        placeholder="Full Name"
+                        className="h-8 w-full"
+                      />
+                    </div>
+                    <div className="col-span-3 flex flex-col gap-1">
+                      <Label className="text-xs">Phone</Label>
+                      <Input
+                        value={newParticipant.phone}
+                        onChange={(e) =>
+                          setNewParticipant({
+                            ...newParticipant,
+                            phone: e.target.value,
+                          })
+                        }
+                        placeholder="Phone"
+                        className="h-8 w-full"
+                      />
+                    </div>
+                    <div className="col-span-2 flex flex-col gap-1">
+                      <Label className="text-xs">Age</Label>
+                      <Input
+                        type="number"
+                        value={newParticipant.age || ""}
+                        onChange={(e) =>
+                          setNewParticipant({
+                            ...newParticipant,
+                            age: Number(e.target.value),
+                          })
+                        }
+                        placeholder="Age"
+                        className="h-8 w-full"
+                      />
+                    </div>
+                    <div className="col-span-3 flex flex-col gap-1">
+                      <Label className="text-xs">Gender</Label>
+                      <Select
+                        value={newParticipant.gender}
+                        onValueChange={(v) =>
+                          setNewParticipant({
+                            ...newParticipant,
+                            gender: v as IUserGender,
+                          })
+                        }
+                      >
+                        <SelectTrigger className="h-8 w-full">
+                          <SelectValue placeholder="Gender" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="MALE">Male</SelectItem>
+                          <SelectItem value="FEMALE">Female</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="col-span-1">
+                      <Button
+                        onClick={handleAddParticipant}
+                        disabled={availableSeats <= totalPeople}
+                        size="sm"
+                        className="h-8 w-full"
+                        type="button"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
 
+                  <ul className="mt-5 list-disc list-inside space-y-1 text-xs text-destructive">
+                    {participantErrors.name && (
+                      <li>{participantErrors.name}</li>
+                    )}
+                    {participantErrors.phone && (
+                      <li>{participantErrors.phone}</li>
+                    )}
+                    {/* {participantErrors.age && <li>{participantErrors.age}</li>} */}
+                    {travelPlan &&
+                      newParticipant.age !== undefined &&
+                      newParticipant.age < travelPlan.minAge && (
+                        <li>TravelPlan minimum age is {travelPlan.minAge}</li>
+                      )}
+
+                    {participantErrors.gender && (
+                      <li>{participantErrors.gender}</li>
+                    )}
+                  </ul>
+                </div>
                 {/* List */}
                 {extraParticipants.length > 0 && (
                   <div className="border rounded-lg overflow-hidden">
@@ -375,7 +511,7 @@ function BookingForm() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex gap-3">
-                <div className="relative w-16 h-16 rounded-md overflow-hidden flex-shrink-0">
+                <div className="relative w-16 h-16 rounded-md overflow-hidden shrink-0">
                   <Image
                     src={travelPlan.image}
                     alt={travelPlan.title}
@@ -431,7 +567,7 @@ function BookingForm() {
                 onClick={handleConfirmBooking}
                 disabled={submitting}
               >
-                {submitting ? "Booking..." : "Confirm & Pay"}
+                {submitting ? "Booking..." : "Confirm Joining"}
               </Button>
             </CardFooter>
           </Card>

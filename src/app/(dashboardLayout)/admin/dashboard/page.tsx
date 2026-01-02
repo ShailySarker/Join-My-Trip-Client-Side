@@ -12,18 +12,14 @@ import {
 import {
   Users,
   MapPin,
-  Calendar,
   TrendingUp,
   Star,
   BookOpen,
   DollarSign,
   Activity,
   CheckCircle2,
-  XCircle,
-  Clock,
   AlertCircle,
   BarChart3,
-  Eye,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -82,41 +78,22 @@ export default function AdminDashboardPage() {
   const fetchDashboardData = async () => {
     setLoading(true);
     try {
-      // TODO: Call actual API when available
-      // Simulating data for now
-      setTimeout(() => {
-        setStats({
-          totalUsers: 1247,
-          activeUsers: 856,
-          totalTravelPlans: 342,
-          pendingApprovals: 28,
-          totalBookings: 1829,
-          totalRevenue: 145680,
-          monthlyRevenue: 18450,
-          totalReviews: 987,
-          averageRating: 4.6,
-        });
+      const { getAdminDashboardStats } = await import(
+        "@/services/user/userService"
+      );
+      const result = await getAdminDashboardStats();
 
-        setMonthlyData([
-          { name: "Jan", users: 65, travels: 28, bookings: 142, revenue: 12400 },
-          { name: "Feb", users: 78, travels: 32, bookings: 156, revenue: 13200 },
-          { name: "Mar", users: 92, travels: 41, bookings: 178, revenue: 15800 },
-          { name: "Apr", users: 104, travels: 38, bookings: 165, revenue: 14600 },
-          { name: "May", users: 118, travels: 45, bookings: 192, revenue: 16900 },
-          { name: "Jun", users: 135, travels: 52, bookings: 208, revenue: 18450 },
-        ]);
-
-        setStatusData([
-          { name: "Upcoming", value: 156 },
-          { name: "Ongoing", value: 42 },
-          { name: "Completed", value: 128 },
-          { name: "Cancelled", value: 16 },
-        ]);
-
-        setLoading(false);
-      }, 1000);
+      if (result.success && result.data) {
+        setStats(result.data);
+        setMonthlyData(result.data.monthlyData);
+        setStatusData(result.data.statusData);
+      } else {
+        toast.error(result.message || "Failed to load dashboard data");
+      }
     } catch (error) {
       toast.error("Failed to load dashboard data");
+      console.error(error);
+    } finally {
       setLoading(false);
     }
   };
@@ -155,7 +132,9 @@ export default function AdminDashboardPage() {
     {
       title: "Total Revenue",
       value: `৳${((stats?.totalRevenue || 0) / 1000).toFixed(0)}K`,
-      subtitle: `৳${((stats?.monthlyRevenue || 0) / 1000).toFixed(1)}K this month`,
+      subtitle: `৳${((stats?.monthlyRevenue || 0) / 1000).toFixed(
+        1
+      )}K this month`,
       icon: DollarSign,
       color: "text-yellow-600 dark:text-yellow-400",
       bgColor: "bg-yellow-50 dark:bg-yellow-950",
@@ -233,8 +212,8 @@ export default function AdminDashboardPage() {
     <div className="container mx-auto px-4 py-8 space-y-8">
       {/* Header */}
       <div className="space-y-2">
-        <h1 className="xl:text-4xl lg:text-[32px] text-3xl font-bold bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
-          Admin Dashboard 🎯
+        <h1 className="xl:text-4xl lg:text-[32px] text-3xl font-bold bg-linear-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+          Admin Dashboard
         </h1>
         <p className="text-muted-foreground text-lg">
           Comprehensive overview of your travel platform
@@ -257,7 +236,7 @@ export default function AdminDashboardPage() {
                 className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group border-2 hover:border-primary/50"
                 onClick={() => router.push(card.href)}
               >
-                <CardContent className="p-6">
+                <CardContent className="py-0">
                   <div className="flex items-start justify-between mb-4">
                     <div
                       className={cn(
@@ -430,9 +409,7 @@ export default function AdminDashboardPage() {
             <Activity className="w-5 h-5" />
             Quick Actions
           </CardTitle>
-          <CardDescription>
-            Manage your platform efficiently
-          </CardDescription>
+          <CardDescription>Manage your platform efficiently</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

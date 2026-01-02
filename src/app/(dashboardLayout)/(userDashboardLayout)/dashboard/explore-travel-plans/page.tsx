@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getAllTravelPlansPublic } from "@/services/travelPlans/travelPlans.service";
-import TravelPlanFilters from "@/components/modules/travelPlans/filters/TravelPlanFilters";
 import { TravelPlanCard } from "@/components/modules/travelPlans/TravelPlanCard";
 import Pagination from "@/components/shared/Pagination";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
+import ExploreTravelPlanFilters from "@/components/modules/travelPlans/filters/ExploreTravelPlanFilters";
 
 interface SearchParams {
   search?: string;
@@ -14,9 +14,8 @@ interface SearchParams {
   endDate?: string;
   travelType?: string;
   interests?: string;
-  status?: string;
   sortBy?: string;
-  sort?: string;
+  sortOrder?: string;
   page?: string;
   limit?: string;
 }
@@ -31,6 +30,8 @@ export default async function ExploreTravelPlansPage({
   const queryParams: Record<string, string> = {
     page: params.page || "1",
     limit: params.limit || "12",
+    sortBy: params.sortBy || "createdAt",
+    sortOrder: params.sortOrder || "desc",
   };
 
   if (params.search) queryParams.search = params.search;
@@ -40,10 +41,9 @@ export default async function ExploreTravelPlansPage({
   if (params.endDate) queryParams.endDate = params.endDate;
   if (params.travelType) queryParams.travelType = params.travelType;
   if (params.interests) queryParams.interests = params.interests;
-  if (params.status) queryParams.status = params.status;
   if (params.sortBy) {
     queryParams.sortBy = params.sortBy;
-    queryParams.sort = params.sort || "desc";
+    queryParams.sortOrder = params.sortOrder || "desc";
   }
 
   const result = await getAllTravelPlansPublic(queryParams);
@@ -67,7 +67,7 @@ export default async function ExploreTravelPlansPage({
         <Suspense
           fallback={<Skeleton className="h-[200px] w-full rounded-lg" />}
         >
-          <TravelPlanFilters />
+          <ExploreTravelPlanFilters />
         </Suspense>
       </div>
 
@@ -82,7 +82,11 @@ export default async function ExploreTravelPlansPage({
       {travelPlans.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {travelPlans.map((plan: any) => (
-            <TravelPlanCard key={plan._id} travelPlan={plan} />
+            <TravelPlanCard
+              key={plan._id}
+              travelPlan={plan}
+              href={`/dashboard/explore-travel-plans/${plan._id}`}
+            />
           ))}
         </div>
       ) : (

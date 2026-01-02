@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, MapPin, Users, User } from "lucide-react";
+import { Calendar, MapPin, Users, User, Eye } from "lucide-react";
 import {
   ITravelPlan,
   ITravelType,
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { format } from "date-fns";
+import { Button } from "@/components/ui/button";
 
 interface TravelPlanCardProps {
   travelPlan: ITravelPlan & {
@@ -91,118 +92,131 @@ export function TravelPlanCard({ travelPlan, href }: TravelPlanCardProps) {
   console.log(travelPlan, "----------------travelPlan----------------");
   return (
     <Card className="pt-0 group overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50">
-      <Link href={linkHref}>
-        {/* Image Section */}
-        <div className="relative h-52 w-full overflow-hidden bg-linear-to-br from-primary/10 to-primary/5">
-          {travelPlan.image ? (
-            <Image
-              src={travelPlan.image}
-              alt={travelPlan.title}
-              fill
-              className="object-cover group-hover:scale-110 transition-transform duration-300 h-full"
-            />
-          ) : (
-            <div className="flex items-center justify-center h-full">
-              <MapPin className="w-16 h-16 text-primary/30" />
-            </div>
-          )}
+      {/* <Link href={linkHref}> */}
+      {/* Image Section */}
+      <div className="relative h-52 w-full overflow-hidden bg-linear-to-br from-primary/10 to-primary/5">
+        {travelPlan.image ? (
+          <Image
+            src={travelPlan.image}
+            alt={travelPlan.title}
+            fill
+            className="object-cover group-hover:scale-110 transition-transform duration-300 h-full"
+          />
+        ) : (
+          <div className="flex items-center justify-center h-full">
+            <MapPin className="w-16 h-16 text-primary/30" />
+          </div>
+        )}
 
-          {/* Status Badges */}
-          <div className="absolute top-3 right-3 flex flex-col gap-2">
+        {/* Status Badges */}
+        <div className="absolute top-3 left-3 flex flex-col gap-2">
+          <Badge className={travelTypeColors[travelPlan.travelType]}>
+            {travelPlan.travelType}
+          </Badge>
+          {availableSeats === 0 && <Badge variant="destructive">FULL</Badge>}
+        </div>
+        <div className="absolute top-3 right-3 flex gap-1">
+          <Link href={linkHref}>
+            <Button size="sm" variant="outline" className="w-full">
+              <Eye className="w-3.5 h-3.5" />
+            </Button>
+          </Link>
+        </div>
+        {/* <div className="absolute top-3 right-3 flex flex-col gap-2">
             <Badge className={travelTypeColors[travelPlan.travelType]}>
               {travelPlan.travelType}
             </Badge>
             {availableSeats === 0 && <Badge variant="destructive">FULL</Badge>}
+          </div> */}
+      </div>
+
+      <CardHeader className="py-3">
+        {/* Title */}
+        <h3 className="font-bold text-xl line-clamp-2 group-hover:text-primary transition-colors">
+          {travelPlan.title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-sm text-muted-foreground line-clamp-2 mt-1">
+          {travelPlan.description}
+        </p>
+      </CardHeader>
+
+      <CardContent className="space-y-3">
+        {/* Destination */}
+        <div className="flex items-center gap-2 text-sm">
+          <MapPin className="w-4 h-4 text-primary shrink-0" />
+          <span className="font-medium">
+            {travelPlan.destination.city}, {travelPlan.destination.country}
+          </span>
+        </div>
+
+        {/* Dates */}
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Calendar className="w-4 h-4 shrink-0" />
+          <span>
+            {format(startDate, "MMM d")} - {format(endDate, "MMM d, yyyy")}
+          </span>
+        </div>
+
+        {/* Budget and Seats */}
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-sm">
+            {/* <DollarSign className="w-4 h-4 text-green-600 shrink-0" /> */}
+            <span className="font-semibold text-green-700 dark:text-green-400">
+              BDT {travelPlan.budget.toLocaleString()}
+            </span>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <Users className="w-4 h-4 text-blue-600 shrink-0" />
+            <span className="font-medium">
+              {availableSeats}/{travelPlan.maxGuest} left
+            </span>
           </div>
         </div>
 
-        <CardHeader className="py-3">
-          {/* Title */}
-          <h3 className="font-bold text-xl line-clamp-2 group-hover:text-primary transition-colors">
-            {travelPlan.title}
-          </h3>
-
-          {/* Description */}
-          <p className="text-sm text-muted-foreground line-clamp-2 mt-1">
-            {travelPlan.description}
-          </p>
-        </CardHeader>
-
-        <CardContent className="space-y-3">
-          {/* Destination */}
-          <div className="flex items-center gap-2 text-sm">
-            <MapPin className="w-4 h-4 text-primary shrink-0" />
-            <span className="font-medium">
-              {travelPlan.destination.city}, {travelPlan.destination.country}
-            </span>
-          </div>
-
-          {/* Dates */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Calendar className="w-4 h-4 shrink-0" />
-            <span>
-              {format(startDate, "MMM d")} - {format(endDate, "MMM d, yyyy")}
-            </span>
-          </div>
-
-          {/* Budget and Seats */}
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-sm">
-              {/* <DollarSign className="w-4 h-4 text-green-600 shrink-0" /> */}
-              <span className="font-semibold text-green-700 dark:text-green-400">
-                BDT {travelPlan.budget.toLocaleString()}
-              </span>
-            </div>
-            <div className="flex items-center gap-2 text-sm">
-              <Users className="w-4 h-4 text-blue-600 shrink-0" />
-              <span className="font-medium">
-                {availableSeats}/{travelPlan.maxGuest} left
-              </span>
-            </div>
-          </div>
-
-          {/* Interests */}
-          <div className="flex flex-wrap gap-1.5 pb-3">
-            {travelPlan.interests.slice(0, 3).map((interest) => (
-              <Badge
-                key={interest}
-                variant="outline"
-                className={interestColors[interest] || interestColors.default}
-              >
-                {interest}
-              </Badge>
-            ))}
-            {travelPlan.interests.length > 3 && (
-              <Badge variant="outline" className="bg-gray-50 dark:bg-gray-900">
-                +{travelPlan.interests.length - 3}
-              </Badge>
-            )}
-          </div>
-        </CardContent>
-
-        <CardFooter className="border-t">
-          {/* Host Info */}
-          {travelPlan.host && typeof travelPlan.host === "object" && (
-            <div className="flex items-center gap-2 w-full">
-              <Avatar className="h-8 w-8">
-                <AvatarImage
-                  src={travelPlan.host?.profilePhoto}
-                  alt={travelPlan.host?.fullname}
-                />
-                <AvatarFallback>
-                  <User className="w-4 h-4" />
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col">
-                <span className="text-xs text-muted-foreground">Hosted by</span>
-                <span className="text-sm font-medium">
-                  {travelPlan.host?.fullname}
-                </span>
-              </div>
-            </div>
+        {/* Interests */}
+        <div className="flex flex-wrap gap-1.5 pb-3">
+          {travelPlan.interests.slice(0, 3).map((interest) => (
+            <Badge
+              key={interest}
+              variant="outline"
+              className={interestColors[interest] || interestColors.default}
+            >
+              {interest}
+            </Badge>
+          ))}
+          {travelPlan.interests.length > 3 && (
+            <Badge variant="outline" className="bg-gray-50 dark:bg-gray-900">
+              +{travelPlan.interests.length - 3}
+            </Badge>
           )}
-        </CardFooter>
-      </Link>
+        </div>
+      </CardContent>
+
+      <CardFooter className="border-t">
+        {/* Host Info */}
+        {travelPlan.host && typeof travelPlan.host === "object" && (
+          <div className="flex items-center gap-2 w-full">
+            <Avatar className="h-8 w-8">
+              <AvatarImage
+                src={travelPlan.host?.profilePhoto}
+                alt={travelPlan.host?.fullname}
+              />
+              <AvatarFallback>
+                <User className="w-4 h-4" />
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">Hosted by</span>
+              <span className="text-sm font-medium">
+                {travelPlan.host?.fullname}
+              </span>
+            </div>
+          </div>
+        )}
+      </CardFooter>
+      {/* </Link> */}
     </Card>
   );
 }

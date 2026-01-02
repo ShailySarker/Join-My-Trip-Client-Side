@@ -181,10 +181,7 @@ export default function TravelPlanDetails({
             <Badge className={travelTypeColors[travelPlan.travelType]}>
               {travelPlan.travelType}
             </Badge>
-            <Badge
-              variant={availableSeats > 0 ? "secondary" : "destructive"}
-              className="bg-white/90 hover:bg-white"
-            >
+            <Badge variant={availableSeats > 0 ? "secondary" : "destructive"}>
               {availableSeats > 0 ? `${availableSeats} Seats Left` : "FULL"}
             </Badge>
           </div>
@@ -461,6 +458,12 @@ export default function TravelPlanDetails({
                   ) : availableSeats === 0 ? (
                     <Button className="w-full" size="lg" disabled>
                       Trip is Full
+                    </Button>
+                  ) : travelPlan.participants?.some(
+                      (p) => p.userId === userInfo._id
+                    ) ? (
+                    <Button className="w-full" size="lg" disabled>
+                      Already Joined
                     </Button>
                   ) : (
                     <Link

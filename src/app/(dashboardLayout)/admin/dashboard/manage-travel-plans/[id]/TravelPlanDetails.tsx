@@ -379,7 +379,7 @@ export default function TravelPlanDetails({
           <Card className="sticky top-4">
             <CardHeader>
               <div className="flex items-baseline justify-between">
-                <CardTitle>Per Booking Spot</CardTitle>
+                <CardTitle>Per Booking Slot</CardTitle>
                 <div className="text-2xl font-bold text-primary">
                   {travelPlan.budget.toLocaleString()}
                   <span className="text-sm"> BDT</span>

@@ -1,14 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -141,6 +136,7 @@ export default function AdminReviewsPage() {
         toast.error(result.message || "Failed to fetch reviews");
       }
     } catch (error) {
+      console.log(error);
       toast.error("An error occurred while fetching reviews");
     } finally {
       setLoading(false);
@@ -182,8 +178,8 @@ export default function AdminReviewsPage() {
     <div className="container mx-auto px-4 py-8 space-y-6">
       {/* Header */}
       <div className="space-y-2">
-        <h1 className="xl:text-4xl lg:text-[32px] text-3xl font-bold bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
-          Manage Reviews 📝
+        <h1 className="pb-1 xl:text-4xl lg:text-[32px] text-3xl font-bold bg-linear-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+          Manage Reviews
         </h1>
         <p className="text-muted-foreground text-lg">
           Monitor and manage all user reviews

@@ -26,6 +26,7 @@ interface SearchParams {
   page?: string;
   limit?: string;
   isApproved?: string;
+  status?: string;
 }
 
 export default async function MyTravelPlansPage({
@@ -49,6 +50,7 @@ export default async function MyTravelPlansPage({
   if (params.travelType) queryParams.travelType = params.travelType;
   if (params.interests) queryParams.interests = params.interests;
   if (params.isApproved) queryParams.isApproved = params.isApproved;
+  if (params.status) queryParams.status = params.status;
   if (params.sortBy) {
     queryParams.sortBy = params.sortBy;
     queryParams.sort = params.sort || "desc";
@@ -124,10 +126,7 @@ export default async function MyTravelPlansPage({
           {travelPlans.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {travelPlans.map((plan: any) => (
-                <MyTravelPlanCard
-                  key={plan._id}
-                  travelPlan={plan}
-                />
+                <MyTravelPlanCard key={plan._id} travelPlan={plan} />
               ))}
             </div>
           ) : (

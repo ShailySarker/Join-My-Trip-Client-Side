@@ -65,7 +65,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
-import { IParticipantDetails } from "@/types/travelPlan.interface";
+import {
+  IParticipantDetails,
+  ITrevelStatus,
+} from "@/types/travelPlan.interface";
 import { IUserGender } from "@/types/user.interface";
 import { participantSchema } from "@/zod/travelPlan.validation";
 import { ZodError } from "zod";
@@ -86,6 +89,7 @@ type BookingWithDetails = IBooking & {
       city: string;
       country: string;
     };
+    status: ITrevelStatus;
     startDate: Date;
     endDate: Date;
     budget: number;
@@ -262,6 +266,17 @@ export default function BookingDetailsPage({
     : 0;
   const availableSeats = booking.travelId.maxGuest - totalTripParticipants;
 
+  const travelStatusColors: Record<ITrevelStatus, string> = {
+    [ITrevelStatus.UPCOMING]:
+      "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300",
+    [ITrevelStatus.ONGOING]:
+      "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300",
+    [ITrevelStatus.COMPLETED]:
+      "bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-300",
+    [ITrevelStatus.CANCELLED]:
+      "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
       {/* Header */}
@@ -299,13 +314,16 @@ export default function BookingDetailsPage({
               <CardTitle>Travel Plan Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div>
+              <div className="flex justify-between items-center">
                 <h3 className="text-2xl font-bold mb-2">
                   {booking.travelId.title}
                 </h3>
-                <p className="text-muted-foreground">
+                {/* <p className="text-muted-foreground">
                   {booking.travelId.description}
-                </p>
+                </p> */}
+                <Badge className={travelStatusColors[booking.travelId.status]}>
+                  {booking.travelId.status}
+                </Badge>
               </div>
 
               <Separator />
@@ -357,16 +375,18 @@ export default function BookingDetailsPage({
               <CardTitle>
                 Participants ({booking.participants.length})
               </CardTitle>
-              {booking.bookingStatus === IBookingStatus.BOOKED && (
-                <Button
-                  size="sm"
-                  onClick={() => setAddDialogOpen(true)}
-                  disabled={availableSeats <= 0}
-                >
-                  <UserPlus className="w-4 h-4 mr-2" />
-                  Add Participants
-                </Button>
-              )}
+              {booking.bookingStatus === IBookingStatus.BOOKED &&
+                booking.travelId.status === ITrevelStatus.UPCOMING && (
+                  // booking.totalPeople < booking.travelId.participants.length &&
+                  <Button
+                    size="sm"
+                    onClick={() => setAddDialogOpen(true)}
+                    disabled={availableSeats <= 0}
+                  >
+                    <UserPlus className="w-4 h-4 mr-2" />
+                    Add Participants
+                  </Button>
+                )}
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
@@ -378,6 +398,7 @@ export default function BookingDetailsPage({
                       <TableHead>Gender</TableHead>
                       <TableHead>Age</TableHead>
                       {booking.bookingStatus === IBookingStatus.BOOKED &&
+                        booking.travelId.status === ITrevelStatus.UPCOMING &&
                         booking.participants.length > 1 && (
                           <TableHead className="text-right">Actions</TableHead>
                         )}
@@ -403,6 +424,7 @@ export default function BookingDetailsPage({
                         </TableCell>
                         <TableCell>{participant.age} years</TableCell>
                         {booking.bookingStatus === IBookingStatus.BOOKED &&
+                          booking.travelId.status === ITrevelStatus.UPCOMING &&
                           booking.participants.length > 1 && (
                             <TableCell className="text-right">
                               <Button
@@ -437,14 +459,16 @@ export default function BookingDetailsPage({
                 <span className="text-muted-foreground">
                   Total Participants:
                 </span>
-                <span className="font-semibold">{booking.totalPeople}</span>
+                <span className="font-semibold">
+                  {booking.participants.length}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">
                   Amount per Person:
                 </span>
                 <span className="font-semibold">
-                  {(booking.amount / booking.totalPeople).toFixed(2)}{" "}
+                  {booking.amount.toLocaleString()}{" "}
                   <span className="text-xs">BDT</span>
                 </span>
               </div>
@@ -452,7 +476,9 @@ export default function BookingDetailsPage({
               <div className="flex justify-between items-center">
                 <span className="text-lg font-semibold">Total Amount:</span>
                 <span className="text-2xl font-bold text-primary">
-                  {booking.amount.toLocaleString()}{" "}
+                  {(
+                    booking.amount * booking.participants.length
+                  ).toLocaleString()}{" "}
                   <span className="text-sm">BDT</span>
                 </span>
               </div>
@@ -472,27 +498,30 @@ export default function BookingDetailsPage({
           </Card>
 
           {/* Actions */}
-          {booking.bookingStatus === IBookingStatus.BOOKED && (
-            <Card className="border-destructive/50">
-              <CardHeader>
-                <CardTitle className="text-destructive">Danger Zone</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Cancelling this booking will remove all participants from the
-                  travel plan. This action cannot be undone.
-                </p>
-                <Button
-                  variant="destructive"
-                  className="w-full"
-                  onClick={() => setCancelDialogOpen(true)}
-                >
-                  <XCircle className="w-4 h-4 mr-2" />
-                  Cancel Booking
-                </Button>
-              </CardContent>
-            </Card>
-          )}
+          {booking.bookingStatus === IBookingStatus.BOOKED &&
+            booking.travelId.status === ITrevelStatus.UPCOMING && (
+              <Card className="border-destructive/50">
+                <CardHeader>
+                  <CardTitle className="text-destructive">
+                    Danger Zone
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Cancelling this booking will remove all participants from
+                    the travel plan. This action cannot be undone.
+                  </p>
+                  <Button
+                    variant="destructive"
+                    className="w-full"
+                    onClick={() => setCancelDialogOpen(true)}
+                  >
+                    <XCircle className="w-4 h-4 mr-2" />
+                    Cancel Booking
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
         </div>
       </div>
 

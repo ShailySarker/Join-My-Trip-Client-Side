@@ -19,8 +19,8 @@ export const participantSchema = z.object({
   age: z
     .number({ message: "Age is required" })
     .int("Age must be a whole number")
-    .min(8, "Age must be at least 8")
-    .max(55, "Age must be less than 55"),
+    .min(5, "Age must be at least 5")
+    .max(50, "Age must be less than 50"),
 });
 
 // Create travel plan schema
@@ -80,8 +80,8 @@ export const baseTravelPlanSchema = z.object({
   minAge: z
     .number({ message: "Minimum age is required" })
     .int("Must be a whole number")
-    .min(8, "Minimum age must be at least 8")
-    .max(55, "Minimum age must be less than 55"),
+    .min(5, "Minimum age must be at least 5")
+    .max(50, "Minimum age must be less than 50"),
 });
 
 // Create travel plan schema logic
@@ -101,7 +101,7 @@ export const createTravelPlanSchema = baseTravelPlanSchema
     (data) => {
       const start = new Date(data.startDate);
       const minDate = new Date();
-      minDate.setDate(minDate.getDate() + 7); // 7 days from today
+      minDate.setDate(minDate.getDate() + 0); // 7 days from today
       minDate.setHours(0, 0, 0, 0);
       return start >= minDate;
     },
@@ -179,8 +179,8 @@ export const updateTravelPlanSchema = z
     minAge: z
       .number({ message: "Minimum age is required" })
       .int("Must be a whole number")
-      .min(8, "Minimum age must be at least 8")
-      .max(55, "Minimum age must be less than 55"),
+      .min(5, "Minimum age must be at least 5")
+      .max(50, "Minimum age must be less than 50"),
   })
   .refine(
     (data) => {

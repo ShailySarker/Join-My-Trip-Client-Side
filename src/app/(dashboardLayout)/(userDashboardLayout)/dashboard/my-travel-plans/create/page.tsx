@@ -319,6 +319,15 @@ export default function CreateTravelPlanPage() {
 
     setBookingLoading(true);
     try {
+      if ((userInfo.age as number) < createdPlan.minAge) {
+        toast.error(
+          "You must be at least " +
+            createdPlan.minAge +
+            " years old to join this travel plan."
+        );
+        setShowBookingModal(false);
+        return;
+      }
       // 1. Add Self
       const selfParticipant: IParticipantDetails = {
         name: userInfo.fullname || "Me",
@@ -359,6 +368,11 @@ export default function CreateTravelPlanPage() {
   };
 
   const interestsList = Object.values(ITrevelInterest);
+  const totalPeople = 1 + extraParticipants.length;
+  const availableSeats =
+    createdPlan?.maxGuest != null
+      ? createdPlan.maxGuest - (createdPlan.participants?.length ?? 0)
+      : 0;
 
   return (
     <div className="xl:p-4">
@@ -564,7 +578,7 @@ export default function CreateTravelPlanPage() {
               </div>
 
               <div className="flex flex-col gap-2">
-                <Label>Budget (BDT)</Label>
+                <Label>Budget (BDT) Per Person</Label>
                 <Input
                   type="number"
                   {...register("budget", { valueAsNumber: true })}
@@ -680,15 +694,15 @@ export default function CreateTravelPlanPage() {
           </CardContent>
         </Card>
 
-        <CardFooter className="p-0">
+        <CardFooter className="grid grid-cols-2 gap-4 p-0">
           <Button type="submit" disabled={loading} className="w-full">
             {loading ? "Creating..." : "Create Travel Plan"}
           </Button>
-          {/* <Link href="/dashboard/my-travel-plans" className="w-full">
+          <Link href="/dashboard/my-travel-plans" className="w-full">
             <Button variant="outline" className="w-full">
               Cancel
             </Button>
-          </Link> */}
+          </Link>
         </CardFooter>
       </form>
       {/* Booking Confirmation Modal */}
@@ -785,6 +799,7 @@ export default function CreateTravelPlanPage() {
                 <div className="col-span-1">
                   <Button
                     onClick={handleAddParticipant}
+                    disabled={availableSeats <= totalPeople}
                     size="sm"
                     className="h-8 w-full"
                     type="button"
@@ -800,7 +815,7 @@ export default function CreateTravelPlanPage() {
                 {createdPlan &&
                   newParticipant.age !== undefined &&
                   newParticipant.age < createdPlan.minAge && (
-                    <li>Minimum age is {createdPlan.minAge}</li>
+                    <li>TravelPlan minimum age is {createdPlan.minAge}</li>
                   )}
 
                 {participantErrors.gender && (

@@ -39,7 +39,6 @@ export const getAllUsers = async (
 ): Promise<IUserResponse> => {
   try {
     const params = new URLSearchParams(queryParams);
-    console.log(params);
     const response = await serverFetch.get(`/user?${params.toString()}`, {
       next: { tags: ["users"] },
     });
@@ -110,6 +109,32 @@ export const deleteSingleUser = async (
     return result;
   } catch (error) {
     console.error("Error deleting user:", error);
+    throw error;
+  }
+};
+
+// Get User Dashboard Stats
+export const getUserDashboardStats = async () => {
+  try {
+    const response = await serverFetch.get("/user/dashboard-stats", {
+      next: { tags: ["user-dashboard-stats"] },
+    });
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching user dashboard stats:", error);
+    throw error;
+  }
+};
+
+// Get Admin Dashboard Stats
+export const getAdminDashboardStats = async () => {
+  try {
+    const response = await serverFetch.get("/user/admin-dashboard-stats", {
+      next: { tags: ["admin-dashboard-stats"] },
+    });
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching admin dashboard stats:", error);
     throw error;
   }
 };

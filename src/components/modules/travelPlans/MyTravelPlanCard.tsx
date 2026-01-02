@@ -87,12 +87,23 @@ const interestColors: Record<string, string> = {
     "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
 };
 
-const statusColors: Record<ITrevelIsApproved, string> = {
+const isApprovedColors: Record<ITrevelIsApproved, string> = {
   [ITrevelIsApproved.PENDING]:
     "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300",
   [ITrevelIsApproved.APPROVED]:
     "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
   [ITrevelIsApproved.REJECTED]:
+    "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+};
+
+const statusColors: Record<ITrevelStatus, string> = {
+  [ITrevelStatus.UPCOMING]:
+    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300",
+  [ITrevelStatus.ONGOING]:
+    "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+  [ITrevelStatus.COMPLETED]:
+    "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
+  [ITrevelStatus.CANCELLED]:
     "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
 };
 
@@ -140,12 +151,15 @@ export function MyTravelPlanCard({ travelPlan }: MyTravelPlanCardProps) {
           </div>
         )}
 
-        <div className="absolute top-32 left-3 flex flex-col gap-2">
+        <div className="absolute top-24 left-3 flex flex-col gap-1">
           <Badge className={travelTypeColors[travelPlan.travelType]}>
             {travelPlan.travelType}
           </Badge>
-          <Badge className={statusColors[travelPlan.isApproved]}>
+          <Badge className={isApprovedColors[travelPlan.isApproved]}>
             {travelPlan.isApproved}
+          </Badge>
+          <Badge className={statusColors[travelPlan.status]}>
+            {travelPlan.status}
           </Badge>
         </div>
         <div className="absolute top-3 right-3 flex gap-1">
