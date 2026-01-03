@@ -33,6 +33,7 @@ export default async function MyBookingsPage({
     queryParams.sortOrder = params.sortOrder || "desc";
   }
 
+  
   const result = await getMyBookings(queryParams);
   const bookings = result.data || [];
   const meta = result.meta;

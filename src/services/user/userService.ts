@@ -69,9 +69,12 @@ export const getSingleUser = async (
 };
 
 // Get my followers
-export const getMyFollowers = async (): Promise<IUserResponse> => {
+export const getMyFollowers = async (
+  queryParams?: Record<string, string>
+): Promise<IUserResponse> => {
   try {
-    const response = await serverFetch.get("/user/my-followers", {
+    const params = new URLSearchParams(queryParams);
+    const response = await serverFetch.get(`/user/my-followers?${params.toString()}`, {
       next: { tags: ["my-followers"] },
     });
 
@@ -84,9 +87,12 @@ export const getMyFollowers = async (): Promise<IUserResponse> => {
 };
 
 // Get my followings
-export const getMyFollowings = async (): Promise<IUserResponse> => {
+export const getMyFollowings = async (
+  queryParams?: Record<string, string>
+): Promise<IUserResponse> => {
   try {
-    const response = await serverFetch.get("/user/my-followings", {
+    const params = new URLSearchParams(queryParams);
+    const response = await serverFetch.get(`/user/my-followings?${params.toString()}`, {
       next: { tags: ["my-followings"] },
     });
 

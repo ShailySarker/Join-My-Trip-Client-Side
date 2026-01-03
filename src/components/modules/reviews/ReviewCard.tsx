@@ -2,25 +2,31 @@
 
 import { format } from "date-fns";
 import { Star, Edit, Trash2, User, MapPin } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 interface ReviewCardProps {
   review: {
     _id: string;
+    revieweeId?: {
+      _id: string;
+      fullname: string;
+      email: string;
+      profilePhoto?: string;
+    };
     reviewerId?: {
       _id: string;
       fullname: string;
+      email: string;
       profilePhoto?: string;
     };
-    reviewedUserId?: {
-      _id: string;
-      fullname: string;
-      profilePhoto?: string;
-    };
-    travelPlanId: {
+    travelId?: {
       _id: string;
       title: string;
       destination: {
@@ -47,8 +53,8 @@ export function ReviewCard({
   onEdit,
   onDelete,
 }: ReviewCardProps) {
-  const userToShow = showReviewer ? review.reviewerId : review.reviewedUserId;
-
+  const userToShow = showReviewer ? review.reviewerId : review.revieweeId;
+  console.log(review);
   const renderStars = (rating: number) => {
     return (
       <div className="flex gap-0.5">
@@ -81,7 +87,9 @@ export function ReviewCard({
               </AvatarFallback>
             </Avatar>
             <div>
-              <h3 className="font-semibold">{userToShow?.fullname || "Unknown User"}</h3>
+              <h3 className="font-semibold">
+                {userToShow?.fullname || "Unknown User"}
+              </h3>
               <div className="flex items-center gap-2 mt-1">
                 {renderStars(review.rating)}
                 <span className="text-sm font-medium text-muted-foreground">
@@ -120,12 +128,12 @@ export function ReviewCard({
         {/* Travel Plan */}
         <div className="bg-primary/5 rounded-lg p-3">
           <p className="text-xs text-muted-foreground mb-1">Travel Plan</p>
-          <h4 className="font-medium text-sm">{review.travelPlanId.title}</h4>
+          <h4 className="font-medium text-sm">{review.travelId?.title}</h4>
           <div className="flex items-center gap-1 mt-1">
             <MapPin className="w-3 h-3 text-muted-foreground" />
             <span className="text-xs text-muted-foreground">
-              {review.travelPlanId.destination.city},{" "}
-              {review.travelPlanId.destination.country}
+              {review.travelId?.destination.city},{" "}
+              {review.travelId?.destination.country}
             </span>
           </div>
         </div>
@@ -141,7 +149,13 @@ export function ReviewCard({
 }
 
 // Star Rating Display Component (read-only)
-export function StarRating({ rating, showValue = true }: { rating: number; showValue?: boolean }) {
+export function StarRating({
+  rating,
+  showValue = true,
+}: {
+  rating: number;
+  showValue?: boolean;
+}) {
   return (
     <div className="flex items-center gap-2">
       <div className="flex gap-0.5">
@@ -185,15 +199,22 @@ export function StarRatingInput({
           onClick={() => onChange(i + 1)}
           onMouseEnter={(e) => {
             if (!disabled) {
-              const stars = e.currentTarget.parentElement?.querySelectorAll("button");
+              const stars =
+                e.currentTarget.parentElement?.querySelectorAll("button");
               stars?.forEach((star, idx) => {
                 const starIcon = star.querySelector("svg");
                 if (starIcon) {
                   if (idx <= i) {
-                    starIcon.classList.add("fill-yellow-400", "text-yellow-400");
+                    starIcon.classList.add(
+                      "fill-yellow-400",
+                      "text-yellow-400"
+                    );
                     starIcon.classList.remove("fill-gray-200", "text-gray-200");
                   } else {
-                    starIcon.classList.remove("fill-yellow-400", "text-yellow-400");
+                    starIcon.classList.remove(
+                      "fill-yellow-400",
+                      "text-yellow-400"
+                    );
                     starIcon.classList.add("fill-gray-200", "text-gray-200");
                   }
                 }
@@ -202,15 +223,22 @@ export function StarRatingInput({
           }}
           onMouseLeave={(e) => {
             if (!disabled) {
-              const stars = e.currentTarget.parentElement?.querySelectorAll("button");
+              const stars =
+                e.currentTarget.parentElement?.querySelectorAll("button");
               stars?.forEach((star, idx) => {
                 const starIcon = star.querySelector("svg");
                 if (starIcon) {
                   if (idx < value) {
-                    starIcon.classList.add("fill-yellow-400", "text-yellow-400");
+                    starIcon.classList.add(
+                      "fill-yellow-400",
+                      "text-yellow-400"
+                    );
                     starIcon.classList.remove("fill-gray-200", "text-gray-200");
                   } else {
-                    starIcon.classList.remove("fill-yellow-400", "text-yellow-400");
+                    starIcon.classList.remove(
+                      "fill-yellow-400",
+                      "text-yellow-400"
+                    );
                     starIcon.classList.add("fill-gray-200", "text-gray-200");
                   }
                 }

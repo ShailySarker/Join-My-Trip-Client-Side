@@ -90,9 +90,19 @@ export const deleteReview = async (id: string) => {
 /**
  * Get reviews I gave (written by current user)
  */
-export const getMyGivenReviews = async () => {
+export const getMyGivenReviews = async (searchParams?: Record<string, any>) => {
   try {
-    const response = await serverFetch.get("/reviews/given-reviews");
+    const params = new URLSearchParams();
+    if (searchParams) {
+      Object.entries(searchParams).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
+          params.append(key, value.toString());
+        }
+      });
+    }
+    const response = await serverFetch.get(
+      `/reviews/given-reviews?${params.toString()}`
+    );
     const result = await response.json();
     return result;
   } catch (error: any) {
@@ -111,9 +121,21 @@ export const getMyGivenReviews = async () => {
 /**
  * Get reviews I received (written for current user)
  */
-export const getMyReceivedReviews = async () => {
+export const getMyReceivedReviews = async (
+  searchParams?: Record<string, any>
+) => {
   try {
-    const response = await serverFetch.get("/reviews/received-reviews");
+    const params = new URLSearchParams();
+    if (searchParams) {
+      Object.entries(searchParams).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
+          params.append(key, value.toString());
+        }
+      });
+    }
+    const response = await serverFetch.get(
+      `/reviews/received-reviews?${params.toString()}`
+    );
     const result = await response.json();
     return result;
   } catch (error: any) {
@@ -164,6 +186,27 @@ export const getAllReviews = async (searchParams?: Record<string, any>) => {
       });
     }
     const response = await serverFetch.get(`/reviews?${params.toString()}`);
+    const result = await response.json();
+    return result;
+  } catch (error: any) {
+    console.log(error);
+    return {
+      success: false,
+      message: `${
+        process.env.NODE_ENV === "development"
+          ? error.message
+          : "Something went wrong"
+      }`,
+    };
+  }
+};
+
+/**
+ * Get single review by ID
+ */
+export const getReviewById = async (id: string) => {
+  try {
+    const response = await serverFetch.get(`/reviews/${id}`);
     const result = await response.json();
     return result;
   } catch (error: any) {

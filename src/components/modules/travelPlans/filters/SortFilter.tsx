@@ -58,7 +58,7 @@ SortFilterProps) {
           <Label className="text-sm font-medium">Sort Order</Label>
           <Select value={sortOrder} onValueChange={onSortOrderChange}>
             <SelectTrigger className="w-full">
-              <SelectValue />
+              <SelectValue placeholder="Select Order" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="asc">Ascending (Low to High)</SelectItem>

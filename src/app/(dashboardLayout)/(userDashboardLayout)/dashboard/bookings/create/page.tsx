@@ -451,7 +451,7 @@ function BookingForm() {
                     {participantErrors.phone && (
                       <li>{participantErrors.phone}</li>
                     )}
-                    {/* {participantErrors.age && <li>{participantErrors.age}</li>} */}
+                    {participantErrors.age && <li>{participantErrors.age}</li>}
                     {travelPlan &&
                       newParticipant.age !== undefined &&
                       newParticipant.age < travelPlan.minAge && (

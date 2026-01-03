@@ -71,19 +71,22 @@ export default function ReviewModal({
     defaultValues: {
       rating: 0,
       comment: "",
-      revieweeId: potentialReviewees.length === 1 ? potentialReviewees[0]._id : "",
+      revieweeId:
+        potentialReviewees.length === 1 ? potentialReviewees[0]._id : "",
     },
   });
 
   const onSubmit = async (data: ReviewFormValues) => {
     setIsSubmitting(true);
     try {
-      const result = await createReview({
+      const reviewInfo = {
         travelId,
         revieweeId: data.revieweeId,
         rating: data.rating,
         comment: data.comment,
-      });
+      };
+      console.log(reviewInfo, "------------reviewInfo-----------");
+      const result = await createReview(reviewInfo);
 
       if (result.success) {
         toast.success("Review submitted successfully");
@@ -110,7 +113,8 @@ export default function ReviewModal({
         <DialogHeader>
           <DialogTitle>Rate Your Experience</DialogTitle>
           <DialogDescription>
-            Share your experience with your travel companions. This helps the community!
+            Share your experience with your travel companions. This helps the
+            community!
           </DialogDescription>
         </DialogHeader>
 
@@ -122,7 +126,10 @@ export default function ReviewModal({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Who do you want to review?</FormLabel>
-                   <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select a person" />
