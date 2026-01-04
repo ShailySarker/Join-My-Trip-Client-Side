@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getUserInfo } from "@/services/auth/getUserInfo";
 import { getAllUsers } from "@/services/user/userService";
 import UserCard from "@/components/modules/user/travelers/UserCard";

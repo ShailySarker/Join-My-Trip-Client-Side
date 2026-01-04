@@ -14,25 +14,29 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const reviewsData = await getAllReviews({ limit: 3, sortBy: "rating", sortOrder: "desc" });
+  const reviewsData = await getAllReviews({
+    limit: 3,
+    sortBy: "rating",
+    sortOrder: "desc",
+  });
   const reviews = reviewsData?.data || [];
-  
+
   return (
     <div className="flex flex-col min-h-screen">
       <HeroSection />
-      
+
       {/* Popular Destinations */}
       <TopDestinations />
-      
+
       {/* Categories */}
       <TravelCategories />
-      
+
       {/* How It Works */}
       <HowItWorks />
-      
+
       {/* CTA Section */}
       <TravelBuddiesCTA />
-      
+
       {/* Testimonials */}
       <Testimonials reviews={reviews} />
     </div>

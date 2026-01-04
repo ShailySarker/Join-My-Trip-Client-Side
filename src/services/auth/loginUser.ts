@@ -2,7 +2,6 @@
 "use server";
 
 import { parse } from "cookie";
-import { redirect } from "next/navigation";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import {
   getDefaultDashboardRoute,
@@ -109,7 +108,6 @@ export const loginUser = async (
 
     const userRole: UserRole = verifiedToken.role;
 
-    
     if (redirectTo) {
       const requestedPath = redirectTo.toString();
       if (isValidRedirectForRole(requestedPath, userRole)) {
@@ -119,20 +117,19 @@ export const loginUser = async (
           redirectUrl: requestedPath,
         };
       } else {
-         return {
+        return {
           success: true,
-           message: "Login Successful",
+          message: "Login Successful",
           redirectUrl: getDefaultDashboardRoute(userRole),
         };
       }
     } else {
-       return {
-          success: true,
-           message: "Login Successful",
-          redirectUrl: getDefaultDashboardRoute(userRole),
-        };
+      return {
+        success: true,
+        message: "Login Successful",
+        redirectUrl: getDefaultDashboardRoute(userRole),
+      };
     }
-
   } catch (error: any) {
     // Re-throw NEXT_REDIRECT errors so Next.js can handle them
     if (error?.digest?.startsWith("NEXT_REDIRECT")) {

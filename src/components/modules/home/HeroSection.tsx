@@ -1,15 +1,16 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Globe2, Users, Calendar } from "lucide-react";
+import { ArrowRight, Globe2 } from "lucide-react";
 import Link from "next/link";
 
 export default function HeroSection() {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-16">
       {/* Background with overlay */}
-      <div 
+      <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop')",
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop')",
         }}
       >
         <div className="absolute inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-[2px]" />
@@ -19,25 +20,33 @@ export default function HeroSection() {
         <div className="animate-fade-in-up space-y-6 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
             Find Your Perfect <br />
-            <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-teal-400">
-              Travel Buddy
-            </span>
+            {/* <span className="text-transparent bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-teal-400"> */}
+            Travel Buddy
+            {/* </span> */}
           </h1>
-          
+
           <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed">
-            Connect with like-minded travelers, plan trips together, and create unforgettable memories. 
-            Join thousands of travelers exploring the world together.
-           </p>
+            Connect with like-minded travelers, plan trips together, and create
+            unforgettable memories. Join thousands of travelers exploring the
+            world together.
+          </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
             <Link href="/travel-plans">
-              <Button size="lg" className="w-full sm:w-auto text-lg h-14 px-8 rounded-full bg-primary hover:bg-primary/90">
+              <Button
+                size="lg"
+                className="w-full sm:w-auto text-lg h-14 px-8 rounded-full bg-primary hover:bg-primary/90"
+              >
                 Start Exploring
                 <Globe2 className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link href="/dashboard/my-travel-plans/create">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto text-lg h-14 px-8 rounded-full border-white/50 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm">
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full sm:w-auto text-lg h-14 px-8 rounded-full border-white/50 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
+              >
                 Create Plan
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>

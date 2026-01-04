@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getMyBookings } from "@/services/bookings/bookings.service";
 import BookingFilters from "@/components/modules/bookings/filters/BookingFilters";
 import BookingsTable from "@/components/modules/bookings/BookingsTable";
@@ -33,7 +35,6 @@ export default async function MyBookingsPage({
     queryParams.sortOrder = params.sortOrder || "desc";
   }
 
-  
   const result = await getMyBookings(queryParams);
   const bookings = result.data || [];
   const meta = result.meta;

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import PaymentTable from "@/components/modules/user/payment/PaymentTable";
 import { Button } from "@/components/ui/button";
 import { getMyPaymentHistory } from "@/services/payment/payment.service";

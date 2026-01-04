@@ -4,7 +4,6 @@ import { getAllSubscriptions } from "@/services/subscription/subscription.servic
 import { ISubscription } from "@/types/subscription.interface";
 
 // Force dynamic rendering - don't cache this page
-export const dynamic = "force-dynamic";
 
 const SubscriptionPage = async () => {
   const subscriptions = await getAllSubscriptions();

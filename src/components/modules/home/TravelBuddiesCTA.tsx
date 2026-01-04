@@ -14,14 +14,15 @@ export default function TravelBuddiesCTA() {
           <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-primary/10 text-primary mb-4">
             <Users className="w-8 h-8" />
           </div>
-          
+
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
             Ready to Find Your Travel Buddy?
           </h2>
-          
+
           <p className="text-xl text-muted-foreground leading-relaxed">
-            Don't travel alone. Join our community of explorers and find the perfect companion for your next adventure.
-            Filter by destination, interests, and budget.
+            Do not travel alone. Join our community of explorers and find the
+            perfect companion for your next adventure. Filter by destination,
+            interests, and budget.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
@@ -32,7 +33,11 @@ export default function TravelBuddiesCTA() {
               </Button>
             </Link>
             <Link href="/auth/register">
-              <Button size="lg" variant="outline" className="h-14 px-8 text-lg rounded-full border-2">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-14 px-8 text-lg rounded-full border-2"
+              >
                 Join Community
               </Button>
             </Link>

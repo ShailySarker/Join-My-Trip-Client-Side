@@ -9,7 +9,6 @@ import {
   isAuthRoute,
   UserRole,
 } from "./lib/auth-utils";
-import { getUserInfo } from "./services/auth/getUserInfo";
 
 export async function proxy(request: NextRequest) {
   // const cookieStore = await cookies();
