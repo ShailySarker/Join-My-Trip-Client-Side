@@ -35,20 +35,20 @@ export default function HeroSection() {
             <Link href="/travel-plans">
               <Button
                 size="lg"
-                className="w-full sm:w-auto text-lg h-14 px-8 rounded-full bg-primary hover:bg-primary/90"
+                className="w-full sm:w-auto text-lg h-12 px-8 rounded-full bg-primary hover:bg-primary/90"
               >
                 Start Exploring
-                <Globe2 className="ml-2 h-5 w-5" />
+                <Globe2 className="h-5 w-5" />
               </Button>
             </Link>
             <Link href="/dashboard/my-travel-plans/create">
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto text-lg h-14 px-8 rounded-full border-white/50 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
+                className="w-full sm:w-auto text-lg h-12 px-10 rounded-full  backdrop-blur-sm text-primary"
               >
                 Create Plan
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="h-5 w-5" />
               </Button>
             </Link>
           </div>

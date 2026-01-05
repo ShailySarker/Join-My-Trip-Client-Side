@@ -57,7 +57,7 @@ export default function SubscriptionCard({
         </p>
 
         <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-          <li>✔ Access to all features</li>
+          <li>✔ Access to all advance features</li>
           <li>✔ Travel Buddy Matching</li>
           <li>✔ Profile Boost</li>
           <li>✔ Verified Badge</li>

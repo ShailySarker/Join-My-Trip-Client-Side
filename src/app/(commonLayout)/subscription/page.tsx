@@ -3,8 +3,6 @@ import { getUserInfo } from "@/services/auth/getUserInfo";
 import { getAllSubscriptions } from "@/services/subscription/subscription.service";
 import { ISubscription } from "@/types/subscription.interface";
 
-// Force dynamic rendering - don't cache this page
-
 const SubscriptionPage = async () => {
   const subscriptions = await getAllSubscriptions();
   const userInfo = await getUserInfo();

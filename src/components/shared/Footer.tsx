@@ -25,7 +25,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/about-us"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   About Us
@@ -33,20 +33,20 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/services"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Services
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   href="#"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Contact
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div>
@@ -54,23 +54,23 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  href="#"
+                  href="/faq"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   FAQ
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   href="#"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Help Center
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
-                  href="#"
+                  href="/terms-of-service"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Terms of Service
@@ -78,7 +78,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/privacy-policy"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Privacy Policy
@@ -91,7 +91,7 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground">
               123 Medical Lane
               <br />
-              Health City, HC 12345
+              Green City, HC 12345
               <br />
               contact@jmt.com
             </p>
