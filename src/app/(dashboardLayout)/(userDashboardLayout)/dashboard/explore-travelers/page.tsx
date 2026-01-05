@@ -14,7 +14,7 @@ interface SearchParams {
   isVerified?: string;
   travelInterests?: string;
   sortBy?: string;
-  sort?: string;
+  sortOrder?: string;
   page?: string;
   limit?: string;
 }
@@ -24,15 +24,12 @@ const ExploreTravelersPage = async ({
 }: {
   searchParams: Promise<SearchParams>;
 }) => {
-  // Await searchParams (Next.js 15 requirement)
   const params = await searchParams;
 
   const userInfo = await getUserInfo();
-
   if (!userInfo) {
     redirect("/login?redirect=/dashboard/explore-travelers");
   }
-
   // Check if user has an active subscription (only USER role needs subscription)
   const hasActiveSubscription =
     userInfo.subscriptionInfo?.status === "ACTIVE" &&
@@ -52,8 +49,11 @@ const ExploreTravelersPage = async ({
     queryParams.travelInterests = params.travelInterests;
   if (params.sortBy) {
     queryParams.sortBy = params.sortBy;
-    queryParams.sort = params.sort || "desc";
+    queryParams.sortOrder = params.sortOrder || "desc";
   }
+  // Default sort
+  if (!queryParams.sortBy) queryParams.sortBy = "fullname";
+  if (!queryParams.sortOrder) queryParams.sortOrder = "asc";
 
   // Fetch users
   const usersResponse = await getAllUsers(queryParams);

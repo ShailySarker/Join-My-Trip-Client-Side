@@ -35,6 +35,10 @@ export default async function MyBookingsPage({
     queryParams.sortOrder = params.sortOrder || "desc";
   }
 
+  // Default sort
+  if (!queryParams.sortBy) queryParams.sortBy = "startDate";
+  if (!queryParams.sortOrder) queryParams.sortOrder = "desc";
+
   const result = await getMyBookings(queryParams);
   const bookings = result.data || [];
   const meta = result.meta;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { getUserInfo } from "@/services/auth/getUserInfo";
 import { getMyFollowers } from "@/services/user/userService";
@@ -60,59 +61,64 @@ export default async function MyFollowersPage(props: {
         </div>
       </div>
 
-       {/* Search */}
+      {/* Search */}
       <div className="flex justify-start">
-         <UserSearchFilter />
+        <UserSearchFilter />
       </div>
-
 
       {/* Followers Grid */}
       {followers.length > 0 ? (
         <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {followers.map((follower) => (
-                <UserCard
+              <UserCard
                 key={follower._id}
                 user={follower}
                 currentUser={userInfo}
                 showFollowButton={userInfo.role === IUserRole.USER}
                 showViewButton={true}
-                />
+              />
             ))}
-            </div>
+          </div>
 
-            {/* Pagination */}
-             {meta && meta.totalPage > 1 && (
-                <div className="flex items-center justify-between pt-6 mt-6 border-t">
-                    <p className="text-sm text-muted-foreground">
-                        Page {meta.page} of {meta.totalPage}
-                    </p>
-                    <div className="flex gap-2">
-                         <Link href={`?page=${meta.page - 1}`} passHref legacyBehavior>
-                            <Button
-                            variant="outline"
-                            size="sm"
-                            disabled={meta.page <= 1}
-                            className={meta.page <= 1 ? "pointer-events-none opacity-50" : ""}
-                            >
-                            <ChevronLeft className="w-4 h-4 mr-1" />
-                            Previous
-                            </Button>
-                        </Link>
-                        <Link href={`?page=${meta.page + 1}`} passHref legacyBehavior>
-                           <Button
-                            variant="outline"
-                            size="sm"
-                            disabled={meta.page >= meta.totalPage}
-                             className={meta.page >= meta.totalPage ? "pointer-events-none opacity-50" : ""}
-                            >
-                            Next
-                            <ChevronRight className="w-4 h-4 ml-1" />
-                            </Button>
-                        </Link>
-                    </div>
-                </div>
-            )}
+          {/* Pagination */}
+          {meta && meta.totalPage > 1 && (
+            <div className="flex items-center justify-between pt-6 mt-6 border-t">
+              <p className="text-sm text-muted-foreground">
+                Page {meta.page} of {meta.totalPage}
+              </p>
+              <div className="flex gap-2">
+                <Link href={`?page=${meta.page - 1}`} passHref legacyBehavior>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={meta.page <= 1}
+                    className={
+                      meta.page <= 1 ? "pointer-events-none opacity-50" : ""
+                    }
+                  >
+                    <ChevronLeft className="w-4 h-4 mr-1" />
+                    Previous
+                  </Button>
+                </Link>
+                <Link href={`?page=${meta.page + 1}`} passHref legacyBehavior>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={meta.page >= meta.totalPage}
+                    className={
+                      meta.page >= meta.totalPage
+                        ? "pointer-events-none opacity-50"
+                        : ""
+                    }
+                  >
+                    Next
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          )}
         </>
       ) : (
         <div className="text-center py-16 bg-white rounded-lg shadow">
@@ -121,7 +127,7 @@ export default async function MyFollowersPage(props: {
             No followers found
           </h3>
           <p className="text-muted-foreground">
-             Try adjusting your search or check back later.
+            Try adjusting your search or check back later.
           </p>
         </div>
       )}

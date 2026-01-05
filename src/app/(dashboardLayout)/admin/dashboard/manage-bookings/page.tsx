@@ -38,6 +38,9 @@ export default async function ManageBookingsPage({
     queryParams.sortBy = params.sortBy;
     queryParams.sortOrder = params.sortOrder || "desc";
   }
+  // Default sort
+  if (!queryParams.sortBy) queryParams.sortBy = "createdAt";
+  if (!queryParams.sortOrder) queryParams.sortOrder = "desc";
 
   const result = await getAllBookings(queryParams);
   const bookings = result.data || [];

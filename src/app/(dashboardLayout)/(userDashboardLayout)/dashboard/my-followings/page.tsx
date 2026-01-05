@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { getUserInfo } from "@/services/auth/getUserInfo";
 import { getMyFollowings } from "@/services/user/userService";
@@ -56,58 +57,64 @@ export default async function MyFollowingsPage(props: {
         </div>
       </div>
 
-       {/* Search */}
+      {/* Search */}
       <div className="flex justify-start">
-         <UserSearchFilter />
+        <UserSearchFilter />
       </div>
 
       {/* Followings Grid */}
       {followings.length > 0 ? (
         <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {followings.map((following) => (
-                <UserCard
+              <UserCard
                 key={following._id}
                 user={following}
                 currentUser={userInfo}
                 showFollowButton={userInfo.role === IUserRole.USER}
                 showViewButton={true}
-                />
+              />
             ))}
+          </div>
+
+          {/* Pagination */}
+          {meta && meta.totalPage > 1 && (
+            <div className="flex items-center justify-between pt-6 mt-6 border-t">
+              <p className="text-sm text-muted-foreground">
+                Page {meta.page} of {meta.totalPage}
+              </p>
+              <div className="flex gap-2">
+                <Link href={`?page=${meta.page - 1}`} passHref legacyBehavior>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={meta.page <= 1}
+                    className={
+                      meta.page <= 1 ? "pointer-events-none opacity-50" : ""
+                    }
+                  >
+                    <ChevronLeft className="w-4 h-4 mr-1" />
+                    Previous
+                  </Button>
+                </Link>
+                <Link href={`?page=${meta.page + 1}`} passHref legacyBehavior>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={meta.page >= meta.totalPage}
+                    className={
+                      meta.page >= meta.totalPage
+                        ? "pointer-events-none opacity-50"
+                        : ""
+                    }
+                  >
+                    Next
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </Link>
+              </div>
             </div>
-            
-            {/* Pagination */}
-             {meta && meta.totalPage > 1 && (
-                <div className="flex items-center justify-between pt-6 mt-6 border-t">
-                    <p className="text-sm text-muted-foreground">
-                        Page {meta.page} of {meta.totalPage}
-                    </p>
-                    <div className="flex gap-2">
-                         <Link href={`?page=${meta.page - 1}`} passHref legacyBehavior>
-                            <Button
-                            variant="outline"
-                            size="sm"
-                            disabled={meta.page <= 1}
-                            className={meta.page <= 1 ? "pointer-events-none opacity-50" : ""}
-                            >
-                            <ChevronLeft className="w-4 h-4 mr-1" />
-                            Previous
-                            </Button>
-                        </Link>
-                        <Link href={`?page=${meta.page + 1}`} passHref legacyBehavior>
-                           <Button
-                            variant="outline"
-                            size="sm"
-                            disabled={meta.page >= meta.totalPage}
-                             className={meta.page >= meta.totalPage ? "pointer-events-none opacity-50" : ""}
-                            >
-                            Next
-                            <ChevronRight className="w-4 h-4 ml-1" />
-                            </Button>
-                        </Link>
-                    </div>
-                </div>
-            )}
+          )}
         </>
       ) : (
         <div className="text-center py-16 bg-white rounded-lg shadow">

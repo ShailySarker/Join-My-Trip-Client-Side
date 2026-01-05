@@ -10,7 +10,7 @@ interface SearchParams {
   isVerified?: string;
   travelInterests?: string;
   sortBy?: string;
-  sort?: string;
+  sortOrder?: string;
   page?: string;
   limit?: string;
 }
@@ -36,7 +36,7 @@ const PublicExploreTravelersPage = async ({
     queryParams.travelInterests = params.travelInterests;
   if (params.sortBy) {
     queryParams.sortBy = params.sortBy;
-    queryParams.sort = params.sort || "desc";
+    queryParams.sortOrder = params.sortOrder || "desc";
   }
 
   // Fetch users

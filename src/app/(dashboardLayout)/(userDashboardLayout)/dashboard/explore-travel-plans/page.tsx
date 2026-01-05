@@ -30,8 +30,8 @@ export default async function ExploreTravelPlansPage({
   const queryParams: Record<string, string> = {
     page: params.page || "1",
     limit: params.limit || "12",
-    sortBy: params.sortBy || "createdAt",
-    sortOrder: params.sortOrder || "desc",
+    // sortBy: params.sortBy || "createdAt",
+    // sortOrder: params.sortOrder || "desc",
   };
 
   if (params.search) queryParams.search = params.search;
@@ -45,6 +45,10 @@ export default async function ExploreTravelPlansPage({
     queryParams.sortBy = params.sortBy;
     queryParams.sortOrder = params.sortOrder || "desc";
   }
+
+  // Default sort
+  if (!queryParams.sortBy) queryParams.sortBy = "startDate";
+  if (!queryParams.sortOrder) queryParams.sortOrder = "desc";
 
   const result = await getAllTravelPlansPublic(queryParams);
   const travelPlans = result.data || [];

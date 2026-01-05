@@ -22,7 +22,7 @@ interface SearchParams {
   travelType?: string;
   interests?: string;
   sortBy?: string;
-  sort?: string;
+  sortOrder?: string;
   page?: string;
   limit?: string;
   isApproved?: string;
@@ -53,8 +53,11 @@ export default async function MyTravelPlansPage({
   if (params.status) queryParams.status = params.status;
   if (params.sortBy) {
     queryParams.sortBy = params.sortBy;
-    queryParams.sort = params.sort || "desc";
+    queryParams.sortOrder = params.sortOrder || "desc";
   }
+  // Default sort
+  if (!queryParams.sortBy) queryParams.sortBy = "startDate";
+  if (!queryParams.sortOrder) queryParams.sortOrder = "desc";
 
   const result = await getMyTravelPlans(queryParams);
   // @ts-ignore - The service return type might be mismatched in definition (ITravelPlan vs { data: ITravelPlan[] ... }). Assuming standard response structure.

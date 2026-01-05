@@ -181,6 +181,7 @@ export default function BookingsTable({
                   <TableHead>Destination</TableHead>
                   <TableHead>Travel Dates</TableHead>
                   <TableHead>Host</TableHead>
+                  <TableHead>Participates</TableHead>
                   <TableHead>Amount</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Booking Date</TableHead>
@@ -230,6 +231,9 @@ export default function BookingsTable({
                             {booking.travelId?.host?.fullname || "N/A"}
                           </span>
                         </div>
+                      </TableCell>
+                      <TableCell className="font-semibold text-center">
+                        {booking.totalPeople}
                       </TableCell>
                       <TableCell className="font-semibold text-green-700 dark:text-green-400">
                         {booking.amount?.toLocaleString()} BDT

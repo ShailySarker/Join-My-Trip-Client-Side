@@ -106,6 +106,7 @@ export default function UserFilters() {
     { value: "fullname", label: "Name" },
     { value: "averageRating", label: "Rating" },
     { value: "reviewCount", label: "Reviews" },
+    { value: "totalProfileViews", label: "Profile Views" },
     { value: "createdAt", label: "Join Date" },
   ];
 
