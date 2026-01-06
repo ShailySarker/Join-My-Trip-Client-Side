@@ -6,6 +6,8 @@ import TravelBuddiesCTA from "@/components/modules/home/TravelBuddiesCTA";
 import TravelCategories from "@/components/modules/home/TravelCategories";
 import { Metadata } from "next";
 import { getAllReviews } from "@/services/reviews/reviews.service";
+import Banner from "@/components/modules/home/Banner";
+import { getUserInfo } from "@/services/auth/getUserInfo";
 
 export const metadata: Metadata = {
   title: "Join My Trip - Find Travel Buddies",
@@ -14,6 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
+  const userInfo = await getUserInfo();
   const reviewsData = await getAllReviews({
     limit: 3,
     sortBy: "rating",
@@ -23,6 +26,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      {/* <Banner userInfo={userInfo} /> */}
       <HeroSection />
 
       {/* Popular Destinations */}
