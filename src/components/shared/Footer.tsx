@@ -41,10 +41,10 @@ const Footer = () => {
               </li>
               {/* <li>
                 <Link
-                  href="#"
+                  href="/contact-us"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  Contact
+                  Contact Us
                 </Link>
               </li> */}
             </ul>
@@ -58,6 +58,14 @@ const Footer = () => {
                   className="text-muted-foreground hover:text-foreground"
                 >
                   FAQ
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact-us"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  Contact Us
                 </Link>
               </li>
               {/* <li>

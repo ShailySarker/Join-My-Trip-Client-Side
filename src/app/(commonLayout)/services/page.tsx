@@ -1,452 +1,545 @@
-// "use client";
+import { Metadata } from "next";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import {
+  Users,
+  MapPin,
+  MessageCircle,
+  Shield,
+  Calendar,
+  Search,
+  Star,
+  Heart,
+  Globe,
+  Lock,
+  CheckCircle,
+  Clock,
+  UserCheck,
+  Sparkles,
+  TrendingUp,
+  Zap,
+  Crown,
+  ArrowRight,
+} from "lucide-react";
 
-// import { useState } from "react";
-// import { motion } from "framer-motion";
-// import {
-//   Users,
-//   MapPin,
-//   Shield,
-//   Star,
-//   MessageSquare,
-//   Calendar,
-//   CreditCard,
-//   Globe,
-//   Bell,
-//   TrendingUp,
-//   Zap,
-//   Crown,
-//   CheckCircle,
-//   XCircle,
-//   Leaf,
-//   TreePine,
-//   Sprout,
-// } from "lucide-react";
-// import { Button } from "@/components/ui/button";
-// import { Card, CardContent } from "@/components/ui/card";
-// import { Badge } from "@/components/ui/badge";
-// import { Separator } from "@/components/ui/separator";
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-// import Link from "next/link";
-
-// export default function ServicesPage() {
-//   const [selectedPlan, setSelectedPlan] = useState("premium");
-
-//   const services = [
-//     {
-//       icon: <Users className="w-8 h-8" />,
-//       title: "Travel Buddy Matching",
-//       description:
-//         "AI-powered matching based on sustainability values, interests, and eco-style",
-//       features: [
-//         "Smart green algorithm",
-//         "Eco-interest matching",
-//         "Sustainability scoring",
-//       ],
-//       color: "text-emerald-600 bg-emerald-50",
-//     },
-//     {
-//       icon: <MapPin className="w-8 h-8" />,
-//       title: "Sustainable Trip Planning",
-//       description:
-//         "Collaborative eco-friendly itinerary planning with your green travel companions",
-//       features: [
-//         "Shared green itineraries",
-//         "Carbon budget planning",
-//         "Eco-activity scheduling",
-//       ],
-//       color: "text-green-600 bg-green-50",
-//     },
-//     {
-//       icon: <Shield className="w-8 h-8" />,
-//       title: "Eco Safety & Verification",
-//       description: "Comprehensive sustainability verification and user safety",
-//       features: [
-//         "Eco-certification",
-//         "Green background checks",
-//         "24/7 eco support",
-//       ],
-//       color: "text-teal-600 bg-teal-50",
-//     },
-//     {
-//       icon: <MessageSquare className="w-8 h-8" />,
-//       title: "Green Communication Tools",
-//       description:
-//         "Built-in messaging and group chat for seamless eco-communication",
-//       features: ["Secure green messaging", "Eco group chats", "Video calls"],
-//       color: "text-lime-600 bg-lime-50",
-//     },
-//     {
-//       icon: <Star className="w-8 h-8" />,
-//       title: "Eco Review System",
-//       description:
-//         "Trust-building review and rating system for sustainable travel",
-//       features: [
-//         "Eco trip reviews",
-//         "Green user ratings",
-//         "Sustainability badges",
-//       ],
-//       color: "text-amber-600 bg-amber-50",
-//     },
-//     {
-//       icon: <Globe className="w-8 h-8" />,
-//       title: "Global Green Community",
-//       description: "Connect with eco travelers from around the world",
-//       features: [
-//         "150+ green destinations",
-//         "Local eco guides",
-//         "Sustainable cultural exchange",
-//       ],
-//       color: "text-cyan-600 bg-cyan-50",
-//     },
-//   ];
-
-//   const pricingPlans = [
-//     {
-//       name: "Free",
-//       price: "$0",
-//       period: "forever",
-//       description: "Basic features for casual eco travelers",
-//       icon: <Leaf className="w-6 h-6" />,
-//       color: "border-gray-200",
-//       features: [
-//         { text: "Basic eco profile creation", included: true },
-//         { text: "Limited green travel plans (3)", included: true },
-//         { text: "Basic eco search functionality", included: true },
-//         { text: "Standard green matching", included: true },
-//         { text: "Green community access", included: true },
-//         { text: "Priority eco support", included: false },
-//         { text: "Advanced green matching", included: false },
-//         { text: "Unlimited eco travel plans", included: false },
-//         { text: "Eco-verified badge", included: false },
-//         { text: "AI sustainable trip suggestions", included: false },
-//       ],
-//       cta: "Start Green Journey",
-//     },
-//     {
-//       name: "Eco Premium",
-//       price: "$9.99",
-//       period: "per month",
-//       description: "Perfect for frequent eco travelers",
-//       icon: <TreePine className="w-6 h-6" />,
-//       color: "border-emerald-500",
-//       popular: true,
-//       features: [
-//         { text: "Everything in Free", included: true },
-//         { text: "Unlimited green travel plans", included: true },
-//         { text: "Advanced AI eco matching", included: true },
-//         { text: "Priority eco support", included: true },
-//         { text: "Eco-verified badge", included: true },
-//         { text: "AI sustainable trip suggestions", included: true },
-//         { text: "Carbon footprint tracking", included: true },
-//         { text: "Customizable eco profile", included: true },
-//         { text: "Ad-free green experience", included: true },
-//         { text: "Early access to eco features", included: true },
-//       ],
-//       cta: "Start 7-Day Eco Trial",
-//     },
-//     {
-//       name: "Eco Yearly",
-//       price: "$99.99",
-//       period: "per year",
-//       description: "Best value for serious eco travelers",
-//       icon: <Sprout className="w-6 h-6" />,
-//       color: "border-teal-500",
-//       features: [
-//         { text: "Everything in Eco Premium", included: true },
-//         { text: "Save 2 months", included: true },
-//         { text: "Free eco trip planning session", included: true },
-//         { text: "Exclusive green destination guides", included: true },
-//         { text: "Priority eco customer support", included: true },
-//         { text: "Annual sustainability report", included: true },
-//         { text: "Eco partner discounts", included: true },
-//         { text: "VIP green community access", included: true },
-//         { text: "Dedicated eco account manager", included: true },
-//         { text: "Premium eco travel insurance", included: true },
-//       ],
-//       savings: "Save $19.89",
-//       cta: "Choose Eco Yearly Plan",
-//     },
-//   ];
-
-//   const premiumFeatures = [
-//     {
-//       category: "Enhanced Eco Matching",
-//       features: [
-//         "AI-powered sustainability scoring",
-//         "Eco-interest based algorithm",
-//         "Green travel style matching",
-//         "Environmental values compatibility",
-//       ],
-//     },
-//     {
-//       category: "Advanced Green Tools",
-//       features: [
-//         "Collaborative sustainable trip planning",
-//         "Carbon budget management tools",
-//         "Eco-itinerary optimization",
-//         "Real-time green location sharing",
-//       ],
-//     },
-//     {
-//       category: "Sustainability & Support",
-//       features: [
-//         "24/7 eco safety support",
-//         "Green emergency assistance",
-//         "Verified eco user network",
-//         "Sustainability certification integration",
-//       ],
-//     },
-//   ];
-
-//   return (
-//     <div className="min-h-screen">
-//       {/* Hero Section - Green Theme */}
-//       <div className="bg-linear-to-br from-emerald-600 to-teal-600 py-20">
-//         <div className="container mx-auto px-4">
-//           <motion.div
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.6 }}
-//             className="max-w-4xl mx-auto text-center"
-//           >
-//             <Badge className="mb-6 px-4 py-2 bg-white/20 backdrop-blur-sm text-white border-0">
-//               <Leaf className="w-4 h-4 mr-2" />
-//               SUSTAINABLE SERVICES
-//             </Badge>
-
-//             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-//               Travel World,
-//               <span className="pb-4 block bg-linear-to-r from-lime-300 to-amber-300 bg-clip-text text-transparent">
-//                 Together
-//               </span>
-//             </h1>
-
-//             <p className="text-xl text-emerald-100 mb-10 max-w-3xl mx-auto">
-//               Discover our comprehensive suite of sustainable services designed
-//               to make your travels eco-friendlier, more social, and
-//               unforgettable. From free basic features to premium green
-//               experiences, we have everything you need.
-//             </p>
-
-//             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-//               <Link href="/subscription">
-//                 <Button
-//                   size="lg"
-//                   className="bg-white text-emerald-600 hover:bg-emerald-50 gap-3 px-8"
-//                 >
-//                   <CreditCard className="w-6 h-6" />
-//                   Subscription Plans
-//                 </Button>
-//               </Link>
-//               <Link href="/register">
-//                 <Button
-//                   size="lg"
-//                   variant="outline"
-//                   className="border-white text-emerald-600 hover:bg-white/10 gap-3 px-8"
-//                 >
-//                   <Leaf className="w-6 h-6" />
-//                   Register Now
-//                 </Button>
-//               </Link>
-//             </div>
-//           </motion.div>
-//         </div>
-//       </div>
-
-//       {/* All Green Services */}
-//       <section className="py-20">
-//         <div className="container mx-auto px-4">
-//           <div className="text-center mb-16">
-//             <Badge className="mb-4 bg-emerald-100 text-emerald-800">
-//               OUR SERVICES
-//             </Badge>
-//             <h2 className="text-4xl font-bold mb-4">
-//               Everything You Need for Perfect Travels
-//             </h2>
-//             <p className="text-gray-600 max-w-2xl mx-auto">
-//               Comprehensive tools and features to enhance every aspect of your
-//               sustainable travel experience
-//             </p>
-//           </div>
-
-//           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-//             {services.map((service, index) => (
-//               <motion.div
-//                 key={service.title}
-//                 initial={{ opacity: 0, y: 20 }}
-//                 animate={{ opacity: 1, y: 0 }}
-//                 transition={{ duration: 0.5, delay: index * 0.1 }}
-//                 whileHover={{ y: -5 }}
-//               >
-//                 <Card className="border-0 shadow-lg hover:shadow-xl transition-all h-full">
-//                   <CardContent className="p-8">
-//                     <div
-//                       className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl ${service.color} mb-6`}
-//                     >
-//                       {service.icon}
-//                     </div>
-
-//                     <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-//                     <p className="text-gray-600 mb-6">{service.description}</p>
-
-//                     <ul className="space-y-3">
-//                       {service.features.map((feature) => (
-//                         <li
-//                           key={feature}
-//                           className="flex items-center text-gray-600"
-//                         >
-//                           <CheckCircle className="w-5 h-5 text-emerald-500 mr-3 flex-shrink-0" />
-//                           {feature}
-//                         </li>
-//                       ))}
-//                     </ul>
-//                   </CardContent>
-//                 </Card>
-//               </motion.div>
-//             ))}
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* How It Works - Green Theme */}
-//       <section className="py-20 bg-emerald-50">
-//         <div className="container mx-auto px-4">
-//           <div className="text-center mb-16">
-//             <Badge className="mb-4 bg-green-100 text-green-800">
-//               HOW IT WORKS
-//             </Badge>
-//             <h2 className="text-4xl font-bold mb-4">
-//               Simple, Powerful, Sustainable
-//             </h2>
-//             <p className="text-gray-600 max-w-2xl mx-auto">
-//               Three simple steps to transform your eco travel experience
-//             </p>
-//           </div>
-
-//           <div className="grid md:grid-cols-3 gap-8">
-//             <div className="text-center">
-//               <div className="relative">
-//                 <div className="w-20 h-20 rounded-full bg-linear-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">
-//                   1
-//                 </div>
-//                 <div className="hidden md:block absolute top-10 right-0 w-full h-0.5 bg-linear-to-r from-emerald-500 to-teal-500 transform translate-x-1/2"></div>
-//               </div>
-//               <h3 className="text-xl font-bold mb-3">Create & Customize</h3>
-//               <p className="text-gray-600">
-//                 Build your eco travel profile with sustainable interests and
-//                 green preferences
-//               </p>
-//             </div>
-
-//             <div className="text-center">
-//               <div className="relative">
-//                 <div className="w-20 h-20 rounded-full bg-linear-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">
-//                   2
-//                 </div>
-//                 <div className="hidden md:block absolute top-10 right-0 w-full h-0.5 bg-linear-to-r from-emerald-500 to-teal-500 transform translate-x-1/2"></div>
-//               </div>
-//               <h3 className="text-xl font-bold mb-3">Discover & Connect</h3>
-//               <p className="text-gray-600">
-//                 Find perfect eco travel matches using our advanced AI algorithms
-//               </p>
-//             </div>
-
-//             <div className="text-center">
-//               <div className="w-20 h-20 rounded-full bg-linear-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">
-//                 3
-//               </div>
-//               <h3 className="text-xl font-bold mb-3">
-//                 Travel & Share Sustainably
-//               </h3>
-//               <p className="text-gray-600">
-//                 Plan green trips together, share eco experiences, and create
-//                 sustainable memories
-//               </p>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* CTA - Green Theme */}
-//       <section className="py-20">
-//         <div className="container mx-auto px-4">
-//           <Card className="border-0 shadow-2xl bg-linear-to-r from-emerald-600 to-teal-600 overflow-hidden">
-//             <div className="grid lg:grid-cols-2">
-//               <div className="p-12 text-white">
-//                 <h2 className="text-4xl font-bold mb-6">
-//                   Ready to Transform Your Travels Sustainably?
-//                 </h2>
-//                 <p className="text-xl text-emerald-100 mb-8">
-//                   Join thousands of eco travelers who have found their perfect
-//                   green companions and created sustainable memories together.
-//                 </p>
-
-//                 <div className="space-y-4">
-//                   <div className="flex items-center">
-//                     <CheckCircle className="w-6 h-6 mr-3" />
-//                     <span>7-day free eco trial</span>
-//                   </div>
-//                   <div className="flex items-center">
-//                     <CheckCircle className="w-6 h-6 mr-3" />
-//                     <span>No credit card required</span>
-//                   </div>
-//                   <div className="flex items-center">
-//                     <CheckCircle className="w-6 h-6 mr-3" />
-//                     <span>Cancel anytime</span>
-//                   </div>
-//                 </div>
-//               </div>
-
-//               <div className="p-12 bg-white">
-//                 <div className="max-w-md">
-//                   <h3 className="text-2xl font-bold mb-6">
-//                     Start Your Green Journey Today
-//                   </h3>
-
-//                   <div className="space-y-4">
-//                     <Link href="/register">
-//                       <Button
-//                         size="lg"
-//                         className="w-full gap-3 py-6 text-lg bg-linear-to-r from-emerald-500 to-teal-500"
-//                       >
-//                         <Leaf className="w-6 h-6" />
-//                         Start Free Eco Trial
-//                       </Button>
-//                     </Link>
-
-//                     <Link href="#pricing">
-//                       <Button
-//                         variant="outline"
-//                         className="w-full gap-3 py-6 text-lg"
-//                       >
-//                         Compare All Green Plans
-//                       </Button>
-//                     </Link>
-
-//                     <div className="text-center text-sm text-gray-500 mt-4">
-//                       Already have an eco account?{" "}
-//                       <Link
-//                         href="/login"
-//                         className="text-emerald-600 font-medium"
-//                       >
-//                         Sign in
-//                       </Link>
-//                     </div>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           </Card>
-//         </div>
-//       </section>
-//     </div>
-//   );
-// }
-
-import React from "react";
-
-const page = () => {
-  return <div>page</div>;
+export const metadata: Metadata = {
+  title: "Our Services - Join My Trip",
+  description:
+    "Discover all the features and services that make finding your perfect travel companion easy and safe.",
 };
 
-export default page;
+export default function ServicesPage() {
+  return (
+    <div className="min-h-screen">
+      {/* 1. Hero Section */}
+      <section className="relative py-24 bg-linear-to-br from-primary/10 via-background to-primary/5 overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <Badge className="mb-6" variant="secondary">
+              Our Services
+            </Badge>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+              Everything You Need for the
+              <span className="text-primary"> Perfect Trip</span>
+            </h1>
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              From finding your ideal travel buddy to planning every detail of
+              your adventure, we have got you covered with comprehensive tools
+              and features.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/register">
+                <Button size="lg" className="h-12">
+                  Get Started Free
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+              <Link href="/travel-plans">
+                <Button size="lg" variant="outline" className="h-12">
+                  Browse Travel Plans
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+      </section>
+
+      {/* 2. Core Services */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Core Services
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Powerful features designed to make your travel experience seamless
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {[
+              {
+                icon: Search,
+                title: "Smart Traveler Matching",
+                description:
+                  "Our intelligent algorithm matches you with compatible travelers based on interests, destinations, and travel style.",
+                color: "text-blue-500 bg-blue-50 dark:bg-blue-900/20",
+              },
+              {
+                icon: Calendar,
+                title: "Trip Planning Tools",
+                description:
+                  "Create detailed itineraries, manage bookings, and collaborate with your travel buddies all in one place.",
+                color: "text-green-500 bg-green-50 dark:bg-green-900/20",
+              },
+              {
+                icon: MessageCircle,
+                title: "Real-time Chat",
+                description:
+                  "Secure in-app messaging to connect with potential travel companions before and during your trip.",
+                color: "text-purple-500 bg-purple-50 dark:bg-purple-900/20",
+              },
+              {
+                icon: UserCheck,
+                title: "Profile Verification",
+                description:
+                  "Multi-step verification process ensures you're connecting with genuine, trustworthy travelers.",
+                color: "text-orange-500 bg-orange-50 dark:bg-orange-900/20",
+              },
+              {
+                icon: Star,
+                title: "Reviews & Ratings",
+                description:
+                  "Read authentic reviews from real travelers and build your own reputation in the community.",
+                color: "text-yellow-500 bg-yellow-50 dark:bg-yellow-900/20",
+              },
+              {
+                icon: MapPin,
+                title: "Destination Guides",
+                description:
+                  "Access comprehensive guides, local tips, and recommendations for destinations worldwide.",
+                color: "text-red-500 bg-red-50 dark:bg-red-900/20",
+              },
+            ].map((service, index) => (
+              <Card
+                key={index}
+                className="group border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+              >
+                <CardContent className="p-8">
+                  <div
+                    className={`w-14 h-14 rounded-2xl ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
+                  >
+                    <service.icon className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {service.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. How It Works Process */}
+      <section className="py-20 bg-accent/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              How Our Service Works
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Get started in three simple steps
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  step: "01",
+                  title: "Create Your Profile",
+                  description:
+                    "Sign up and tell us about your travel preferences, interests, and dream destinations.",
+                  icon: Users,
+                },
+                {
+                  step: "02",
+                  title: "Find or Create Trips",
+                  description:
+                    "Browse existing travel plans or create your own. Our algorithm will suggest perfect matches.",
+                  icon: Globe,
+                },
+                {
+                  step: "03",
+                  title: "Connect & Travel",
+                  description:
+                    "Chat with potential buddies, finalize plans, and embark on your adventure together!",
+                  icon: Heart,
+                },
+              ].map((item, index) => (
+                <div key={index} className="relative">
+                  <Card className="border-0 shadow-lg h-full">
+                    <CardContent className="p-8 text-center">
+                      <div className="mb-6">
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground text-2xl font-bold mb-4">
+                          {item.step}
+                        </div>
+                        <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
+                          <item.icon className="w-7 h-7" />
+                        </div>
+                      </div>
+                      <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {item.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                  {index < 2 && (
+                    <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">
+                      <ArrowRight className="w-8 h-8 text-primary/30" />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Premium Features */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <Badge className="mb-4" variant="default">
+              <Crown className="w-3 h-3 mr-1" /> Premium
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Premium Features
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Unlock advanced capabilities with our premium subscription
+            </p>
+          </div>
+
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[
+                {
+                  icon: Zap,
+                  title: "Priority Matching",
+                  description:
+                    "Get matched first with premium travelers and access exclusive trip opportunities.",
+                },
+                {
+                  icon: TrendingUp,
+                  title: "Advanced Filters",
+                  description:
+                    "Use advanced search filters to find exactly the right travel companion.",
+                },
+                {
+                  icon: Sparkles,
+                  title: "Verified Badge",
+                  description:
+                    "Stand out with a verified badge that builds trust and increases match rates.",
+                },
+                {
+                  icon: MessageCircle,
+                  title: "Unlimited Messaging",
+                  description:
+                    "Chat with unlimited travelers without any restrictions.",
+                },
+              ].map((feature, index) => (
+                <Card
+                  key={index}
+                  className="border-2 border-primary/20 shadow-lg hover:shadow-xl transition-all hover:scale-105"
+                >
+                  <CardContent className="p-8">
+                    <div className="flex items-start gap-4">
+                      <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-primary to-primary/60 text-white flex items-center justify-center">
+                        <feature.icon className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold mb-2">
+                          {feature.title}
+                        </h3>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {feature.description}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link href="/subscription">
+                <Button size="lg" className="h-12">
+                  <Crown className="w-4 h-4 mr-2" />
+                  Upgrade to Premium
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Safety & Security */}
+      <section className="py-20 bg-linear-to-br from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-medium text-sm">
+                  <Shield className="w-4 h-4" />
+                  Safety First
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold">
+                  Your Safety is Our Priority
+                </h2>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  We have built comprehensive safety features to ensure you can
+                  travel with confidence and peace of mind.
+                </p>
+
+                <div className="space-y-4">
+                  {[
+                    "Multi-step identity verification process",
+                    "Secure payment processing with encryption",
+                    "24/7 customer support and emergency assistance",
+                    "Community guidelines and moderation",
+                    "Privacy controls for your personal information",
+                    "Review and rating system for accountability",
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+                      <span className="text-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                {[
+                  {
+                    icon: Lock,
+                    title: "Secure Data",
+                    description: "Bank-level encryption",
+                  },
+                  {
+                    icon: UserCheck,
+                    title: "Verified Users",
+                    description: "100% verified profiles",
+                  },
+                  {
+                    icon: Shield,
+                    title: "Safe Payments",
+                    description: "Protected transactions",
+                  },
+                  {
+                    icon: Clock,
+                    title: "24/7 Support",
+                    description: "Always here to help",
+                  },
+                ].map((item, index) => (
+                  <Card key={index} className="border-0 shadow-lg">
+                    <CardContent className="p-6 text-center">
+                      <div className="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 text-green-600 flex items-center justify-center mx-auto mb-4">
+                        <item.icon className="w-6 h-6" />
+                      </div>
+                      <h3 className="font-bold mb-1">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {item.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Support Services */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Dedicated Support
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              We are here to help you every step of your journey
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                icon: MessageCircle,
+                title: "Live Chat",
+                description: "Get instant answers from our support team",
+                availability: "Available 24/7",
+              },
+              {
+                icon: Clock,
+                title: "Email Support",
+                description: "Detailed assistance for complex queries",
+                availability: "Response within 2 hours",
+              },
+              {
+                icon: Globe,
+                title: "Help Center",
+                description: "Browse FAQs and detailed guides",
+                availability: "Always accessible",
+              },
+            ].map((support, index) => (
+              <Card
+                key={index}
+                className="border-0 shadow-md hover:shadow-lg transition-shadow"
+              >
+                <CardContent className="p-8 text-center">
+                  <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-6">
+                    <support.icon className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">{support.title}</h3>
+                  <p className="text-muted-foreground mb-4">
+                    {support.description}
+                  </p>
+                  <Badge variant="secondary">{support.availability}</Badge>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Pricing Comparison */}
+      <section className="py-20 bg-accent/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Simple, Transparent Pricing
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Choose the plan that is right for you
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Free Plan */}
+            <Card className="border-2 border-border shadow-lg">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold mb-2">Free Plan</h3>
+                <div className="text-4xl font-bold mb-6">
+                  $0
+                  <span className="text-lg font-normal text-muted-foreground">
+                    /month
+                  </span>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  {[
+                    "Browse unlimited travel plans",
+                    "Create up to 3 trips per month",
+                    "Basic matching algorithm",
+                    "Limited messaging",
+                    "Community access",
+                  ].map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/register">
+                  <Button variant="outline" className="w-full" size="lg">
+                    Get Started
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Premium Plan */}
+            <Card className="border-2 border-primary shadow-2xl relative">
+              <div className="absolute top-0 right-0 bg-primary text-primary-foreground px-4 py-1 text-sm font-medium rounded-bl-lg">
+                Popular
+              </div>
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold mb-2 flex items-center gap-2">
+                  <Crown className="w-6 h-6 text-primary" />
+                  Premium Plan
+                </h3>
+                <div className="text-4xl font-bold mb-6">
+                  $9.99
+                  <span className="text-lg font-normal text-muted-foreground">
+                    /month
+                  </span>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  {[
+                    "Everything in Free",
+                    "Unlimited trip creation",
+                    "Priority matching",
+                    "Unlimited messaging",
+                    "Verified badge",
+                    "Advanced filters",
+                    "Ad-free experience",
+                  ].map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                      <span className="font-medium">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/subscription">
+                  <Button className="w-full" size="lg">
+                    Upgrade Now
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. CTA Section */}
+      <section className="py-20 bg-linear-to-r from-primary to-primary/80 text-primary-foreground">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Ready to Find Your Travel Buddy?
+            </h2>
+            <p className="text-xl mb-8 opacity-90">
+              Join thousands of travelers already using our platform to create
+              unforgettable memories
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/register">
+                <Button size="lg" variant="secondary" className="h-12 px-8">
+                  Start Free Today
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+              <Link href="/contact-us">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="h-12 px-8 border-white/20 hover:bg-white/10"
+                >
+                  Contact Sales
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

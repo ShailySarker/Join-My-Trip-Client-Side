@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { Users, Search } from "lucide-react";
+import { Users } from "lucide-react";
 import Link from "next/link";
 
 export default function TravelBuddiesCTA() {
   return (
-    <section className="py-24 bg-primary/5 dark:bg-primary/10 relative overflow-hidden">
+    <section className="py-24 bg-primary/20 dark:bg-primary/10 relative overflow-hidden">
       {/* Decorative blobs */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/30 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/30 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
 
       <div className="container relative z-10 px-4 mx-auto text-center">
         <div className="max-w-3xl mx-auto space-y-8">
@@ -26,13 +26,12 @@ export default function TravelBuddiesCTA() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link href="/dashboard/explore-travelers">
+            <Link href="/explore-travelers">
               <Button size="lg" className="h-14 px-8 text-lg rounded-full">
                 Find Buddies
-                <Search className="ml-2 w-5 h-5" />
               </Button>
             </Link>
-            <Link href="/auth/register">
+            <Link href="/register">
               <Button
                 size="lg"
                 variant="outline"

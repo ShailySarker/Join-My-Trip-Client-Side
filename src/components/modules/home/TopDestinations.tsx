@@ -1,43 +1,20 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, ArrowRight } from "lucide-react";
+import { MapPin, ArrowRight, Calendar } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { ITravelPlan } from "@/types/travelPlan.interface";
+import { IUser } from "@/types/user.interface";
 
-const destinations = [
-  {
-    city: "Cox's Bazar",
-    country: "Bangladesh",
-    image: "https://images.unsplash.com/photo-1629814457223-2882798e3df3?q=80&w=2070&auto=format&fit=crop",
-    activeTravelers: 45,
-    tags: ["Beach", "Relaxation"],
-  },
-  {
-    city: "Sylhet",
-    country: "Bangladesh",
-    image: "https://images.unsplash.com/photo-1629252327045-38c3563919b6?q=80&w=2070&auto=format&fit=crop",
-    activeTravelers: 32,
-    tags: ["Nature", "Tea Gardens"],
-  },
-  {
-    city: "Bandarban",
-    country: "Bangladesh",
-    image: "https://images.unsplash.com/photo-1594916895315-779836365f5a?q=80&w=1974&auto=format&fit=crop",
-    activeTravelers: 28,
-    tags: ["Mountains", "Adventure"],
-  },
-  {
-    city: "Saint Martin's",
-    country: "Bangladesh",
-    image: "https://images.unsplash.com/photo-1625902347285-88a4b27424ad?q=80&w=2070&auto=format&fit=crop",
-    activeTravelers: 56,
-    tags: ["Island", "Blue Water"],
-  },
-];
-
-export default function TopDestinations() {
+export default function TopDestinations({
+  travelPlan,
+  userInfo,
+}: {
+  travelPlan: ITravelPlan[];
+  userInfo: IUser;
+}) {
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20">
       <div className="container px-4 mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
           <div className="space-y-4">
@@ -45,48 +22,113 @@ export default function TopDestinations() {
               Popular Destinations
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl">
-              Discover the most sought-after locations where our community is traveling right now.
+              Discover the most sought-after locations where our community is
+              traveling right now.
             </p>
           </div>
-          <Link href="/travel-plans?sort=popular" className="group flex items-center gap-2 text-primary font-semibold hover:underline">
-            View All Destinations
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </Link>
+          {userInfo?.role === "ADMIN" || userInfo?.role === "SUPER_ADMIN" ? (
+            <Link
+              href="/manage-travel-plans"
+              className="group flex items-center gap-2 text-primary font-semibold hover:underline"
+            >
+              Manage Travel Plans
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          ) : userInfo?.role === "USER" ? (
+            <Link
+              href="/my-travel-plans"
+              className="group flex items-center gap-2 text-primary font-semibold hover:underline"
+            >
+              Explore All Travel Plans
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          ) : (
+            <Link
+              href="/travel-plans"
+              className="group flex items-center gap-2 text-primary font-semibold hover:underline"
+            >
+              View All Travel Plans
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {destinations.map((dest, index) => (
-            <Link href={`/travel-plans?search=${dest.city}`} key={index}>
-              <Card className="group overflow-hidden border-0 shadow-lg h-full">
-                <CardContent className="p-0 relative h-[300px]">
+          {travelPlan.map((dest) => (
+            <Link href={`/travel-plans/${dest._id}`} key={dest._id}>
+              <Card className="group overflow-hidden py-0 border-0 shadow-lg hover:shadow-2xl transition-all duration-300 h-full bg-card rounded-2xl">
+                {/* Image Container */}
+                <div className="relative h-[280px] w-full overflow-hidden">
                   <Image
                     src={dest.image}
-                    alt={dest.city}
+                    alt={dest.destination.city}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90" />
-                  
-                  <div className="absolute bottom-0 left-0 p-6 w-full text-white">
-                    <div className="flex items-center gap-2 mb-2">
-                       <Badge variant="secondary" className="bg-white/20 text-white hover:bg-white/30 border-0 backdrop-blur-md">
-                        {dest.activeTravelers} Travelers
-                       </Badge>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-60" />
+
+                  {/* Floating Badges */}
+                  <div className="absolute top-4 left-4">
+                    <Badge className="bg-white/90 text-black backdrop-blur-md shadow-sm hover:bg-white px-3 py-1 text-xs font-semibold">
+                      {dest.travelType}
+                    </Badge>
+                  </div>
+
+                  <div className="absolute top-4 right-4">
+                    <Badge className="bg-primary/90 text-primary-foreground backdrop-blur-md shadow-sm">
+                      {dest.budget} BDT
+                    </Badge>
+                  </div>
+
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <div className="flex items-center gap-1 text-sm font-medium text-gray-200 mb-1">
+                      <MapPin className="w-3.5 h-3.5" />
+                      {dest.destination.city}, {dest.destination.country}
                     </div>
-                    <h3 className="text-2xl font-bold mb-1 group-hover:text-primary transition-colors">
-                      {dest.city}
-                    </h3>
-                    <div className="flex items-center gap-1 text-gray-300 text-sm mb-3">
-                      <MapPin className="w-4 h-4" />
-                      {dest.country}
+                  </div>
+                </div>
+
+                {/* Content Container */}
+                <CardContent className="p-5 space-y-3">
+                  <h3 className="text-xl font-bold leading-tight group-hover:text-primary transition-colors line-clamp-1">
+                    {dest.title}
+                  </h3>
+
+                  <div className="flex items-center justify-between text-sm text-muted-foreground">
+                    <div className="flex items-center gap-1.5 bg-muted/50 px-2.5 py-1 rounded-full">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <span>
+                        {new Date(dest.startDate).toLocaleDateString(
+                          undefined,
+                          { month: "short", day: "numeric" }
+                        )}
+                      </span>
                     </div>
-                    <div className="flex gap-2">
-                      {dest.tags.map((tag) => (
-                         <span key={tag} className="text-xs bg-white/10 px-2 py-1 rounded-full backdrop-blur-sm">
-                           {tag}
-                         </span>
-                      ))}
+                    <div className="flex items-center gap-1.5">
+                      <div className="flex -space-x-2">
+                        {/* Placeholder avatars or real ones if available */}
+                        <div className="w-6 h-6 rounded-full bg-gray-200 border-2 border-white dark:border-gray-800 flex items-center justify-center text-[10px] font-bold">
+                          {dest.participants?.length || 0}
+                        </div>
+                      </div>
+                      <span className="text-xs font-medium">Joined</span>
                     </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {dest.interests?.slice(0, 2).map((tag, idx) => (
+                      <span
+                        key={idx}
+                        className="text-[10px] uppercase tracking-wider bg-secondary/50 text-secondary-foreground px-2 py-1 rounded-md font-medium"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                    {dest.interests?.length > 2 && (
+                      <span className="text-[10px] bg-secondary/30 px-2 py-1 rounded-md text-muted-foreground">
+                        +More
+                      </span>
+                    )}
                   </div>
                 </CardContent>
               </Card>

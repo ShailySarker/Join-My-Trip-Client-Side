@@ -57,6 +57,7 @@ interface hostDetails {
   profilePhoto?: string;
 }
 export interface ITravelPlan {
+  _id?: string;
   // host: string; //user or admin id
   host: string | hostDetails;
   title: string;

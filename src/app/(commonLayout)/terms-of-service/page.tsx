@@ -27,7 +27,7 @@ export default function TermsPage() {
     { id: "accounts", title: "User Accounts" },
     { id: "content", title: "User Content" },
     { id: "conduct", title: "User Conduct" },
-    { id: "contact", title: "Contact Us" },
+    { id: "contact", title: "Know More" },
   ];
 
   return (

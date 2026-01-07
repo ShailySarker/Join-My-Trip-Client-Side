@@ -1,16 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Globe2 } from "lucide-react";
 import Link from "next/link";
+import banner from "@/assets/images/about-us-banner.avif";
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  stats?: {
+    activeTravelers: number;
+    totalTrips: number;
+    destinations?: number;
+  };
+}
+
+export default function HeroSection({ stats }: HeroSectionProps) {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-16">
       {/* Background with overlay */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop')",
+          backgroundImage: `url(${banner.src})`,
         }}
       >
         <div className="absolute inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-[2px]" />
@@ -55,15 +63,21 @@ export default function HeroSection() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-8 pt-16 border-t border-white/10 mt-16 max-w-3xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-1">500+</div>
+              <div className="text-3xl font-bold text-white mb-1">
+                {stats?.activeTravelers || "100"}+
+              </div>
               <div className="text-sm text-gray-300">Active Travelers</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-1">100+</div>
+              <div className="text-3xl font-bold text-white mb-1">
+                {stats?.destinations || "20"}+
+              </div>
               <div className="text-sm text-gray-300">Destinations</div>
             </div>
             <div className="text-center col-span-2 md:col-span-1">
-              <div className="text-3xl font-bold text-white mb-1">1k+</div>
+              <div className="text-3xl font-bold text-white mb-1">
+                {stats?.totalTrips || "25"}+
+              </div>
               <div className="text-sm text-gray-300">Successful Trips</div>
             </div>
           </div>

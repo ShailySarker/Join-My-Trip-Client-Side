@@ -17,8 +17,8 @@ export default function Testimonials({ reviews = [] }: { reviews?: Review[] }) {
   if (reviews.length === 0) return null;
 
   return (
-    <section className="py-24 bg-muted/30">
-      <div className="container px-4 mx-auto">
+    <section className="py-24">
+      <div className="container mx-auto">
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold">Success Stories</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -33,7 +33,7 @@ export default function Testimonials({ reviews = [] }: { reviews?: Review[] }) {
               className="border-none shadow-md hover:shadow-xl transition-shadow duration-300"
             >
               <CardContent className="p-8 space-y-6">
-                <Quote className="w-10 h-10 text-primary/20" />
+                <Quote className="w-10 h-10 text-primary" />
                 <p className="text-muted-foreground italic text-lg leading-relaxed line-clamp-4">
                   "{review.comment}"
                 </p>
