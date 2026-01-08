@@ -19,6 +19,7 @@ import { getAllUsers } from "@/services/user/userService";
 import { getAllTravelPlansPublic } from "@/services/travelPlans/travelPlans.service";
 import banner from "@/assets/images/about-us-banner.avif";
 import { Card, CardContent } from "@/components/ui/card";
+import { getUserInfo } from "@/services/auth/getUserInfo";
 
 export const metadata: Metadata = {
   title: "About Us - Join My Trip",
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutUsPage() {
+  const userInfo = await getUserInfo();
   const [usersData, tripsData] = await Promise.all([
     getAllUsers({ limit: "1" }).catch(() => null),
     getAllTravelPlansPublic({ limit: "1" }).catch(() => null),
@@ -87,7 +89,7 @@ export default async function AboutUsPage() {
       </section>
 
       {/* 2. Mission & Vision */}
-      <section className="py-20 bg-accent/30">
+      <section className="py-20 bg-primary/30">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -126,7 +128,7 @@ export default async function AboutUsPage() {
       </section>
 
       {/* 3. Core Values */}
-      <section className="pb-24 bg-background pt-20">
+      <section className="pb-24 pt-20">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -183,7 +185,7 @@ export default async function AboutUsPage() {
 
       {/* 4. Stats Section */}
       <section className="py-24 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Our Impact in Numbers
@@ -206,7 +208,7 @@ export default async function AboutUsPage() {
               <div className="opacity-80">Trips Planned</div>
             </div>
             <div>
-              <div className="text-5xl font-bold mb-2">150+</div>
+              <div className="text-5xl font-bold mb-2">5+</div>
               <div className="opacity-80">Countries</div>
             </div>
             <div>
@@ -218,8 +220,8 @@ export default async function AboutUsPage() {
       </section>
 
       {/* 5. Team/Culture Section */}
-      <section className="py-20 bg-accent/30">
-        <div className="container mx-auto px-4">
+      <section className="py-20">
+        <div className="container mx-auto">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
@@ -279,23 +281,23 @@ export default async function AboutUsPage() {
       </section>
 
       {/* 6. Why We're Different */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="py-20 bg-primary/30">
+        <div className="container mx-auto px-8">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               What Makes Us Different
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-accent-foreground text-lg">
               We're not just another travel booking platform—we're a community
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-6xl mx-auto">
             {[
               {
                 title: "Intelligent Matching",
                 description:
-                  "Our AI-powered algorithm doesn't just match destinations—it considers interests, travel style, personality, and preferences to find your ideal companion.",
+                  "Our superior matching filtering doesn't just match destinations—it considers interests, travel style, personality, and preferences to find your ideal companion.",
               },
               {
                 title: "Verified Community",
@@ -337,8 +339,8 @@ export default async function AboutUsPage() {
       </section>
 
       {/* 7. Community Impact Stories */}
-      <section className="py-20 bg-linear-to-br from-primary/5 to-primary/10">
-        <div className="container mx-auto px-4">
+      <section className="py-20">
+        <div className="container mx-auto">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Real Stories from Our Community
@@ -384,7 +386,7 @@ export default async function AboutUsPage() {
 
       {/* 8. CTA Section */}
       <section className="py-20 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Ready to Start Your Journey?
@@ -396,19 +398,45 @@ export default async function AboutUsPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/register">
                 <Button size="lg" variant="secondary" className="h-12 px-8">
-                  Join Free Today
-                  <ArrowRight className="ml-2 w-4 h-4" />
+                  Join Today
+                  <ArrowRight className=" w-4 h-4" />
                 </Button>
               </Link>
-              <Link href="/travel-plans">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="h-12 px-8 border-white/20 hover:bg-white/10"
-                >
-                  Explore Trips
-                </Button>
-              </Link>
+              {userInfo?.role === "ADMIN" ||
+              userInfo?.role === "SUPER_ADMIN" ? (
+                <Link href="/manage-travel-plans">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="h-12 px-8 text-primary border-white/20 hover:bg-white/10"
+                  >
+                    Manage Travel Plan
+                    <ArrowRight className=" w-4 h-4" />
+                  </Button>
+                </Link>
+              ) : userInfo?.role === "USER" ? (
+                <Link href="/explore-travel-plans">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="h-12 px-8 text-primary border-white/20 hover:bg-white/10"
+                  >
+                    Explore Travel Plans
+                    <ArrowRight className=" w-4 h-4" />
+                  </Button>
+                </Link>
+              ) : (
+                <Link href="/travel-plans">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="h-12 px-8 text-primary border-white/20 hover:bg-white/10"
+                  >
+                    Explore Travel
+                    <ArrowRight className=" w-4 h-4" />
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         </div>
