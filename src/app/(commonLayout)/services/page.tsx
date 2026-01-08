@@ -22,7 +22,9 @@ import {
   Zap,
   Crown,
   ArrowRight,
+  Contact,
 } from "lucide-react";
+import { getUserInfo } from "@/services/auth/getUserInfo";
 
 export const metadata: Metadata = {
   title: "Our Services - Join My Trip",
@@ -30,12 +32,13 @@ export const metadata: Metadata = {
     "Discover all the features and services that make finding your perfect travel companion easy and safe.",
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const userInfo = await getUserInfo();
   return (
     <div className="min-h-screen">
       {/* 1. Hero Section */}
-      <section className="relative py-24 bg-linear-to-br from-primary/10 via-background to-primary/5 overflow-hidden">
-        <div className="container mx-auto px-4">
+      <section className="relative py-24 bg-linear-to-br from-primary/80 via-background to-primary/80 overflow-hidden">
+        <div className="container mx-auto">
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="mb-6" variant="secondary">
               Our Services
@@ -50,17 +53,49 @@ export default function ServicesPage() {
               and features.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/register">
-                <Button size="lg" className="h-12">
-                  Get Started Free
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-              <Link href="/travel-plans">
-                <Button size="lg" variant="outline" className="h-12">
-                  Browse Travel Plans
-                </Button>
-              </Link>
+              {userInfo?.role === "ADMIN" ||
+              userInfo?.role === "SUPER_ADMIN" ? (
+                <Link href="/admin/dashboard">
+                  <Button size="lg" className="h-12">
+                    Go to Dashboard
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              ) : userInfo?.role === "USER" ? (
+                <Link href="/dashboard">
+                  <Button size="lg" className="h-12">
+                    Go to Dashboard
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              ) : (
+                <Link href="/register">
+                  <Button size="lg" className="h-12">
+                    Get Started Now
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              )}
+              {userInfo?.role === "ADMIN" ||
+              userInfo?.role === "SUPER_ADMIN" ? (
+                <Link href="/manage-travel-plans">
+                  <Button size="lg" variant="outline" className="h-12">
+                    Browse Travel Plans
+                  </Button>
+                </Link>
+              ) : userInfo?.role === "USER" ? (
+                <Link href="/explore-travel-plans">
+                  <Button size="lg" variant="outline" className="h-12">
+                    Browse Travel Plans
+                  </Button>
+                </Link>
+              ) : (
+                <Link href="/travel-plans">
+                  <Button size="lg" variant="outline" className="h-12">
+                    Browse Travel Plans
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -71,8 +106,8 @@ export default function ServicesPage() {
       </section>
 
       {/* 2. Core Services */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="py-20">
+        <div className="container mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Core Services
@@ -102,7 +137,7 @@ export default function ServicesPage() {
                 icon: MessageCircle,
                 title: "Real-time Chat",
                 description:
-                  "Secure in-app messaging to connect with potential travel companions before and during your trip.",
+                  "Secure in-app messaging (coming soon) to connect with potential travel companions before and during your trip.",
                 color: "text-purple-500 bg-purple-50 dark:bg-purple-900/20",
               },
               {
@@ -155,7 +190,7 @@ export default function ServicesPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               How Our Service Works
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-ascent-foreground text-lg">
               Get started in three simple steps
             </p>
           </div>
@@ -192,9 +227,9 @@ export default function ServicesPage() {
                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground text-2xl font-bold mb-4">
                           {item.step}
                         </div>
-                        <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
+                        {/* <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
                           <item.icon className="w-7 h-7" />
-                        </div>
+                        </div> */}
                       </div>
                       <h3 className="text-xl font-bold mb-3">{item.title}</h3>
                       <p className="text-muted-foreground leading-relaxed">
@@ -215,8 +250,8 @@ export default function ServicesPage() {
       </section>
 
       {/* 4. Premium Features */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="py-20">
+        <div className="container mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <Badge className="mb-4" variant="default">
               <Crown className="w-3 h-3 mr-1" /> Premium
@@ -252,9 +287,9 @@ export default function ServicesPage() {
                 },
                 {
                   icon: MessageCircle,
-                  title: "Unlimited Messaging",
+                  title: "Create New Travel Plan",
                   description:
-                    "Chat with unlimited travelers without any restrictions.",
+                    "Create your own travel plan and share it with others.",
                 },
               ].map((feature, index) => (
                 <Card
@@ -293,7 +328,7 @@ export default function ServicesPage() {
       </section>
 
       {/* 5. Safety & Security */}
-      <section className="py-20 bg-linear-to-br from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20">
+      <section className="py-20 bg-accent/30">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -320,7 +355,7 @@ export default function ServicesPage() {
                     "Review and rating system for accountability",
                   ].map((item, index) => (
                     <div key={index} className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+                      <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                       <span className="text-foreground">{item}</span>
                     </div>
                   ))}
@@ -352,7 +387,7 @@ export default function ServicesPage() {
                 ].map((item, index) => (
                   <Card key={index} className="border-0 shadow-lg">
                     <CardContent className="p-6 text-center">
-                      <div className="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 text-green-600 flex items-center justify-center mx-auto mb-4">
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
                         <item.icon className="w-6 h-6" />
                       </div>
                       <h3 className="font-bold mb-1">{item.title}</h3>
@@ -369,8 +404,8 @@ export default function ServicesPage() {
       </section>
 
       {/* 6. Support Services */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="py-20">
+        <div className="container mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Dedicated Support
@@ -421,94 +456,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 7. Pricing Comparison */}
-      <section className="py-20 bg-accent/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Simple, Transparent Pricing
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Choose the plan that is right for you
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Free Plan */}
-            <Card className="border-2 border-border shadow-lg">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-2">Free Plan</h3>
-                <div className="text-4xl font-bold mb-6">
-                  $0
-                  <span className="text-lg font-normal text-muted-foreground">
-                    /month
-                  </span>
-                </div>
-                <ul className="space-y-3 mb-8">
-                  {[
-                    "Browse unlimited travel plans",
-                    "Create up to 3 trips per month",
-                    "Basic matching algorithm",
-                    "Limited messaging",
-                    "Community access",
-                  ].map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/register">
-                  <Button variant="outline" className="w-full" size="lg">
-                    Get Started
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* Premium Plan */}
-            <Card className="border-2 border-primary shadow-2xl relative">
-              <div className="absolute top-0 right-0 bg-primary text-primary-foreground px-4 py-1 text-sm font-medium rounded-bl-lg">
-                Popular
-              </div>
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-2 flex items-center gap-2">
-                  <Crown className="w-6 h-6 text-primary" />
-                  Premium Plan
-                </h3>
-                <div className="text-4xl font-bold mb-6">
-                  $9.99
-                  <span className="text-lg font-normal text-muted-foreground">
-                    /month
-                  </span>
-                </div>
-                <ul className="space-y-3 mb-8">
-                  {[
-                    "Everything in Free",
-                    "Unlimited trip creation",
-                    "Priority matching",
-                    "Unlimited messaging",
-                    "Verified badge",
-                    "Advanced filters",
-                    "Ad-free experience",
-                  ].map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span className="font-medium">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/subscription">
-                  <Button className="w-full" size="lg">
-                    Upgrade Now
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
       {/* 8. CTA Section */}
       <section className="py-20 bg-linear-to-r from-primary to-primary/80 text-primary-foreground">
         <div className="container mx-auto px-4">
@@ -521,19 +468,37 @@ export default function ServicesPage() {
               unforgettable memories
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/register">
-                <Button size="lg" variant="secondary" className="h-12 px-8">
-                  Start Free Today
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
+              {userInfo?.role === "ADMIN" ||
+              userInfo?.role === "SUPER_ADMIN" ? (
+                <Link href="/admin/dashboard">
+                  <Button size="lg" variant="secondary" className="h-12 px-8">
+                    Dashboard Overview
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              ) : userInfo?.role === "USER" ? (
+                <Link href="/dashboard">
+                  <Button size="lg" variant="secondary" className="h-12 px-8">
+                    Dashboard Overview
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              ) : (
+                <Link href="/register">
+                  <Button size="lg" variant="secondary" className="h-12 px-8">
+                    Start Now
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              )}
               <Link href="/contact-us">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="h-12 px-8 border-white/20 hover:bg-white/10"
+                  className="h-12 px-8 text-primary border-white/20 hover:bg-white/10"
                 >
-                  Contact Sales
+                  Contact Us
+                  <Contact className="w-4 h-4" />
                 </Button>
               </Link>
             </div>
