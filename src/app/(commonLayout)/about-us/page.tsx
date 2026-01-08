@@ -404,7 +404,7 @@ export default async function AboutUsPage() {
               </Link>
               {userInfo?.role === "ADMIN" ||
               userInfo?.role === "SUPER_ADMIN" ? (
-                <Link href="/manage-travel-plans">
+                <Link href="/admin/dashboard/manage-travel-plans">
                   <Button
                     size="lg"
                     variant="outline"

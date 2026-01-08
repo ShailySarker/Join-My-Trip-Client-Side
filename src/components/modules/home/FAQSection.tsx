@@ -80,7 +80,7 @@ export default function FAQSection() {
                   Still have questions? We're here to help!
                 </p>
                 <Link href="/faq">
-                  <Button variant="outline">View All FAQs</Button>
+                  <Button variant="default">View All FAQs</Button>
                 </Link>
               </div>
             </CardContent>

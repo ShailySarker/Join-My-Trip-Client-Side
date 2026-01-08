@@ -33,9 +33,9 @@ const features = [
   },
   {
     icon: Heart,
-    title: "Match Algorithm",
+    title: "Find Your Buddy",
     description:
-      "Smart matching based on interests, travel style, and preferences.",
+      "Based on your preferences, filter on interests, travel style, and preferences.",
     color: "text-red-500 bg-red-50 dark:bg-red-900/20",
   },
   {

@@ -15,7 +15,8 @@ const Navbar = async () => {
   const menuItems = {
     LOGGED_OUT: [
       { label: "Explore Travelers", href: "/explore-travelers" },
-      { label: "Find Travel Buddy", href: "/find-travel-buddy" },
+      { label: "Explore Travel Plans", href: "/travel-plans" },
+      // { label: "Find Travel Buddy", href: "/find-travel-buddy" },
       { label: "About Us", href: "/about-us" },
       { label: "Subscription", href: "/subscription" },
     ],

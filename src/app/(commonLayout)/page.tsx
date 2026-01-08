@@ -47,7 +47,7 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* 1. Hero Section with CTA */}
-      <HeroSection />
+      <HeroSection userInfo={userInfo} />
 
       {/* 2. Popular Destinations */}
       <TopDestinations travelPlan={travelPlans} userInfo={userInfo} />

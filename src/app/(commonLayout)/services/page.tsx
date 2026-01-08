@@ -78,7 +78,7 @@ export default async function ServicesPage() {
               )}
               {userInfo?.role === "ADMIN" ||
               userInfo?.role === "SUPER_ADMIN" ? (
-                <Link href="/manage-travel-plans">
+                <Link href="/admin/dashboard/manage-travel-plans">
                   <Button size="lg" variant="outline" className="h-12">
                     Browse Travel Plans
                   </Button>

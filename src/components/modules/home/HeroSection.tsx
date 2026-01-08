@@ -2,18 +2,23 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Globe2 } from "lucide-react";
 import Link from "next/link";
 import banner from "@/assets/images/about-us-banner.avif";
+import { IUser } from "@/types/user.interface";
 
-interface HeroSectionProps {
-  stats?: {
-    activeTravelers: number;
-    totalTrips: number;
-    destinations?: number;
-  };
+interface stats {
+  activeTravelers: number;
+  totalTrips: number;
+  destinations?: number;
 }
 
-export default function HeroSection({ stats }: HeroSectionProps) {
+export default function HeroSection({
+  stats,
+  userInfo,
+}: {
+  stats?: stats;
+  userInfo?: IUser;
+}) {
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-0">
       {/* Background with overlay */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
@@ -28,9 +33,7 @@ export default function HeroSection({ stats }: HeroSectionProps) {
         <div className="animate-fade-in-up space-y-6 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
             Find Your Perfect <br />
-            {/* <span className="text-transparent bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-teal-400"> */}
             Travel Buddy
-            {/* </span> */}
           </h1>
 
           <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed">
@@ -40,28 +43,74 @@ export default function HeroSection({ stats }: HeroSectionProps) {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-            <Link href="/travel-plans">
-              <Button
-                size="lg"
-                className="w-full sm:w-auto text-lg h-12 px-8 rounded-full bg-primary hover:bg-primary/90"
-              >
-                Start Exploring
-                <Globe2 className="h-5 w-5" />
-              </Button>
-            </Link>
-            <Link href="/dashboard/my-travel-plans/create">
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto text-lg h-12 px-10 rounded-full  backdrop-blur-sm text-primary"
-              >
-                Create Plan
-                <ArrowRight className="h-5 w-5" />
-              </Button>
-            </Link>
+            {userInfo?.role === "ADMIN" || userInfo?.role === "SUPER_ADMIN" ? (
+              <Link href="/admin/dashboard/manage-travel-plans">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto text-lg h-12 px-8 rounded-full bg-primary hover:bg-primary/90"
+                >
+                  Manage Travel Plans
+                  <Globe2 className="h-5 w-5" />
+                </Button>
+              </Link>
+            ) : userInfo?.role === "USER" ? (
+              <Link href="/dashboard/explore-travel-plans">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto text-lg h-12 px-8 rounded-full bg-primary hover:bg-primary/90"
+                >
+                  Explore Travel Plan
+                  <Globe2 className="h-5 w-5" />
+                </Button>
+              </Link>
+            ) : (
+              <Link href="/travel-plans">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto text-lg h-12 px-8 rounded-full bg-primary hover:bg-primary/90"
+                >
+                  Explore Travel Plan
+                  <Globe2 className="h-5 w-5" />
+                </Button>
+              </Link>
+            )}
+
+            {userInfo?.role === "ADMIN" || userInfo?.role === "SUPER_ADMIN" ? (
+              <Link href="/admin/dashboard/manage-travelers">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto text-lg h-12 px-8 rounded-full bg-primary hover:bg-primary/90"
+                >
+                  View Travelers
+                  <Globe2 className="h-5 w-5" />
+                </Button>
+              </Link>
+            ) : userInfo?.role === "USER" ? (
+              <Link href="/dashboard/my-travel-plans/create">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto text-lg h-12 px-10 rounded-full  backdrop-blur-sm text-primary"
+                >
+                  Create Plan
+                  <ArrowRight className="h-5 w-5" />
+                </Button>
+              </Link>
+            ) : (
+              <Link href="/explore-travelers">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto text-lg h-12 px-10 rounded-full  backdrop-blur-sm text-primary"
+                >
+                  Explore Travelers
+                  <ArrowRight className="h-5 w-5" />
+                </Button>
+              </Link>
+            )}
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 pt-16 border-t border-white/10 mt-16 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 pt-5 border-t border-white/10 mt-16 max-w-3xl mx-auto">
             <div className="text-center">
               <div className="text-3xl font-bold text-white mb-1">
                 {stats?.activeTravelers || "100"}+

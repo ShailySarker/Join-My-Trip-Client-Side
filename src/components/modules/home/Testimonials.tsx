@@ -38,7 +38,7 @@ export default function Testimonials({ reviews = [] }: { reviews?: Review[] }) {
                   "{review.comment}"
                 </p>
                 <div className="flex items-center gap-4 pt-4 border-t">
-                  <Avatar className="w-12 h-12 border-2 border-primary/20">
+                  <Avatar className="w-12 h-12 border-2 border-primary">
                     <AvatarImage src={review.reviewerId?.profilePhoto} />
                     <AvatarFallback>
                       {review.reviewerId?.fullname?.[0] || "?"}
