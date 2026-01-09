@@ -101,7 +101,7 @@ export const createTravelPlanSchema = baseTravelPlanSchema
     (data) => {
       const start = new Date(data.startDate);
       const minDate = new Date();
-      minDate.setDate(minDate.getDate() + 0); // 7 days from today
+      minDate.setDate(minDate.getDate() + 7); // 7 days from today
       minDate.setHours(0, 0, 0, 0);
       return start >= minDate;
     },
@@ -117,20 +117,20 @@ export const updateTravelPlanSchema = z
     title: z
       .string({ message: "Title is required" })
       .min(5, "Title must be at least 5 characters")
-      .max(200, "Title is too long")
-      .optional(),
+      .max(200, "Title is too long"),
+    // .optional(),
     description: z
       .string({ message: "Description is required" })
       .min(20, "Description must be at least 20 characters")
-      .max(2000, "Description is too long")
-      .optional(),
+      .max(2000, "Description is too long"),
+    // .optional(),
     // image: z.instanceof(File, { message: "Image is required" }),
     image: z
       .instanceof(File, { message: "Image is required" })
       .refine((file) => file.size <= 5 * 1024 * 1024, {
         message: "Image must be less than 5MB",
-      })
-      .optional(),
+      }),
+    // .optional(),
 
     budget: z
       .number({ message: "Budget is required" })
@@ -141,13 +141,13 @@ export const updateTravelPlanSchema = z
     city: z
       .string({ message: "Destination city is required" })
       .min(2, "City is required")
-      .max(100, "City name is too long")
-      .optional(),
+      .max(100, "City name is too long"),
+    // .optional(),
     country: z
       .string({ message: "Destination country is required" })
       .min(2, "Country is required")
-      .max(100, "Country name is too long")
-      .optional(),
+      .max(100, "Country name is too long"),
+    // .optional(),
     // }),
     departureLocation: z.string().max(200, "Location is too long").optional(),
     arrivalLocation: z.string().max(200, "Location is too long").optional(),
@@ -184,25 +184,32 @@ export const updateTravelPlanSchema = z
   })
   .refine(
     (data) => {
-      const start = new Date(data.startDate);
-      const end = new Date(data.endDate);
-      return end >= start;
+      // If startDate is being updated, it must be at least 7 days from today
+      if (data.startDate) {
+        const start = new Date(data.startDate);
+        const minDate = new Date();
+        minDate.setDate(minDate.getDate() + 7);
+        minDate.setHours(0, 0, 0, 0);
+        return start >= minDate;
+      }
+      return true;
     },
     {
-      message: "End date must be after start date",
-      path: ["endDate"],
+      message: "Start date must be at least 7 days from today",
+      path: ["startDate"],
     }
   )
   .refine(
     (data) => {
-      const start = new Date(data.startDate);
-      const now = new Date();
-      now.setHours(0, 0, 0, 0);
-      return start >= now;
+      // If both dates are provided, endDate must be after or equal to startDate
+      if (data.startDate && data.endDate) {
+        return data.endDate >= data.startDate;
+      }
+      return true;
     },
     {
-      message: "Start date must be in the future",
-      path: ["startDate"],
+      message: "End date must be after or equal to start date",
+      path: ["endDate"],
     }
   );
 
