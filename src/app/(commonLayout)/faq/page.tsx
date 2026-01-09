@@ -206,7 +206,7 @@ export default function FAQPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="bg-linear-to-br from-[#5ea500] to-teal-600 py-20">
+      <div className="bg-primary py-20">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -342,7 +342,7 @@ export default function FAQPage() {
                   <TabsTrigger
                     key={category.id}
                     value={category.id}
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 "
                   >
                     {category.icon}
                     <span className="hidden sm:inline">{category.name}</span>
@@ -360,7 +360,7 @@ export default function FAQPage() {
                 <Card className="border-0 shadow-lg">
                   <CardContent className="p-8">
                     <div className="flex items-center mb-8">
-                      <div className="w-12 h-12 rounded-lg bg-linear-to-r from-[#5ea500] to-teal-600 flex items-center justify-center text-white mr-4">
+                      <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
                         {category.icon}
                       </div>
                       <div>
@@ -733,7 +733,7 @@ export default function FAQPage() {
 
           {/* Still Need Help */}
           <div className="mt-12">
-            <Card className="border-0 shadow-xl bg-linear-to-r from-[#5ea500] to-teal-600 text-white">
+            <Card className="border-0 shadow-xl bg-primary text-white">
               <CardContent className="p-12">
                 <div className="text-center">
                   <MessageSquare className="w-16 h-16 mx-auto mb-6" />

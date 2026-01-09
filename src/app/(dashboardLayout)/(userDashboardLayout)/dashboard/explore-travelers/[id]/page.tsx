@@ -15,7 +15,7 @@ import {
   Globe,
   Heart,
   CheckIcon,
-  ShieldCheck,
+  ShieldCheckIcon,
 } from "lucide-react";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
@@ -119,8 +119,8 @@ const UserDetailPage = async ({ params }: UserDetailPageProps) => {
                   className="rounded-full object-cover ring-4 ring-primary/20"
                 />
                 {user.isVerified && (
-                  <div className="absolute bottom-2 -right-1 bg-blue-500 rounded-full p-2">
-                    <CheckIcon className="text-white w-4 h-4" />
+                  <div className="absolute bottom-0 right-1 bg-blue-500 rounded-full p-2">
+                    <CheckIcon className="w-4 h-4 text-white" />
                   </div>
                 )}
               </div>
@@ -129,11 +129,13 @@ const UserDetailPage = async ({ params }: UserDetailPageProps) => {
             {/* Profile Info */}
             <div className="flex-1 space-y-4">
               <div>
-                <h1 className="text-3xl font-bold flex items-end gap-2">
+                <h1 className="text-3xl font-bold flex items-center gap-2">
                   {user.fullname}
-                  {user.subscriptionInfo?.status === "ACTIVE" && (
-                    <ShieldCheck className="h-7 w-7 text-primary" />
-                  )}
+                  {user.subscriptionInfo?.status === "ACTIVE" &&
+                    (user.subscriptionInfo?.plan === "MONTHLY" ||
+                      user.subscriptionInfo?.plan === "YEARLY") && (
+                      <ShieldCheckIcon className="h-7 w-7 text-primary" />
+                    )}
                 </h1>
                 {user.bio && (
                   <p className="text-muted-foreground mt-2">{user.bio}</p>
@@ -336,8 +338,8 @@ const UserDetailPage = async ({ params }: UserDetailPageProps) => {
   );
 };
 
-// Separate component for fetching reviews
 async function ReviewsList({ userId }: { userId: string }) {
+  // We need to import this function
   const { getUserReviews } = await import("@/services/reviews/reviews.service");
   const { ReviewCard } = await import(
     "@/components/modules/reviews/ReviewCard"

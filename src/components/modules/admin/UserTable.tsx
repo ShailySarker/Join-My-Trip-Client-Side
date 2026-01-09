@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Eye,
-  Shield,
   ShieldAlert,
   ShieldCheck,
   Trash2,
@@ -115,7 +114,7 @@ export default function UserTable({ users, onUserDeleted }: UserTableProps) {
                 {/* User */}
                 <td className="p-4">
                   <div className="flex items-center gap-3">
-                    <div className="relative w-10 h-10 flex-shrink-0">
+                    <div className="relative w-10 h-10 shrink-0">
                       <Image
                         src={user.profilePhoto || "/default-avatar.svg"}
                         alt={user.fullname}

@@ -87,7 +87,6 @@ export const getAllBookings = async (query: Record<string, any> = {}) => {
       }
     });
 
-    console.log(params);
     const response = await serverFetch.get(`/bookings?${params.toString()}`);
     const result = await response.json();
     return result;

@@ -49,13 +49,16 @@ export default async function ManageTravelPlansPage({
     queryParams.sortOrder = params.sortOrder || "desc";
   }
 
+  // Default sort
+  if (!queryParams.sortBy) queryParams.sortBy = "createdAt";
+  if (!queryParams.sortOrder) queryParams.sortOrder = "desc";
+
   const result = await getAllTravelPlansAdmin(queryParams);
   // @ts-ignore
   const travelPlans = result.data || [];
   // @ts-ignore
   const meta = result.meta;
 
-  // console.log(travelPlans);
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">

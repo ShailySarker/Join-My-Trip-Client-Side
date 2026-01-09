@@ -223,9 +223,6 @@ export default function CreateTravelPlanPage() {
         maxGuest: data.maxGuest,
         minAge: data.minAge,
       };
-
-      console.log(payload, "--------payload-----------");
-      console.log(imageFile, "--------imageFile-----------");
       const result = await createTravelPlan(payload, imageFile!);
 
       if (result.success && result.data) {
@@ -349,9 +346,7 @@ export default function CreateTravelPlanPage() {
         participants: allParticipants,
       };
 
-      console.log(bookingPayload, "-----------booking---------");
       const result = await createBooking(bookingPayload);
-      console.log(result, "---------result----------");
       if (result.success) {
         toast.success("Booking confirmed successfully!");
         setShowBookingModal(false);

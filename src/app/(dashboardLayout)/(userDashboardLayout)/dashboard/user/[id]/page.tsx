@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getUserInfo } from "@/services/auth/getUserInfo";
 import { getSingleUser } from "@/services/user/userService";
 import { redirect } from "next/navigation";
@@ -322,8 +323,57 @@ const UserDetailPage = async ({ params }: UserDetailPageProps) => {
           </CardContent>
         </Card>
       )}
+      {/* </div> */}
+
+      {/* Reviews Section */}
+      <div className="space-y-4">
+        <h2 className="text-xl font-bold flex items-center gap-2">
+          <Star className="w-5 h-5" />
+          Reviews ({user.reviewCount || 0})
+        </h2>
+
+        <ReviewsList userId={id} />
+      </div>
     </div>
   );
 };
+
+// Separate component for fetching reviews to keep main page cleaner or just inline it
+// Since this is a server component, we can just fetch here if we want,
+// but let's make a small helper component or just do it inline.
+// Actually, let's do it right here.
+
+async function ReviewsList({ userId }: { userId: string }) {
+  // We need to import this function
+  const { getUserReviews } = await import("@/services/reviews/reviews.service");
+  const { ReviewCard } = await import(
+    "@/components/modules/reviews/ReviewCard"
+  );
+
+  const reviewsResponse = await getUserReviews(userId);
+  const reviews = reviewsResponse?.data || [];
+
+  if (reviews.length === 0) {
+    return (
+      <Card>
+        <CardContent className="py-8 text-center text-muted-foreground">
+          No reviews yet.
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {reviews.map((review: any) => (
+        <ReviewCard
+          key={review._id}
+          review={review}
+          showReviewer={true} // Show who GAVE the review
+        />
+      ))}
+    </div>
+  );
+}
 
 export default UserDetailPage;

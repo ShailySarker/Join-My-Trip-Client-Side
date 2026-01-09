@@ -54,7 +54,6 @@ export function ReviewCard({
   onDelete,
 }: ReviewCardProps) {
   const userToShow = showReviewer ? review.reviewerId : review.revieweeId;
-  console.log(review);
   const renderStars = (rating: number) => {
     return (
       <div className="flex gap-0.5">

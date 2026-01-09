@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -27,7 +29,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Eye, MessageSquare, CheckCircle, Clock, AlertCircle } from "lucide-react";
+import {
+  Eye,
+  MessageSquare,
+  CheckCircle,
+  Clock,
+  AlertCircle,
+} from "lucide-react";
 import { IContact } from "@/types/contact.interface";
 import { updateContactStatus } from "@/services/contact/contact.service";
 import { toast } from "sonner";
@@ -86,11 +94,26 @@ export default function ContactsTable({ contacts, meta }: ContactsTableProps) {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "RESOLVED":
-        return <Badge className="bg-green-500 hover:bg-green-600"><CheckCircle className="w-3 h-3 mr-1" /> Reserved</Badge>;
+        return (
+          <Badge className="bg-primary">
+            <CheckCircle className="w-3 h-3 mr-1" /> Reserved
+          </Badge>
+        );
       case "IN_PROGRESS":
-        return <Badge className="bg-blue-500 hover:bg-blue-600"><Clock className="w-3 h-3 mr-1" /> In Progress</Badge>;
+        return (
+          <Badge className="bg-blue-500">
+            <Clock className="w-3 h-3 mr-1" /> In Progress
+          </Badge>
+        );
       case "PENDING":
-        return <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-600 hover:bg-yellow-500/30"><AlertCircle className="w-3 h-3 mr-1" /> Pending</Badge>;
+        return (
+          <Badge
+            variant="secondary"
+            className="bg-yellow-500/20 text-yellow-600"
+          >
+            <AlertCircle className="w-3 h-3 mr-1" /> Pending
+          </Badge>
+        );
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -98,10 +121,14 @@ export default function ContactsTable({ contacts, meta }: ContactsTableProps) {
 
   return (
     <>
-      <div className="rounded-md border">
+      <p className="text-sm text-accent-foreground/80">
+        User queries and support requests: {meta.total}
+      </p>
+      <div className="rounded-md border bg-background p-2">
         <Table>
-          <TableHeader>
+          <TableHeader className="">
             <TableRow>
+              <TableHead>No.</TableHead>
               <TableHead>Date</TableHead>
               <TableHead>User</TableHead>
               <TableHead>Subject</TableHead>
@@ -111,35 +138,55 @@ export default function ContactsTable({ contacts, meta }: ContactsTableProps) {
           </TableHeader>
           <TableBody>
             {contacts.length === 0 ? (
-                <TableRow>
-                    <TableCell colSpan={5} className="text-center h-24">
-                        No messages found.
-                    </TableCell>
-                </TableRow>
+              <TableRow>
+                <TableCell colSpan={5} className="text-center h-32">
+                  No messages found.
+                </TableCell>
+              </TableRow>
             ) : (
-                contacts.map((contact) => (
+              contacts.map((contact, index) => (
                 <TableRow key={contact._id}>
-                    <TableCell className="font-medium">
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell className="font-medium">
                     {new Date(contact.createdAt).toLocaleDateString()}
-                    </TableCell>
-                    <TableCell>
+                  </TableCell>
+                  <TableCell>
                     <div className="flex flex-col">
-                        <span className="font-medium">{contact.name}</span>
-                        <span className="text-xs text-muted-foreground">{contact.email}</span>
+                      <span className="font-medium">{contact.name}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {contact.email}
+                      </span>
                     </div>
-                    </TableCell>
-                    <TableCell className="max-w-[200px] truncate">{contact.subject}</TableCell>
-                    <TableCell>{getStatusBadge(contact.status)}</TableCell>
-                    <TableCell className="text-right space-x-2">
-                    <Button variant="ghost" size="icon" onClick={() => handleView(contact)}>
-                        <Eye className="w-4 h-4" />
+                  </TableCell>
+                  <TableCell className="max-w-[200px] truncate">
+                    {contact.subject}
+                  </TableCell>
+                  <TableCell>{getStatusBadge(contact.status)}</TableCell>
+                  <TableCell className="text-right space-x-2">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => handleView(contact)}
+                    >
+                      <Eye className="w-4 h-4" />
                     </Button>
-                    <Button variant="ghost" size="icon" onClick={() => handleUpdateClick(contact)}>
+                    {contact.status !== "RESOLVED" && (
+                      <Button
+                        // variant="outline"
+                        size="icon"
+                        onClick={() => handleUpdateClick(contact)}
+                      >
                         <MessageSquare className="w-4 h-4" />
-                    </Button>
-                    </TableCell>
+                      </Button>
+                    )}
+                    {/* : (
+                      <Button variant="default" size="icon">
+                        <CheckCircle className="w-4 h-4" />
+                      </Button>
+                    )} */}
+                  </TableCell>
                 </TableRow>
-                ))
+              ))
             )}
           </TableBody>
         </Table>
@@ -155,28 +202,44 @@ export default function ContactsTable({ contacts, meta }: ContactsTableProps) {
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <h4 className="text-sm font-medium text-muted-foreground mb-1">From</h4>
+                  <h4 className="text-sm font-medium text-muted-foreground mb-1">
+                    From
+                  </h4>
                   <p className="font-medium">{selectedContact.name}</p>
-                  <p className="text-sm text-muted-foreground">{selectedContact.email}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {selectedContact.email}
+                  </p>
                 </div>
                 <div>
-                  <h4 className="text-sm font-medium text-muted-foreground mb-1">Date</h4>
-                  <p className="font-medium">{new Date(selectedContact.createdAt).toLocaleString()}</p>
+                  <h4 className="text-sm font-medium text-muted-foreground mb-1">
+                    Date
+                  </h4>
+                  <p className="font-medium">
+                    {new Date(selectedContact.createdAt).toLocaleString()}
+                  </p>
                 </div>
               </div>
-              
+
               <div>
-                 <h4 className="text-sm font-medium text-muted-foreground mb-1">Status</h4>
-                 <div>{getStatusBadge(selectedContact.status)}</div>
+                <h4 className="text-sm font-medium text-muted-foreground mb-1">
+                  Status
+                </h4>
+                <div>{getStatusBadge(selectedContact.status)}</div>
               </div>
 
               <div>
-                <h4 className="text-sm font-medium text-muted-foreground mb-2">Subject</h4>
-                <div className="p-3 bg-muted rounded-md text-sm font-medium">{selectedContact.subject}</div>
+                <h4 className="text-sm font-medium text-muted-foreground mb-2">
+                  Subject
+                </h4>
+                <div className="p-3 bg-muted rounded-md text-sm font-medium">
+                  {selectedContact.subject}
+                </div>
               </div>
 
               <div>
-                <h4 className="text-sm font-medium text-muted-foreground mb-2">Message</h4>
+                <h4 className="text-sm font-medium text-muted-foreground mb-2">
+                  Message
+                </h4>
                 <div className="p-4 bg-muted/50 rounded-md text-sm whitespace-pre-wrap leading-relaxed h-[200px] overflow-y-auto border">
                   {selectedContact.message}
                 </div>
@@ -184,10 +247,12 @@ export default function ContactsTable({ contacts, meta }: ContactsTableProps) {
 
               {selectedContact.adminResponse && (
                 <div>
-                    <h4 className="text-sm font-medium text-muted-foreground mb-2">Admin Response</h4>
-                    <div className="p-4 bg-blue-50/50 dark:bg-blue-900/10 rounded-md text-sm border border-blue-100 dark:border-blue-900/30">
-                        {selectedContact.adminResponse}
-                    </div>
+                  <h4 className="text-sm font-medium text-muted-foreground mb-2">
+                    Admin Response
+                  </h4>
+                  <div className="p-4 bg-blue-50/50 dark:bg-blue-900/10 rounded-md text-sm border border-blue-100 dark:border-blue-900/30">
+                    {selectedContact.adminResponse}
+                  </div>
                 </div>
               )}
             </div>
@@ -209,17 +274,35 @@ export default function ContactsTable({ contacts, meta }: ContactsTableProps) {
                   <SelectValue placeholder="Select status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="PENDING">Pending</SelectItem>
-                  <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
-                  <SelectItem value="RESOLVED">Resolved</SelectItem>
+                  {/* Rule: PENDING -> IN_PROGRESS or RESOLVED */}
+                  {selectedContact?.status === "PENDING" && (
+                    <>
+                      <SelectItem value="PENDING">Pending</SelectItem>
+                      <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
+                      <SelectItem value="RESOLVED">Resolved</SelectItem>
+                    </>
+                  )}
+                  {/* Rule: IN_PROGRESS -> RESOLVED */}
+                  {selectedContact?.status === "IN_PROGRESS" && (
+                    <>
+                      <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
+                      <SelectItem value="RESOLVED">Resolved</SelectItem>
+                    </>
+                  )}
+                  {/* Rule: RESOLVED -> Immutable (though button is hidden, good to be safe) */}
+                  {selectedContact?.status === "RESOLVED" && (
+                    <SelectItem value="RESOLVED">Resolved</SelectItem>
+                  )}
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div className="space-y-2">
-              <label className="text-sm font-medium">Response (Optional - sent via email)</label>
-              <Textarea 
-                placeholder="Write a response..." 
+              <label className="text-sm font-medium">
+                Response (Optional - sent via email)
+              </label>
+              <Textarea
+                placeholder="Write a response..."
                 value={adminResponse}
                 onChange={(e) => setAdminResponse(e.target.value)}
                 rows={5}
@@ -227,9 +310,14 @@ export default function ContactsTable({ contacts, meta }: ContactsTableProps) {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsUpdateModalOpen(false)}>Cancel</Button>
+            <Button
+              variant="outline"
+              onClick={() => setIsUpdateModalOpen(false)}
+            >
+              Cancel
+            </Button>
             <Button onClick={handleUpdateSubmit} disabled={loading}>
-                {loading ? "Updating..." : "Update Status"}
+              {loading ? "Updating..." : "Update Status"}
             </Button>
           </DialogFooter>
         </DialogContent>

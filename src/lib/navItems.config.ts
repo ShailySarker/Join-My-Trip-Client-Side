@@ -174,6 +174,17 @@ export const adminNavItems: NavSection[] = [
       },
     ],
   },
+  {
+    title: "Query Management",
+    items: [
+      {
+        title: "Support & Queries",
+        href: "/admin/dashboard/manage-contacts",
+        icon: "Blocks",
+        roles: ["USER"],
+      },
+    ],
+  },
 ];
 
 export const getNavItemsByRole = (role: UserRole): NavSection[] => {

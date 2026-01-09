@@ -59,6 +59,9 @@ const ManageUsersPage = async ({
     queryParams.sortOrder = params.sortOrder || "desc";
     // queryParams.sort = params.sort || "desc";
   }
+  // Default sort
+  if (!queryParams.sortBy) queryParams.sortBy = "fullname";
+  if (!queryParams.sortOrder) queryParams.sortOrder = "asc";
 
   // Fetch users
   const usersResponse = await getAllUsers(queryParams);

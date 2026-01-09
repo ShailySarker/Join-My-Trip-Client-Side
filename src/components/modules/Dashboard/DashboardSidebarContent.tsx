@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { Badge } from "@/components/ui/badge";
@@ -25,7 +26,7 @@ const DashboardSidebarContent = ({
   return (
     <div className="hidden md:flex min-h-full overflow-y-scroll lg:w-64 w-52 flex-col border-r bg-card">
       {/* Logo/Brand */}
-      <div className="flex items-center border-b px-6 xl:py-5.5 py-4.5">
+      <div className="flex items-center border-b px-6 xl:py-5.5 py-4.5 sticky top-0 bg-white z-50">
         <Link href="/" className="flex items-center space-x-2">
           {/* <Link href={dashboardHome} className="flex items-center space-x-2"> */}
           <span className="text-xl font-bold text-primary">Join My Trip</span>

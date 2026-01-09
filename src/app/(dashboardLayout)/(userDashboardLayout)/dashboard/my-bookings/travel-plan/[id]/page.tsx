@@ -10,7 +10,6 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const result = await getTravelPlanById(id);
-  console.log(result);
   if (!result.success || !result.data) {
     return {
       title: "Travel Plan Not Found",
@@ -31,10 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function TravelPlanPage({ params }: Props) {
   const { id } = await params;
-  console.log(id);
   const result = await getTravelPlanById(id);
 
-  console.log(result);
   if (!result.success || !result.data) {
     notFound();
   }

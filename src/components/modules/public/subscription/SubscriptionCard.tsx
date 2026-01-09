@@ -23,12 +23,10 @@ export default function SubscriptionCard({
   subscription,
   userInfo,
 }: SubscriptionCardProps) {
-  console.log(subscription);
   const { _id, plan, amount } = subscription;
   const handlePayment = async (subscriptionId: string) => {
     try {
       const result = await createPaymentIntent(subscriptionId);
-      console.log(result);
       if (result.data && result.success) window.location.href = result.data;
       else toast.error(result.error || "Payment failed");
     } catch (err: any) {
@@ -102,6 +100,9 @@ export default function SubscriptionCard({
               </>
             )}
           </>
+        ) : userInfo?.role === IUserRole.ADMIN ||
+          userInfo?.role === IUserRole.SUPER_ADMIN ? (
+          ""
         ) : (
           <Button
             className="w-full"

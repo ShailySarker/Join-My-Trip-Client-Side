@@ -128,8 +128,6 @@ export async function proxy(request: NextRequest) {
     // return NextResponse.next();
   }
 
-  console.log(userRole);
-
   return NextResponse.next();
 }
 

@@ -113,8 +113,9 @@ export default function UserCard({
     // Redirect based on user role
     const url =
       currentUser.role === IUserRole.USER
-        ? `/dashboard/user/${user._id}`
-        : `/admin/dashboard/manage-users/${user._id}`;
+        ? `/dashboard/explore-travelers/${user._id}`
+        : // ? `/dashboard/user/${user._id}`
+          `/admin/dashboard/manage-users/${user._id}`;
     window.location.href = url;
   };
 

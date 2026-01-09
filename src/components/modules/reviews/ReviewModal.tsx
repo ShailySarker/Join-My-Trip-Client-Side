@@ -85,9 +85,7 @@ export default function ReviewModal({
         rating: data.rating,
         comment: data.comment,
       };
-      console.log(reviewInfo, "------------reviewInfo-----------");
       const result = await createReview(reviewInfo);
-
       if (result.success) {
         toast.success("Review submitted successfully");
         setOpen(false);

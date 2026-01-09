@@ -255,7 +255,6 @@ export default function BookingDetailsPage({
   }
 
   if (!booking) return null;
-  console.log(booking, "-----------booking-----------");
 
   const getStatusBadgeVariant = (status: IBookingStatus) => {
     return status === IBookingStatus.BOOKED ? "default" : "destructive";

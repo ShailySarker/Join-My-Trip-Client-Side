@@ -96,7 +96,6 @@ export const getAllTravelPlansAdmin = async (
 ): Promise<any> => {
   try {
     const params = new URLSearchParams(queryParams);
-    console.log(params);
     const response = await serverFetch.get(
       `/travel-plan/all-travel-plans?${params.toString()}`,
       {
@@ -105,7 +104,6 @@ export const getAllTravelPlansAdmin = async (
     );
 
     const result = await response.json();
-    // console.log(result);
     return result;
   } catch (error) {
     console.error("Error deleting user:", error);

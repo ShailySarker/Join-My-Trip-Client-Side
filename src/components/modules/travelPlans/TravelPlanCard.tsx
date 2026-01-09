@@ -89,7 +89,6 @@ export function TravelPlanCard({ travelPlan, href }: TravelPlanCardProps) {
   const endDate = new Date(travelPlan.endDate);
   const linkHref = href || `/travel-plans/${travelPlan._id}`;
 
-  console.log(travelPlan, "----------------travelPlan----------------");
   return (
     <Card className="pt-0 group overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50">
       {/* <Link href={linkHref}> */}

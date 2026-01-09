@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import StatusBadge from "../../../shared/StatusBadge";
 export default function PaymentTable({ payments }: any) {
-  console.log(payments);
   return (
     <>
       <div className="overflow-x-auto border rounded-lg xl:mt-10 lg:mt-8 md:mt-6 mt-4">

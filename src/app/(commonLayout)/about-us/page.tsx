@@ -396,12 +396,29 @@ export default async function AboutUsPage() {
               companions
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/register">
-                <Button size="lg" variant="secondary" className="h-12 px-8">
-                  Join Today
-                  <ArrowRight className=" w-4 h-4" />
-                </Button>
-              </Link>
+              {userInfo?.role === "ADMIN" ||
+              userInfo?.role === "SUPER_ADMIN" ? (
+                <Link href="/admin/dashboard">
+                  <Button size="lg" variant="secondary" className="h-12 px-8">
+                    View Dashboard
+                    <ArrowRight className=" w-4 h-4" />
+                  </Button>
+                </Link>
+              ) : userInfo?.role === "USER" ? (
+                <Link href="/dashboard">
+                  <Button size="lg" variant="secondary" className="h-12 px-8">
+                    View Dashboard
+                    <ArrowRight className=" w-4 h-4" />
+                  </Button>
+                </Link>
+              ) : (
+                <Link href="/register">
+                  <Button size="lg" variant="secondary" className="h-12 px-8">
+                    Join Today
+                    <ArrowRight className=" w-4 h-4" />
+                  </Button>
+                </Link>
+              )}
               {userInfo?.role === "ADMIN" ||
               userInfo?.role === "SUPER_ADMIN" ? (
                 <Link href="/admin/dashboard/manage-travel-plans">

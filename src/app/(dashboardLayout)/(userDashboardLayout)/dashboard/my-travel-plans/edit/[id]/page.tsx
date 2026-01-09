@@ -37,7 +37,10 @@ import {
 // Modified schema for Edit: Image is optional
 const editTravelPlanSchema = baseTravelPlanSchema
   .extend({
-    image: z.union([z.instanceof(File), z.string()]).optional().nullable(),
+    image: z
+      .union([z.instanceof(File), z.string()])
+      .optional()
+      .nullable(),
   })
   .refine(
     (data) => {
@@ -50,9 +53,9 @@ const editTravelPlanSchema = baseTravelPlanSchema
       path: ["endDate"],
     }
   );
-  // We can optionally add the future date check here if strictly required for edits,
-  // but for editing existing plans, enforcing future start date might block valid updates to imminent trips.
-  // I will omit the 'future date' check for edits to allow maximum flexibility. 
+// We can optionally add the future date check here if strictly required for edits,
+// but for editing existing plans, enforcing future start date might block valid updates to imminent trips.
+// I will omit the 'future date' check for edits to allow maximum flexibility.
 
 type FormValues = {
   title: string;
@@ -197,7 +200,6 @@ export default function EditTravelPlanPage({
   };
 
   const onSubmit = async (data: FormValues) => {
-    console.log("it is clicking");
     const s = new Date(data.startDate);
     const e = new Date(data.endDate);
     if (s > e) {
