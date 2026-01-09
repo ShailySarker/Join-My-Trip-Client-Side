@@ -56,7 +56,7 @@ export default async function MyTravelPlansPage({
     queryParams.sortOrder = params.sortOrder || "desc";
   }
   // Default sort
-  if (!queryParams.sortBy) queryParams.sortBy = "startDate";
+  if (!queryParams.sortBy) queryParams.sortBy = "createdAt";
   if (!queryParams.sortOrder) queryParams.sortOrder = "desc";
 
   const result = await getMyTravelPlans(queryParams);
