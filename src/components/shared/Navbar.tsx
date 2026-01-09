@@ -19,6 +19,7 @@ const Navbar = async () => {
       // { label: "Find Travel Buddy", href: "/find-travel-buddy" },
       { label: "About Us", href: "/about-us" },
       { label: "Subscription", href: "/subscription" },
+      { label: "Contact Us", href: "/contact-us" },
     ],
     USER: [
       { label: "Dashboard", href: "/dashboard" },

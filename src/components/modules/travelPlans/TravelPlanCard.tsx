@@ -159,14 +159,14 @@ export function TravelPlanCard({ travelPlan, href }: TravelPlanCardProps) {
         </div>
 
         {/* Budget and Seats */}
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-sm">
+        <div className="flex items-center justify-between gap-4 py-1.5">
+          <div className="flex items-center gap-2">
             {/* <DollarSign className="w-4 h-4 text-green-600 shrink-0" /> */}
             <span className="font-semibold text-green-700 dark:text-green-400">
               BDT {travelPlan.budget.toLocaleString()}
             </span>
           </div>
-          <div className="flex items-center gap-2 text-sm">
+          <div className="flex items-center gap-2">
             <Users className="w-4 h-4 text-blue-600 shrink-0" />
             <span className="font-medium">
               {availableSeats}/{travelPlan.maxGuest} left

@@ -38,6 +38,9 @@ const PublicExploreTravelersPage = async ({
     queryParams.sortBy = params.sortBy;
     queryParams.sortOrder = params.sortOrder || "desc";
   }
+  // Default sort
+  if (!queryParams.sortBy) queryParams.sortBy = "fullname";
+  if (!queryParams.sortOrder) queryParams.sortOrder = "asc";
 
   // Fetch users
   const usersResponse = await getAllUsers(queryParams);

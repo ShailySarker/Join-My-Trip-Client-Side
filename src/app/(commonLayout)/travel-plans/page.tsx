@@ -43,6 +43,9 @@ export default async function TravelPlansPage({
     queryParams.sortBy = params.sortBy;
     queryParams.sort = params.sort || "desc";
   }
+  // Default sort
+  if (!queryParams.sortBy) queryParams.sortBy = "createdAt";
+  if (!queryParams.sort) queryParams.sort = "desc";
 
   const result = await getAllTravelPlansPublic(queryParams);
   const travelPlans = result.data || [];
@@ -52,7 +55,7 @@ export default async function TravelPlansPage({
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="xl:text-4xl lg:text-[32px] text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+        <h1 className="xl:text-4xl lg:text-[32px] text-3xl font-bold mb-2 bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
           Explore Travel Plans
         </h1>
         <p className="text-muted-foreground">

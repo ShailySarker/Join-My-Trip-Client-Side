@@ -60,7 +60,6 @@ export default function ExploreTravelPlanFilters({}: ExploreTravelPlanFiltersPro
 
   const handleApplyFilters = () => {
     const params = new URLSearchParams();
-    // console.log(params);
 
     if (search) params.set("search", search);
     if (minBudget) params.set("minBudget", minBudget);
