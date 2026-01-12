@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Globe2 } from "lucide-react";
 import Link from "next/link";
-import banner from "@/assets/images/about-us-banner.avif";
+import banner from "@/assets/images/home-banner.jpg";
 import { IUser } from "@/types/user.interface";
 
 interface stats {
@@ -18,7 +18,7 @@ export default function HeroSection({
   userInfo?: IUser;
 }) {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-0">
+    <section className="relative flex items-center justify-center overflow-hidden pt-0">
       {/* Background with overlay */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"

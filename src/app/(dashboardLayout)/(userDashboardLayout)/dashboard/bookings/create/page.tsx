@@ -190,7 +190,7 @@ function BookingForm() {
         name: userInfo.fullname,
         phone: userInfo.phone,
         gender: userInfo.gender as IUserGender,
-        age: userInfo.age,
+        age: userInfo.age || 25,
         userId: userInfo._id,
       };
 

@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { getAllUsers } from "@/services/user/userService";
 import { getAllTravelPlansPublic } from "@/services/travelPlans/travelPlans.service";
-import banner from "@/assets/images/about-us-banner.avif";
+import banner from "@/assets/images/about-us-banner.jpg";
 import { Card, CardContent } from "@/components/ui/card";
 import { getUserInfo } from "@/services/auth/getUserInfo";
 

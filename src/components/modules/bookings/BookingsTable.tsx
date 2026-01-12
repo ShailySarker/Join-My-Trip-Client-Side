@@ -82,6 +82,7 @@ export default function BookingsTable({
   basePath,
   showCancelButton = false,
 }: BookingsTableProps) {
+  console.log(bookings);
   const router = useRouter();
   const [cancellingId, setCancellingId] = useState<string | null>(null);
 
@@ -107,21 +108,28 @@ export default function BookingsTable({
     }
   };
 
-  const isCancellable = (bookingStatus: string, travelStatus: string) => {
+  const isCancellable = (booking: MyBooking) => {
     return (
-      bookingStatus === IBookingStatus.BOOKED &&
-      travelStatus === ITrevelStatus.UPCOMING
+      booking.travelId &&
+      booking.bookingStatus === IBookingStatus.BOOKED &&
+      booking.travelId.status === ITrevelStatus.UPCOMING
     );
   };
 
   const isReviewable = (booking: MyBooking) => {
     return (
+      booking.travelId &&
       booking.bookingStatus === IBookingStatus.BOOKED &&
       booking.travelId.status === "COMPLETED"
     );
   };
 
   const getPotentialReviewees = (booking: MyBooking): Reviewee[] => {
+    // Guard against null travelId
+    if (!booking.travelId) {
+      return [];
+    }
+
     const currentUserId = booking.userId._id;
     const reviewees: Reviewee[] = [];
     const seenIds = new Set<string>();
@@ -144,7 +152,9 @@ export default function BookingsTable({
     };
 
     // Add Host
-    addReviewee(booking.travelId.host);
+    if (booking.travelId.host) {
+      addReviewee(booking.travelId.host);
+    }
 
     // Add Participants
     if (booking.travelId.participants) {
@@ -188,6 +198,7 @@ export default function BookingsTable({
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
+
               <TableBody>
                 {bookings.map((booking) => {
                   const potentialReviewees = getPotentialReviewees(booking);
@@ -280,10 +291,7 @@ export default function BookingsTable({
                           )}
 
                           {showCancelButton &&
-                            isCancellable(
-                              booking.bookingStatus,
-                              booking.travelId.status
-                            ) && (
+                            isCancellable(booking) && (
                               <AlertDialog>
                                 <AlertDialogTrigger asChild>
                                   <Button
@@ -448,10 +456,7 @@ export default function BookingsTable({
                         )}
 
                         {showCancelButton &&
-                          isCancellable(
-                            booking.bookingStatus,
-                            booking.travelId.status
-                          ) && (
+                          isCancellable(booking) && (
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
                                 <Button
