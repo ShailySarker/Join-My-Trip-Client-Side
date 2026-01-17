@@ -17,6 +17,7 @@ export default function HeroSection({
   stats?: stats;
   userInfo?: IUser;
 }) {
+  console.log(stats);
   return (
     <section className="relative flex items-center justify-center overflow-hidden pt-0">
       {/* Background with overlay */}

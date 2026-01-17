@@ -48,39 +48,41 @@ export default async function HomePage() {
     <div className="flex flex-col min-h-screen">
       {/* 1. Hero Section with CTA */}
       <HeroSection userInfo={userInfo} />
+      {/* xl:px-24 lg:px-20 md:px-12 px-6 xl:pt-7 lg:pt-5 md:pt-4 pt-3 xl:pb-20 lg:pb-16 md:pb-14 pb-13 */}
+      <div className="xl:px-24 lg:px-20 md:px-12 px-6 xl:pb-20 lg:pb-16 md:pb-14 pb-13">
+        {/* 2. Popular Destinations */}
+        <TopDestinations travelPlan={travelPlans} userInfo={userInfo} />
 
-      {/* 2. Popular Destinations */}
-      <TopDestinations travelPlan={travelPlans} userInfo={userInfo} />
+        {/* 3. Travel Categories */}
+        <TravelCategories />
 
-      {/* 3. Travel Categories */}
-      <TravelCategories />
+        {/* 4. Why Choose Us */}
+        <WhyChooseUs />
 
-      {/* 4. Why Choose Us */}
-      <WhyChooseUs />
+        {/* 5. How It Works */}
+        <HowItWorks />
 
-      {/* 5. How It Works */}
-      <HowItWorks />
+        {/* 6. Top-Rated Travelers */}
+        <TopRatedTravelers travelers={topTravelers} />
 
-      {/* 6. Top-Rated Travelers */}
-      <TopRatedTravelers travelers={topTravelers} />
+        {/* 7. Trust Indicators */}
+        <TrustIndicators />
 
-      {/* 7. Trust Indicators */}
-      <TrustIndicators />
+        {/* 8. Recommended Matches / Find Travel Buddy */}
+        <RecommendedMatches />
 
-      {/* 8. Recommended Matches / Find Travel Buddy */}
-      <RecommendedMatches />
+        {/* 9. CTA Section */}
+        <TravelBuddiesCTA />
 
-      {/* 9. CTA Section */}
-      <TravelBuddiesCTA />
+        {/* 10. Testimonials */}
+        <Testimonials reviews={reviews} />
 
-      {/* 10. Testimonials */}
-      <Testimonials reviews={reviews} />
+        {/* 11. FAQ Section */}
+        <FAQSection />
 
-      {/* 11. FAQ Section */}
-      <FAQSection />
-
-      {/* 12. Newsletter Section */}
-      <NewsletterSection />
+        {/* 12. Newsletter Section */}
+        <NewsletterSection />
+      </div>
     </div>
   );
 }
