@@ -5,6 +5,7 @@ import { Menu } from "lucide-react";
 import { getCookie } from "@/services/auth/tokenHandler";
 import LogoutButton from "./LogoutButton";
 import { getUserInfo } from "@/services/auth/getUserInfo";
+import { ThemeToggle } from "./ThemeToggle";
 
 const Navbar = async () => {
   const accessToken = await getCookie("accessToken");
@@ -73,17 +74,21 @@ const Navbar = async () => {
           </Link>
         </div>
 
-        <nav className="md:block hidden">
-          <ul className="flex xl:gap-6 lg:gap-5 gap-2.5 xl:text-base text-sm">
-            {currentNavItems.map((item) => (
-              <li key={item.label}>
-                <Link href={item.href}>{item.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="flex items-center gap-2">
+          <nav className="md:block hidden">
+            <ul className="flex xl:gap-6 lg:gap-5 gap-2.5 xl:text-base text-sm">
+              {currentNavItems.map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href}>{item.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
 
-        <div className="md:block hidden">
+        <div className="md:block hidden md:flex items-center gap-1">
+          <ThemeToggle />
+
           {accessToken ? (
             <LogoutButton />
           ) : (
@@ -98,6 +103,7 @@ const Navbar = async () => {
           )}
         </div>
         <div className="block md:hidden">
+          <ThemeToggle />
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline">
@@ -117,7 +123,8 @@ const Navbar = async () => {
                   </Link>
                 ))}
                 <div className="border-t pt-4 flex flex-col space-y-4">
-                  <div className="flex justify-center"></div>
+                  {/* <div className="flex justify-center">
+                  </div> */}
                   {accessToken ? (
                     <LogoutButton />
                   ) : (

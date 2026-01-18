@@ -1,11 +1,14 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, ArrowRight, Calendar, Users } from "lucide-react";
+import { MapPin, ArrowRight, Calendar, Users, DollarSign, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { ITravelPlan, ITrevelInterest } from "@/types/travelPlan.interface";
 import { IUser } from "@/types/user.interface";
 import { format } from "date-fns";
+import { motion } from "framer-motion";
 
 export default function TopDestinations({
   travelPlan,
@@ -54,12 +57,47 @@ export default function TopDestinations({
       "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
-    <section className="py-20">
-      <div className="container px-4 mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+    <section className="py-20 relative overflow-hidden bg-background">
+      {/* Decorative Elements */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+
+      <div className="container px-4 mx-auto relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6"
+        >
           <div className="space-y-4">
-            <h2 className="text-3xl md:text-4xl font-bold">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+              <TrendingUp className="w-4 h-4" />
+              <span>Trending Now</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
               Popular Destinations
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl">
@@ -67,126 +105,137 @@ export default function TopDestinations({
               traveling right now.
             </p>
           </div>
-          {userInfo?.role === "ADMIN" || userInfo?.role === "SUPER_ADMIN" ? (
-            <Link
-              href="/manage-travel-plans"
-              className="group flex items-center gap-2 text-primary font-semibold hover:underline"
-            >
-              Manage Travel Plans
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          ) : userInfo?.role === "USER" ? (
-            <Link
-              href="/my-travel-plans"
-              className="group flex items-center gap-2 text-primary font-semibold hover:underline"
-            >
-              Explore All Travel Plans
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          ) : (
-            <Link
-              href="/travel-plans"
-              className="group flex items-center gap-2 text-primary font-semibold hover:underline"
-            >
-              View All Travel Plans
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          )}
-        </div>
+          
+          <motion.div
+            whileHover={{ x: 5 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          >
+            {userInfo?.role === "ADMIN" || userInfo?.role === "SUPER_ADMIN" ? (
+              <Link
+                href="/manage-travel-plans"
+                className="group flex items-center gap-2 text-primary font-semibold hover:text-primary/80 transition-colors"
+              >
+                Manage Travel Plans
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            ) : userInfo?.role === "USER" ? (
+              <Link
+                href="/my-travel-plans"
+                className="group flex items-center gap-2 text-primary font-semibold hover:text-primary/80 transition-colors"
+              >
+                Explore All Travel Plans
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            ) : (
+              <Link
+                href="/travel-plans"
+                className="group flex items-center gap-2 text-primary font-semibold hover:text-primary/80 transition-colors"
+              >
+                View All Travel Plans
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            )}
+          </motion.div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
           {travelPlan.map((dest) => (
-            <Link href={`/travel-plans/${dest._id}`} key={dest._id}>
-              <Card className="group overflow-hidden py-0 border-0 shadow-lg hover:shadow-2xl transition-all duration-300 h-full bg-card rounded-2xl">
-                {/* Image Container */}
-                <div className="relative h-[280px] w-full overflow-hidden">
-                  <Image
-                    src={dest.image}
-                    alt={dest.destination.city}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-60" />
+            <motion.div key={dest._id} variants={itemVariants}>
+              <Link href={`/travel-plans/${dest._id}`} className="block h-full">
+                <Card className="group overflow-hidden py-0 border-border/50 shadow-lg hover:shadow-2xl transition-all duration-300 h-full bg-card rounded-2xl hover:-translate-y-1">
+                  {/* Image Container */}
+                  <div className="relative h-[280px] w-full overflow-hidden">
+                    <Image
+                      src={dest.image}
+                      alt={dest.destination.city}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
 
-                  {/* Floating Badges */}
-                  <div className="absolute top-4 left-4">
-                    <Badge className="bg-white/90 text-black backdrop-blur-md shadow-sm hover:bg-white px-3 py-1 text-xs font-semibold">
-                      {dest.travelType}
-                    </Badge>
-                  </div>
+                    {/* Floating Badges */}
+                    <div className="absolute top-4 left-4">
+                      <Badge className="bg-white/90 text-black backdrop-blur-md shadow-sm hover:bg-white px-3 py-1 text-xs font-semibold">
+                        {dest.travelType}
+                      </Badge>
+                    </div>
 
-                  <div className="absolute top-4 right-4">
-                    <Badge className="bg-primary/90 text-primary-foreground backdrop-blur-md shadow-sm">
-                      {dest.budget} BDT
-                    </Badge>
-                  </div>
+                    <div className="absolute top-4 right-4">
+                      <Badge className="bg-primary/90 text-primary-foreground backdrop-blur-md shadow-sm border-0">
+                        {dest.budget.toLocaleString()} BDT
+                      </Badge>
+                    </div>
 
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <div className="flex items-center gap-1 text-sm font-medium text-gray-200 mb-1">
-                      <MapPin className="w-3.5 h-3.5" />
-                      {dest.destination.city}, {dest.destination.country}
+                    <div className="absolute bottom-4 left-4 right-4 text-white">
+                      <div className="flex items-center gap-1 text-sm font-medium text-gray-200 mb-1">
+                        <MapPin className="w-4 h-4 text-primary" />
+                        {dest.destination.city}, {dest.destination.country}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Content Container */}
-                <CardContent className="p-5 space-y-3">
-                  <h3 className="text-xl font-bold leading-tight group-hover:text-primary transition-colors line-clamp-1">
-                    {dest.title}
-                  </h3>
-                  {/* Dates */}
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="w-4 h-4 shrink-0" />
-                    <span>
-                      {format(dest.startDate, "MMM d")} -{" "}
-                      {format(dest.endDate, "MMM d, yyyy")}
-                    </span>
-                  </div>
-
-                  {/* Budget and Seats */}
-                  <div className="flex items-center justify-between gap-4 py-1.5">
-                    <div className="flex items-center gap-2">
-                      {/* <DollarSign className="w-4 h-4 text-green-600 shrink-0" /> */}
-                      <span className="font-semibold text-green-700 dark:text-green-400">
-                        BDT {dest.budget.toLocaleString()}
+                  {/* Content Container */}
+                  <CardContent className="p-5 space-y-4">
+                    <h3 className="text-xl font-bold leading-tight group-hover:text-primary transition-colors line-clamp-1">
+                      {dest.title}
+                    </h3>
+                    {/* Dates */}
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 p-2 rounded-lg">
+                      <Calendar className="w-4 h-4 shrink-0 text-primary" />
+                      <span>
+                        {format(new Date(dest.startDate), "MMM d")} -{" "}
+                        {format(new Date(dest.endDate), "MMM d, yyyy")}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-blue-600 shrink-0" />
-                      <span className="font-medium">
-                        {dest.maxGuest - (dest.participants?.length || 0)}/
-                        {dest.maxGuest} left
-                      </span>
-                    </div>
-                  </div>
 
-                  {/* Interests */}
-                  <div className="flex flex-wrap gap-1.5 pb-3">
-                    {dest?.interests.slice(0, 3).map((interest) => (
-                      <Badge
-                        key={interest}
-                        variant="outline"
-                        className={
-                          interestColors[interest] || interestColors.default
-                        }
-                      >
-                        {interest}
-                      </Badge>
-                    ))}
-                    {dest.interests.length > 3 && (
-                      <Badge
-                        variant="outline"
-                        className="bg-gray-50 dark:bg-gray-900"
-                      >
-                        +{dest.interests.length - 3}
-                      </Badge>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
+                    {/* Budget and Seats */}
+                    <div className="flex items-center justify-between gap-4 py-1.5">
+                      <div className="flex items-center gap-2 text-primary font-medium">
+                         <DollarSign className="w-4 h-4 shrink-0" />
+                        <span>Economy</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Users className="w-4 h-4 shrink-0" />
+                        <span className="font-medium">
+                          {dest.maxGuest - (dest.participants?.length || 0)} spots left
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Interests */}
+                    <div className="flex flex-wrap gap-1.5 pt-2 border-t border-border/50">
+                      {dest?.interests.slice(0, 3).map((interest) => (
+                        <Badge
+                          key={interest}
+                          variant="secondary"
+                          className={`text-[10px] px-2 py-0.5 ${
+                            interestColors[interest] || interestColors.default
+                          }`}
+                        >
+                          {interest}
+                        </Badge>
+                      ))}
+                      {dest.interests.length > 3 && (
+                        <Badge
+                          variant="secondary"
+                          className="bg-muted text-[10px] px-2 py-0.5"
+                        >
+                          +{dest.interests.length - 3}
+                        </Badge>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
