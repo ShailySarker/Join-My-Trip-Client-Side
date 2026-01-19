@@ -38,6 +38,7 @@ const Navbar = async () => {
         href: "/admin/dashboard/manage-travel-plans",
       },
       { label: "About Us", href: "/about-us" },
+      { label: "Query", href: "/admin/dashboard/manage-contacts" },
       { label: "Profile", href: "/my-profile" },
     ],
     SUPER_ADMIN: [
@@ -48,6 +49,7 @@ const Navbar = async () => {
         href: "/admin/dashboard/manage-travel-plans",
       },
       { label: "About Us", href: "/about-us" },
+      { label: "Query", href: "/admin/dashboard/manage-contacts" },
       { label: "Profile", href: "/my-profile" },
     ],
   };
@@ -63,8 +65,8 @@ const Navbar = async () => {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur dark:bg-background/95">
-      <div className="xl:mx-12 lg:mx-8 md:mx-6 mx-5 flex items-center justify-between xl:py-4.5 py-3.5">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 dark:bg-background/95 backdrop-blur ">
+      <div className="xl:mx-12 lg:mx-8 md:mx-6 mx-5 flex items-center justify-between xl:py-5 py-3.5">
         <div>
           <Link
             href="/"
@@ -75,7 +77,7 @@ const Navbar = async () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <nav className="md:block hidden">
+          <nav className="lg:block hidden">
             <ul className="flex xl:gap-6 lg:gap-5 gap-2.5 xl:text-base text-sm">
               {currentNavItems.map((item) => (
                 <li key={item.label}>
@@ -86,7 +88,7 @@ const Navbar = async () => {
           </nav>
         </div>
 
-        <div className="md:block hidden md:flex items-center gap-1">
+        <div className="lg:block hidden lg:flex items-center gap-1">
           <ThemeToggle />
 
           {accessToken ? (
@@ -104,7 +106,7 @@ const Navbar = async () => {
             </div>
           )}
         </div>
-        <div className="block md:hidden">
+        <div className="block lg:hidden">
           <ThemeToggle />
           <Sheet>
             <SheetTrigger asChild>

@@ -31,7 +31,7 @@ const RegisterForm = () => {
       if (state.success) {
         toast.success("Registration successful!");
         router.push(
-          `/send-otp?email=${state.data.email}&fullname=${state.data.fullname}`
+          `/send-otp?email=${state.data.email}&fullname=${state.data.fullname}`,
         );
       } else if (state.message) {
         toast.error(state.message);
@@ -42,9 +42,9 @@ const RegisterForm = () => {
   return (
     <form ref={formRef} action={formAction}>
       <FieldGroup>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:gap-4 lg:gap-3.5 gap-4 xl:mt-2 lg:mt-0 md:mt-1">
           {/* full Name */}
-          <Field>
+          <Field className="flex flex-col xl:gap-3 lg:gap-1 gap-2">
             <FieldLabel htmlFor="fullname">Full Name</FieldLabel>
             <Input
               id="fullname"
@@ -56,7 +56,7 @@ const RegisterForm = () => {
             <InputFieldError field="fullname" state={state} />
           </Field>
           {/* Gender */}
-          <Field>
+          <Field className="flex flex-col xl:gap-3 lg:gap-1 gap-2">
             <FieldLabel htmlFor="gender">Gender</FieldLabel>
             <Select name="gender" defaultValue={state?.data?.gender ?? ""}>
               <SelectTrigger className="w-full">
@@ -70,7 +70,7 @@ const RegisterForm = () => {
             <InputFieldError field="gender" state={state} />
           </Field>
           {/* Email */}
-          <Field>
+          <Field className="flex flex-col xl:gap-3 lg:gap-1 gap-2">
             <FieldLabel htmlFor="email">Email</FieldLabel>
             <Input
               id="email"
@@ -81,7 +81,7 @@ const RegisterForm = () => {
             />
             <InputFieldError field="email" state={state} />
           </Field>
-          <Field>
+          <Field className="flex flex-col xl:gap-3 lg:gap-1 gap-2">
             <FieldLabel htmlFor="phone">Phone</FieldLabel>
             <Input
               id="phone"
@@ -93,7 +93,7 @@ const RegisterForm = () => {
             <InputFieldError field="phone" state={state} />
           </Field>
           {/* city */}
-          <Field>
+          <Field className="flex flex-col xl:gap-3 lg:gap-1 gap-2">
             <FieldLabel htmlFor="city">City</FieldLabel>
             <Input
               id="city"
@@ -105,7 +105,7 @@ const RegisterForm = () => {
             <InputFieldError field="city" state={state} />
           </Field>
           {/* country */}
-          <Field>
+          <Field className="flex flex-col xl:gap-3 lg:gap-1 gap-2">
             <FieldLabel htmlFor="country">Country</FieldLabel>
             <Input
               id="country"
@@ -117,39 +117,42 @@ const RegisterForm = () => {
             <InputFieldError field="country" state={state} />
           </Field>
           {/* Password */}
-          <Field>
+          <Field className="flex flex-col xl:gap-3 lg:gap-1 gap-2">
             <FieldLabel htmlFor="password">Password</FieldLabel>
             <Input
               id="password"
               name="password"
               type="password"
-              placeholder=".........."
+              placeholder="**********"
               defaultValue={state?.data?.password ?? ""}
             />
             <InputFieldError field="password" state={state} />
           </Field>
           {/* Confirm Password */}
-          <Field>
+          <Field className="flex flex-col xl:gap-3 lg:gap-1 gap-2">
             <FieldLabel htmlFor="confirmPassword">Confirm Password</FieldLabel>
             <Input
               id="confirmPassword"
               name="confirmPassword"
               type="password"
-              placeholder=".........."
+              placeholder="**********"
               defaultValue={state?.data?.confirmPassword ?? ""}
             />
             <InputFieldError field="confirmPassword" state={state} />
           </Field>
         </div>
-        <FieldGroup className="mt-4">
-          <Field>
+        <FieldGroup className="xl:mt-4 lg:mt-0 md:mt-2 mt-1">
+          <Field className="flex flex-col xl:gap-3 lg:gap-1 gap-2">
             <Button type="submit" disabled={isPending}>
               {isPending ? "Creating Account..." : "Create Account"}
             </Button>
 
             <FieldDescription className="px-6 text-center">
               Already have an account?{" "}
-              <a href="/login" className="text-blue-600 hover:underline">
+              <a
+                href="/login"
+                className="text-primary font-semibold hover:underline"
+              >
                 Sign in
               </a>
             </FieldDescription>

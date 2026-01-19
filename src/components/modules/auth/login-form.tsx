@@ -57,22 +57,22 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
   };
 
   // Google OAuth handler - uses actual backend endpoint
-  // const handleGoogleLogin = () => {
-  //   const API_URL =
-  //     process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost:2000/api/v1";
-  //   const redirectPath = redirect || "/";
-  //   // Redirect to backend Google OAuth endpoint
-  //   window.location.href = `${API_URL}/auth/google?redirect=${encodeURIComponent(redirectPath)}`;
-  // };
+  const handleGoogleLogin = () => {
+    const API_URL =
+      process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost:2000/api/v1";
+    const redirectPath = redirect || "/";
+    // Redirect to backend Google OAuth endpoint
+    window.location.href = `${API_URL}/auth/google?redirect=${encodeURIComponent(redirectPath)}`;
+  };
 
   return (
-    <div className="space-y-6">
+    <div className="xl:space-y-6 md:space-y-5 space-y-4 xl:mt-2 lg:mt-1 md:mt-6 mt-6">
       <form action={formAction}>
         {redirect && <input type="hidden" name="redirect" value={redirect} />}
         <FieldGroup>
           <div className="grid grid-cols-1 gap-4">
             {/* Email */}
-            <Field>
+            <Field className="flex flex-col xl:gap-3 lg:gap-1 gap-2">
               <FieldLabel htmlFor="email">Email</FieldLabel>
               <Input
                 ref={emailRef}
@@ -86,15 +86,15 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
               <InputFieldError field="email" state={state} />
             </Field>
             {/* Password */}
-            <Field>
-              <div className="flex items-center justify-between mb-2">
+            <Field className="flex flex-col xl:gap-3 lg:gap-1 gap-2">
+              <div className="flex items-center justify-between">
                 <FieldLabel htmlFor="password">Password</FieldLabel>
-                {/* <Link
+                <Link
                   href="/forgot-password"
                   className="text-xs text-primary hover:underline"
                 >
                   Forgot Password?
-                </Link> */}
+                </Link>
               </div>
               <Input
                 ref={passwordRef}
@@ -106,8 +106,8 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
               <InputFieldError field="password" state={state} />
             </Field>
           </div>
-          <FieldGroup className="mt-6">
-            <Field>
+          <FieldGroup className="xl:mt-6 mt-2">
+            <Field className="flex flex-col xl:gap-3 lg:gap-1 gap-2">
               <div className="space-y-3">
                 <Button type="submit" disabled={isPending} className="w-full">
                   {isPending ? "Logging in..." : "Login"}
@@ -133,9 +133,9 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
                 </div>
               </div>
 
-              {/* <div className="relative my-6">
-                <Separator />
-                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-2 text-xs text-muted-foreground">
+              <div className="relative my-6">
+                <hr className="border-border" />
+                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-2 text-xs text-muted-foreground uppercase">
                   Or continue with
                 </span>
               </div>
@@ -144,7 +144,7 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
                 type="button"
                 variant="outline"
                 onClick={handleGoogleLogin}
-                className="w-full"
+                className="w-full hover:bg-muted transition-colors duration-200"
               >
                 <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
                   <path
@@ -165,7 +165,7 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
                   />
                 </svg>
                 Continue with Google
-              </Button> */}
+              </Button>
 
               <FieldDescription className="px-6 text-center mt-4">
                 Don&apos;t have an account?{" "}

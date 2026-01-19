@@ -1,13 +1,10 @@
 "use server";
 
-import { cookies } from "next/headers";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { serverFetch } from "@/lib/server-fetch";
 
 export async function forgotPassword(email: string) {
   try {
-    const response = await fetch(`${API_URL}/auth/forgot-password`, {
-      method: "POST",
+    const response = await serverFetch.post("/auth/forgot-password", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -28,6 +25,7 @@ export async function forgotPassword(email: string) {
       message: "Password reset link has been sent to your email",
     };
   } catch (error) {
+    console.log(error);
     return {
       success: false,
       message: "An error occurred. Please try again later.",
@@ -35,24 +33,25 @@ export async function forgotPassword(email: string) {
   }
 }
 
-export async function resetPassword(
-  data: { password: string; token: string; userId: string }
-) {
+export async function resetPassword(data: {
+  password: string;
+  token: string;
+  userId: string;
+}) {
   try {
-    const response = await fetch(`${API_URL}/auth/reset-password`, {
-      method: "POST",
+    const response = await serverFetch.post("/auth/reset-password", {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${data.token}`,
+        Authorization: `${data.token}`,
       },
-      body: JSON.stringify({ 
-        password: data.password,
-        id: data.userId 
+      body: JSON.stringify({
+        newPassword: data.password,
+        id: data.userId,
       }),
     });
 
     const result = await response.json();
-
+    console.log(result);
     if (!result.success) {
       return {
         success: false,

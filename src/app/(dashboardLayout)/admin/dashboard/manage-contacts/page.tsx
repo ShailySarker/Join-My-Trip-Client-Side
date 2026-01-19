@@ -51,9 +51,7 @@ export default async function ManageContactsPage({
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">
-            Contact Messages
-          </h1>
+          <h1 className="text-2xl font-bold tracking-tight">Query Messages</h1>
           <p className="text-muted-foreground">
             Manage user inquiries and support requests ({meta?.total || 0})
           </p>

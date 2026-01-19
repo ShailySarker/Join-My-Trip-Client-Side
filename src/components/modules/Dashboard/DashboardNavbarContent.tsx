@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import DashboardMobileSidebar from "./DashboardMobileSidebar";
 import { IUser } from "@/types/user.interface";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 interface DashboardNavbarContentProps {
   userInfo: IUser;
@@ -24,8 +25,8 @@ const DashboardNavbarContent = ({
 
   useEffect(() => {
     const checkSmallerScreen = () => {
-      // setIsMobile(window.innerWidth < 1024);
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 1024);
+      // setIsMobile(window.innerWidth < 768);
     };
 
     checkSmallerScreen();
@@ -37,10 +38,10 @@ const DashboardNavbarContent = ({
   }, []);
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
-      <div className="flex items-center md:justify-end justify-between gap-4 px-4 md:px-6 xl:py-5 lg:py-4 md:py-4 py-3.5">
+      <div className="flex items-center lg:justify-end justify-between gap-4 px-4 md:px-6 xl:py-5 lg:py-4 md:py-4 py-3.5">
         {/* Mobile Menu Toggle */}
         <Sheet open={isMobile && isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild className="md:hidden">
+          <SheetTrigger asChild className="lg:hidden">
             <Button variant="outline" size="icon">
               <Menu className="h-5 w-5" />
             </Button>
@@ -64,13 +65,13 @@ const DashboardNavbarContent = ({
         </div> */}
 
         {/* Right Side Actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           {/* Notifications */}
           {/* <Button variant="outline" size="icon" className="relative">
             <Bell className="h-5 w-5" />
             <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500" />
           </Button> */}
-
+          <ThemeToggle />
           {/* User Dropdown */}
           <UserDropdown userInfo={userInfo} />
         </div>

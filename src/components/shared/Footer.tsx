@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 import {
   Mail,
   Phone,
@@ -193,7 +192,7 @@ const Footer = () => {
             <h3 className="font-semibold text-lg mb-4">Contact Us</h3>
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                 <span className="text-muted-foreground">
                   123 Travel Street
                   <br />
@@ -207,7 +206,7 @@ const Footer = () => {
                   href="mailto:contact@joinmytrip.com"
                   className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
                 >
-                  <Mail className="h-5 w-5 text-primary flex-shrink-0" />
+                  <Mail className="h-5 w-5 text-primary shrink-0" />
                   contact@joinmytrip.com
                 </a>
               </li>
@@ -216,7 +215,7 @@ const Footer = () => {
                   href="tel:+1234567890"
                   className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
                 >
-                  <Phone className="h-5 w-5 text-primary flex-shrink-0" />
+                  <Phone className="h-5 w-5 text-primary shrink-0" />
                   +880 123 567 89
                 </a>
               </li>

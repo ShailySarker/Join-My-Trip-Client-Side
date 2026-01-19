@@ -24,9 +24,9 @@ const DashboardSidebarContent = ({
 }: DashboardSidebarContentProps) => {
   const pathname = usePathname();
   return (
-    <div className="hidden md:flex min-h-full overflow-y-scroll lg:w-64 w-52 flex-col border-r bg-card">
+    <div className="hidden lg:flex min-h-full lg:w-64 w-52 flex-col border-r bg-card">
       {/* Logo/Brand */}
-      <div className="flex items-center border-b px-6 xl:py-5.5 py-4.5 sticky top-0 bg-white z-50">
+      <div className="flex items-center border-b px-6 xl:py-6 lg:py-5 py-4.5 sticky top-0 bg-background/95 z-50">
         <Link href="/" className="flex items-center space-x-2">
           {/* <Link href={dashboardHome} className="flex items-center space-x-2"> */}
           <span className="text-xl font-bold text-primary">Join My Trip</span>
@@ -34,7 +34,7 @@ const DashboardSidebarContent = ({
       </div>
 
       {/* Navigation */}
-      <ScrollArea className="flex-1 px-3 py-4">
+      <ScrollArea className="flex-1 px-3 py-4 xl:max-h-[calc(100vh-9.5rem)] lg:max-h-[calc(100vh-8.5rem)] overflow-y-scroll">
         <nav className="space-y-4">
           {navItems.map((section, sectionIdx) => (
             <div key={sectionIdx}>
@@ -55,7 +55,7 @@ const DashboardSidebarContent = ({
                         "flex items-center gap-3 rounded-lg px-3 py-2 text-xs font-medium transition-all",
                         isActive
                           ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                       )}
                     >
                       <Icon className="h-3.5 w-3.5" />
@@ -81,9 +81,9 @@ const DashboardSidebarContent = ({
       </ScrollArea>
 
       {/* User Info at Bottom */}
-      <div className="border-t p-4">
+      <div className="border-t p-4 fixed bottom-0 bg-background/95 z-50 lg:w-64 w-52">
         <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
             <span className="text-sm font-semibold text-primary">
               {userInfo.fullname.charAt(0).toUpperCase()}
             </span>

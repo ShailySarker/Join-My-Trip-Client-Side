@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { useState } from "react";
@@ -32,7 +33,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-primary/5 via-background to-primary/10 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-primary/5 via-background to-primary/10 px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -59,7 +60,7 @@ export default function ForgotPasswordPage() {
             >
               <Mail className="h-8 w-8 text-primary" />
             </motion.div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-2">
+            <h1 className="text-3xl font-bold bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-2">
               Forgot Password?
             </h1>
             <p className="text-muted-foreground">
@@ -128,12 +129,11 @@ export default function ForgotPasswordPage() {
               </Button>
 
               <div className="text-center">
-                <Link
-                  href="/login"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
+                <Link href="/login" className="text-sm">
                   Remember your password?{" "}
-                  <span className="font-semibold">Sign in</span>
+                  <span className="font-semibold text-primary underline">
+                    Sign in
+                  </span>
                 </Link>
               </div>
             </form>

@@ -24,9 +24,9 @@ const DashboardMobileSidebar = ({
 }: DashboardMobileSidebarContentProps) => {
   const pathname = usePathname();
   return (
-    <div className=" flex min-h-full overflow-y-auto flex-col">
+    <div className="flex min-h-full overflow-y-auto flex-col">
       {/* Logo */}
-      <div className="flex h-16 items-center border-b px-6 xl:py-5.5 py-4.5 sticky top-0  bg-white z-50">
+      <div className="flex h-16 items-center border-b px-6 xl:py-5.5 py-4.5 sticky top-0 bg-background/95 backdrop-blur z-50">
         <Link href={dashboardHome}>
           <span className="text-xl font-bold text-primary">Join My Trip</span>
         </Link>
@@ -34,7 +34,7 @@ const DashboardMobileSidebar = ({
       <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
 
       {/* Navigation */}
-      <ScrollArea className="flex-1 px-3 py-4">
+      <ScrollArea className="flex-1 px-3 py-4 max-h-[calc(100vh-8.5rem)] overflow-y-scroll">
         <nav className="space-y-6">
           {navItems.map((section, sectionIdx) => (
             <div key={sectionIdx}>
@@ -56,7 +56,7 @@ const DashboardMobileSidebar = ({
                         "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all",
                         isActive
                           ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                       )}
                     >
                       <Icon className="h-4 w-4" />
@@ -79,7 +79,7 @@ const DashboardMobileSidebar = ({
       </ScrollArea>
 
       {/* User Info at Bottom */}
-      <div className="border-t p-4">
+      <div className="border-t p-4 w-64 fixed bottom-0 bg-background/95 backdrop-blur z-50">
         <div className="flex items-center gap-3">
           <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
             <span className="text-sm font-semibold text-primary">
