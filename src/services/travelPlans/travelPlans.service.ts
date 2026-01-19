@@ -272,3 +272,16 @@ export const removeParticipant = async (travelId: string, phone: string) => {
     };
   }
 };
+
+export const getPopularDestinations = async () => {
+  try {
+    const response = await serverFetch.get("/travel-plan/popular-destinations", {
+      next: { tags: ["travel-plans"] },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error fetching popular destinations:", error);
+    throw error;
+  }
+};

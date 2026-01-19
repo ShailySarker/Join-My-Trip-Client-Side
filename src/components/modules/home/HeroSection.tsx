@@ -35,7 +35,7 @@ export default function HeroSection({
   };
 
   return (
-    <section className="relative flex items-center justify-center overflow-hidden pt-0 ">
+    <section className="relative min-h-[70vh] max-h-[70vh] flex items-center justify-center overflow-hidden pt-0 ">
       {/* Background with overlay */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
@@ -164,7 +164,7 @@ export default function HeroSection({
           </motion.div>
 
           {/* Statistics Section with Real Data */}
-          <motion.div
+          {/* <motion.div
             className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-white/20 mt-12 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -238,7 +238,7 @@ export default function HeroSection({
                 Successful Trips
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
       </div>
 

@@ -1,151 +1,159 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { motion } from "framer-motion";
-import { Smartphone, Download, Star, Zap } from "lucide-react";
+import { Calendar, MapPin, ArrowRight, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import Link from "next/link";
+import { ITravelPlan } from "@/types/travelPlan.interface";
+import { format } from "date-fns";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export default function MobileAppSection() {
+export default function FeaturedTripSection({
+  featuredTrip,
+}: {
+  featuredTrip?: ITravelPlan;
+}) {
+  if (!featuredTrip) return null;
+
   return (
-    <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-primary/5">
-      <div className="container mx-auto px-4">
+    <section className="py-20 xl:px-24 lg:px-20 md:px-12 px-6 bg-background relative overflow-hidden">
+      {/* Background Blur */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+
+      <div className="container mx-auto relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-4">
+            <Star className="h-4 w-4 fill-primary" />
+            <span>Trip of the Week</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold">Featured Adventure</h2>
+        </motion.div>
+
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Side - Phone Mockup */}
+          {/* Left Side - Image Card */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative flex justify-center lg:justify-start"
           >
-            <div className="relative">
-              {/* Phone Frame */}
-              <motion.div
-                className="relative w-[280px] h-[560px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-[3rem] p-3 shadow-2xl"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                {/* Notch */}
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-gray-900 rounded-b-2xl z-10" />
-                
-                {/* Screen */}
-                <div className="w-full h-full bg-gradient-to-br from-primary/20 to-background rounded-[2.5rem] overflow-hidden relative">
-                  {/* App Screenshot Placeholder */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-primary/5 flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <Smartphone className="h-20 w-20 text-primary mx-auto mb-4" />
-                      <h3 className="text-xl font-bold mb-2">Join My Trip</h3>
-                      <p className="text-sm text-muted-foreground">Mobile App</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl group cursor-pointer aspect-4/3">
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                style={{ backgroundImage: `url(${featuredTrip.image})` }}
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
 
-              {/* Floating Elements */}
-              <motion.div
-                className="absolute -top-4 -right-4 bg-primary text-white px-4 py-2 rounded-full shadow-lg text-sm font-semibold"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                Coming Soon!
-              </motion.div>
+              <div className="absolute top-6 left-6 flex gap-2">
+                {featuredTrip.travelType && (
+                  <span className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs font-medium border border-white/20">
+                    {featuredTrip.travelType}
+                  </span>
+                )}
+              </div>
+
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <div className="flex items-center gap-2 mb-2">
+                  <MapPin className="w-5 h-5 text-primary" />
+                  <span className="font-semibold text-lg">
+                    {featuredTrip.destination.city},{" "}
+                    {featuredTrip.destination.country}
+                  </span>
+                </div>
+                <div className="text-3xl font-bold">
+                  {featuredTrip.budget} BDT{" "}
+                  <span className="text-sm font-normal opacity-80">
+                    / person
+                  </span>
+                </div>
+              </div>
             </div>
           </motion.div>
 
-          {/* Right Side - Content */}
+          {/* Right Side - Details */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="space-y-6"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-6">
-              <Download className="h-4 w-4" />
-              <span>Mobile App</span>
-            </div>
-            
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Travel Planning{" "}
-              <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                On The Go
-              </span>
-            </h2>
-            
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              Download our mobile app for the ultimate travel planning experience.
-              Stay connected with your travel buddies, get real-time notifications,
-              and manage your trips from anywhere in the world.
+            <h3 className="text-3xl md:text-5xl font-bold leading-tight">
+              {featuredTrip.title}
+            </h3>
+
+            <p className="text-lg text-muted-foreground leading-relaxed line-clamp-3">
+              {featuredTrip.description}
             </p>
 
-            {/* Features List */}
-            <div className="space-y-4 mb-8">
-              <motion.div
-                className="flex items-start gap-3"
-                whileHover={{ x: 5 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Zap className="h-5 w-5 text-primary" />
+            <div className="grid grid-cols-2 gap-6 py-6 border-y border-border/50">
+              <div>
+                <p className="text-muted-foreground text-sm mb-1">Dates</p>
+                <div className="flex items-center gap-2 font-semibold">
+                  <Calendar className="w-5 h-5 text-primary" />
+                  <span>
+                    {format(new Date(featuredTrip.startDate), "MMM d")} -{" "}
+                    {format(new Date(featuredTrip.endDate), "MMM d, yyyy")}
+                  </span>
                 </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Instant Notifications</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Get real-time updates about trip changes and messages
-                  </p>
+              </div>
+              <div>
+                <p className="text-muted-foreground text-sm mb-1">Host</p>
+                <div className="flex items-center gap-2 font-semibold">
+                  <Avatar className="w-8 h-8 pointer-events-none">
+                    <AvatarImage
+                      src={(featuredTrip.host as any)?.profilePhoto}
+                    />
+                    <AvatarFallback>
+                      <User className="w-4 h-4" />
+                    </AvatarFallback>
+                  </Avatar>
+                  <span>
+                    {(featuredTrip.host as any)?.fullname || "Verified Host"}
+                  </span>
                 </div>
-              </motion.div>
-
-              <motion.div
-                className="flex items-start gap-3"
-                whileHover={{ x: 5 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Star className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Offline Access</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Access your trip details even without internet connection
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="flex items-start gap-3"
-                whileHover={{ x: 5 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Smartphone className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Mobile-First Design</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Optimized interface for seamless mobile experience
-                  </p>
-                </div>
-              </motion.div>
+              </div>
             </div>
 
-            {/* Download Buttons */}
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="rounded-full" disabled>
-                <Download className="mr-2 h-5 w-5" />
-                Coming to App Store
-              </Button>
-              <Button size="lg" variant="outline" className="rounded-full" disabled>
-                <Download className="mr-2 h-5 w-5" />
-                Coming to Play Store
-              </Button>
+            <div className="pt-4">
+              <Link href={`/travel-plans/${featuredTrip._id}`}>
+                <Button
+                  size="lg"
+                  className="h-12 px-8 text-base rounded-full shadow-lg shadow-primary/20 hover:shadow-primary/40"
+                >
+                  View Full Itinerary
+                  <ArrowRight className="h-5 w-5" />
+                </Button>
+              </Link>
             </div>
-
-            <p className="text-sm text-muted-foreground mt-4">
-              🎉 Be the first to know when we launch! Sign up for our newsletter.
-            </p>
           </motion.div>
         </div>
       </div>
     </section>
+  );
+}
+
+// Icon helper
+function Star({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+        clipRule="evenodd"
+      />
+    </svg>
   );
 }

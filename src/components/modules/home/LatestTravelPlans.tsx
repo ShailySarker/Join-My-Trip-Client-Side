@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Users, TrendingUp, DollarSign } from "lucide-react";
+import { Calendar, MapPin, Users, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ITravelPlan } from "@/types/travelPlan.interface";
@@ -12,10 +12,16 @@ interface LatestTravelPlansProps {
   travelPlans: ITravelPlan[];
 }
 
-export default function LatestTravelPlans({ travelPlans }: LatestTravelPlansProps) {
+export default function LatestTravelPlans({
+  travelPlans,
+}: LatestTravelPlansProps) {
   return (
-    <section className="py-20 bg-gradient-to-br from-background via-primary/5 to-background">
-      <div className="container mx-auto px-4">
+    // bg-linear-to-br from-primary/80 via-background to-primary/80
+    <section className="py-24 bg-muted xl:px-24 lg:px-20 md:px-12 px-6 relative overflow-hidden">
+      {/* Background Shapes */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/80 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/80 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+      <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -29,13 +35,13 @@ export default function LatestTravelPlans({ travelPlans }: LatestTravelPlansProp
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Recently Posted{" "}
-            <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
               Travel Plans
             </span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover the newest travel opportunities and join fellow adventurers on
-            their upcoming journeys
+            Discover the newest travel opportunities and join fellow adventurers
+            on their upcoming journeys
           </p>
         </motion.div>
 
@@ -58,12 +64,12 @@ export default function LatestTravelPlans({ travelPlans }: LatestTravelPlansProp
                     style={{ backgroundImage: `url(${plan.image})` }}
                   />
                 ) : (
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-linear-to-br from-primary/20 to-primary/5 flex items-center justify-center">
                     <MapPin className="h-16 w-16 text-primary/40" />
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+
                 {/* Status Badge */}
                 <div className="absolute top-4 right-4">
                   <Badge className="bg-primary/90 text-white">
@@ -85,11 +91,13 @@ export default function LatestTravelPlans({ travelPlans }: LatestTravelPlansProp
               {/* Content */}
               <div className="p-6 space-y-4">
                 {/* Title */}
-                <h4 className="font-semibold text-lg line-clamp-1">{plan.title}</h4>
+                <h4 className="font-semibold text-lg line-clamp-1">
+                  {plan.title}
+                </h4>
 
                 {/* Dates */}
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Calendar className="h-4 w-4 text-primary flex-shrink-0" />
+                  <Calendar className="h-4 w-4 text-primary shrink-0" />
                   <span>
                     {format(new Date(plan.startDate), "MMM dd")} -{" "}
                     {format(new Date(plan.endDate), "MMM dd, yyyy")}
@@ -105,9 +113,8 @@ export default function LatestTravelPlans({ travelPlans }: LatestTravelPlansProp
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <DollarSign className="h-4 w-4 text-primary" />
                     <span className="font-semibold text-primary">
-                      ${plan.budget}
+                      {plan.budget.toLocaleString()} BDT
                     </span>
                   </div>
                 </div>

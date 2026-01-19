@@ -43,17 +43,24 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
   }, [state, router]);
 
   // Demo login auto-fill
-  const handleDemoLogin = () => {
+  const handleDemoLogin = (role: "user" | "admin") => {
     if (emailRef.current && passwordRef.current) {
-      emailRef.current.value = "admin@gmail.com";
-      passwordRef.current.value = "admin1234";
-      toast.info("Demo credentials filled! Click Login to continue.");
+      if (role === "admin") {
+        emailRef.current.value = "admin@gmail.com";
+        passwordRef.current.value = "Test@123";
+        toast.info("Admin credentials filled!");
+      } else {
+        emailRef.current.value = "user@gmail.com";
+        passwordRef.current.value = "Test@123";
+        toast.info("User credentials filled!");
+      }
     }
   };
 
   // Google OAuth handler - uses actual backend endpoint
   const handleGoogleLogin = () => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const API_URL =
+      process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost:2000/api/v1";
     const redirectPath = redirect || "/";
     // Redirect to backend Google OAuth endpoint
     window.location.href = `${API_URL}/auth/google?redirect=${encodeURIComponent(redirectPath)}`;
@@ -107,17 +114,27 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
                   {isPending ? "Logging in..." : "Login"}
                 </Button>
 
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={handleDemoLogin}
-                  className="w-full"
-                >
-                  🎭 Use Demo Credentials
-                </Button>
+                <div className="grid grid-cols-2 gap-3">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => handleDemoLogin("user")}
+                    className="w-full text-xs"
+                  >
+                    👤 Demo User
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => handleDemoLogin("admin")}
+                    className="w-full text-xs"
+                  >
+                    🔐 Demo Admin
+                  </Button>
+                </div>
               </div>
 
-              <div className="relative my-6">
+              {/* <div className="relative my-6">
                 <Separator />
                 <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-2 text-xs text-muted-foreground">
                   Or continue with
@@ -149,11 +166,14 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
                   />
                 </svg>
                 Continue with Google
-              </Button>
+              </Button> */}
 
               <FieldDescription className="px-6 text-center mt-4">
                 Don&apos;t have an account?{" "}
-                <a href="/register" className="text-primary hover:underline font-semibold">
+                <a
+                  href="/register"
+                  className="text-primary hover:underline font-semibold"
+                >
                   Sign up
                 </a>
               </FieldDescription>
@@ -166,4 +186,3 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
 };
 
 export default LoginForm;
-

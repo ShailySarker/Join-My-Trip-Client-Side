@@ -52,7 +52,7 @@ export default async function TravelPlansPage({
   const meta = result.meta;
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto xl:px-24 lg:px-20 md:px-12 px-6 xl:pt-7 lg:pt-5 md:pt-4 pt-3 xl:pb-20 lg:pb-16 md:pb-14 pb-13">
       {/* Header */}
       <div className="mb-8">
         <h1 className="xl:text-4xl lg:text-[32px] text-3xl font-bold mb-2 bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">

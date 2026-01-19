@@ -1,7 +1,15 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Lock, Eye, CheckCircle2, UserCheck, FileCheck } from "lucide-react";
+import {
+  Shield,
+  Lock,
+  Eye,
+  CheckCircle2,
+  UserCheck,
+  FileCheck,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -15,13 +23,13 @@ const safetyFeatures = [
   {
     icon: Shield,
     title: "Secure Payments",
-    description:
-      "Industry-standard encryption for all financial transactions",
+    description: "Industry-standard encryption for all financial transactions",
   },
   {
     icon: Lock,
     title: "Privacy First",
-    description: "Your personal data is protected with advanced security measures",
+    description:
+      "Your personal data is protected with advanced security measures",
   },
   {
     icon: Eye,
@@ -42,8 +50,9 @@ const safetyFeatures = [
 
 export default function SafetySection() {
   return (
-    <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-primary/5">
-      <div className="container mx-auto px-4">
+    <section className="py-24 xl:px-24 lg:px-20 md:px-12 px-6 relative overflow-hidden">
+      {/* Background Shapes */}
+      <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Side - Content */}
           <motion.div
@@ -58,7 +67,7 @@ export default function SafetySection() {
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Travel with{" "}
-              <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                 Confidence
               </span>
             </h2>
@@ -71,7 +80,7 @@ export default function SafetySection() {
 
             <div className="space-y-4 mb-8">
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
+                <CheckCircle2 className="h-6 w-6 text-primary mt-1 shrink-0" />
                 <div>
                   <h4 className="font-semibold mb-1">Background Checks</h4>
                   <p className="text-sm text-muted-foreground">
@@ -80,16 +89,18 @@ export default function SafetySection() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
+                <CheckCircle2 className="h-6 w-6 text-primary mt-1 shrink-0" />
                 <div>
-                  <h4 className="font-semibold mb-1">Encrypted Communications</h4>
+                  <h4 className="font-semibold mb-1">
+                    Encrypted Communications
+                  </h4>
                   <p className="text-sm text-muted-foreground">
                     End-to-end encryption for all your conversations
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
+                <CheckCircle2 className="h-6 w-6 text-primary mt-1 shrink-0" />
                 <div>
                   <h4 className="font-semibold mb-1">Fraud Prevention</h4>
                   <p className="text-sm text-muted-foreground">

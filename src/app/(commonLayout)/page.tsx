@@ -20,7 +20,10 @@ import PopularDestinationsGrid from "@/components/modules/home/PopularDestinatio
 import { Metadata } from "next";
 import { getAllReviews } from "@/services/reviews/reviews.service";
 import { getUserInfo } from "@/services/auth/getUserInfo";
-import { getAllTravelPlansPublic } from "@/services/travelPlans/travelPlans.service";
+import {
+  getAllTravelPlansPublic,
+  getPopularDestinations,
+} from "@/services/travelPlans/travelPlans.service";
 import { getAllUsers } from "@/services/user/userService";
 import { getPublicStats } from "@/services/stats/publicStats.service";
 
@@ -34,7 +37,14 @@ export default async function HomePage() {
   const userInfo = await getUserInfo();
 
   // Fetch all data in parallel for better performance
-  const [reviewsData, travelPlansData, usersData, latestPlansData, stats] = await Promise.all([
+  const [
+    reviewsData,
+    travelPlansData,
+    usersData,
+    latestPlansData,
+    stats,
+    popularDestinationsData,
+  ] = await Promise.all([
     getAllReviews({
       limit: 3,
       sortBy: "rating",
@@ -46,80 +56,81 @@ export default async function HomePage() {
       sortBy: "averageRating",
       sortOrder: "desc",
     }).catch(() => ({ data: [] })),
-    getAllTravelPlansPublic({ 
-      limit: "6", 
+    getAllTravelPlansPublic({
+      limit: "6",
       sortBy: "createdAt",
-      sortOrder: "desc" 
+      sortOrder: "desc",
     }),
     getPublicStats(),
+    getPopularDestinations(),
   ]);
 
   const reviews = reviewsData?.data || [];
   const travelPlans = travelPlansData?.data || [];
   const topTravelers = usersData?.data || [];
   const latestPlans = latestPlansData?.data || [];
+  const popularDestinations = popularDestinationsData?.data || [];
 
   return (
     <div className="flex flex-col min-h-screen">
       {/* 1. Hero Section with REAL Stats */}
       <HeroSection userInfo={userInfo} stats={stats} />
+      {/* 6. Travel Categories */}
+      <TravelCategories />
 
+      {/* 9. How It Works */}
+      <HowItWorks />
       {/* Main Content Container */}
-      <div className="xl:px-24 lg:px-20 md:px-12 px-6">
-        {/* 2. Features Section */}
-        <FeaturesSection />
+      {/* <div className="xl:px-24 lg:px-20 md:px-12 px-6"> */}
 
-        {/* 3. Popular Destinations Grid - NEW */}
-        <PopularDestinationsGrid />
+      {/* 3. Popular Destinations Grid - NEW */}
+      <PopularDestinationsGrid
+        popularDestinations={popularDestinations}
+        userInfo={userInfo}
+        stats={stats}
+      />
 
-        {/* 4. Top Destinations */}
-        <TopDestinations travelPlan={travelPlans} userInfo={userInfo} />
+      {/* 4. Top Destinations */}
+      <TopDestinations travelPlan={travelPlans} userInfo={userInfo} />
 
-        {/* 5. Latest Travel Plans - NEW */}
-        <LatestTravelPlans travelPlans={latestPlans} />
+      {/* 5. Latest Travel Plans - NEW */}
+      <LatestTravelPlans travelPlans={latestPlans} />
 
-        {/* 6. Travel Categories */}
-        <TravelCategories />
+      {/* 7. Success Stories */}
+      <SuccessStories reviews={reviews} />
 
-        {/* 7. Success Stories */}
-        <SuccessStories />
+      {/* 10. Safety & Security Section */}
+      <SafetySection />
 
-        {/* 8. Why Choose Us */}
-        <WhyChooseUs />
+      {/* 2. Features Section */}
+      <FeaturesSection />
+      {/* 11. Top-Rated Travelers */}
+      <TopRatedTravelers travelers={topTravelers} />
 
-        {/* 9. How It Works */}
-        <HowItWorks />
+      {/* 13. Trust Indicators */}
+      <TrustIndicators />
+      {/* 12. Community Section */}
+      <CommunitySection stats={stats} topTravelers={topTravelers} />
 
-        {/* 10. Safety & Security Section */}
-        <SafetySection />
+      {/* 8. Why Choose Us */}
+      <WhyChooseUs />
+      {/* 14. Recommended Matches / Find Travel Buddy */}
+      <RecommendedMatches stats={stats} />
 
-        {/* 11. Top-Rated Travelers */}
-        <TopRatedTravelers travelers={topTravelers} />
+      {/* 15. Featured Trip Section (formerly Mobile App) */}
+      <MobileAppSection featuredTrip={latestPlans[0]} />
 
-        {/* 12. Community Section */}
-        <CommunitySection />
+      {/* 16. CTA Section */}
+      <TravelBuddiesCTA />
 
-        {/* 13. Trust Indicators */}
-        <TrustIndicators />
+      {/* 17. Testimonials */}
+      <Testimonials reviews={reviews} />
 
-        {/* 14. Recommended Matches / Find Travel Buddy */}
-        <RecommendedMatches />
-
-        {/* 15. Mobile App Section */}
-        <MobileAppSection />
-
-        {/* 16. CTA Section */}
-        <TravelBuddiesCTA />
-
-        {/* 17. Testimonials */}
-        <Testimonials reviews={reviews} />
-
-        {/* 18. FAQ Section */}
-        <FAQSection />
-
-        {/* 19. Newsletter Section */}
-        <NewsletterSection />
-      </div>
+      {/* 18. FAQ Section */}
+      <FAQSection />
+      {/* 19. Newsletter Section */}
+      <NewsletterSection />
+      {/* </div> */}
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { Star, MapPin, ArrowRight, UserCheck } from "lucide-react";
 import Link from "next/link";
 import { IUser } from "@/types/user.interface";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 interface TopRatedTravelersProps {
   travelers: IUser[];
@@ -16,7 +16,7 @@ interface TopRatedTravelersProps {
 export default function TopRatedTravelers({
   travelers,
 }: TopRatedTravelersProps) {
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -26,7 +26,7 @@ export default function TopRatedTravelers({
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
@@ -39,8 +39,8 @@ export default function TopRatedTravelers({
   };
 
   return (
-    <section className="pb-20 relative">
-      <div className="container mx-auto px-4">
+    <section className="py-20 xl:px-24 lg:px-20 md:px-12 px-6 relative">
+      <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -53,7 +53,7 @@ export default function TopRatedTravelers({
               <UserCheck className="w-4 h-4" />
               <span>Community Leaders</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
+            <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-foreground to-foreground/70">
               Top-Rated Travelers
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl">
@@ -83,11 +83,11 @@ export default function TopRatedTravelers({
                 className="block h-full"
               >
                 <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-border/50 shadow-md h-full bg-card overflow-hidden relative">
-                  <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-br from-primary/10 to-primary/5 group-hover:from-primary/20 group-hover:to-primary/10 transition-colors" />
-                  
+                  <div className="absolute top-0 left-0 w-full h-24 bg-linear-to-br from-primary/10 to-primary/5 group-hover:from-primary/20 group-hover:to-primary/10 transition-colors" />
+
                   <CardContent className="p-6 pt-12 relative">
                     <div className="flex flex-col items-center text-center">
-                      <motion.div 
+                      <motion.div
                         whileHover={{ scale: 1.05 }}
                         className="relative"
                       >
@@ -103,7 +103,9 @@ export default function TopRatedTravelers({
                         </Avatar>
                         {/* Verification Badge (simulated) */}
                         <div className="absolute bottom-4 right-0 bg-background rounded-full p-1 shadow-sm">
-                           <div className="bg-blue-500 rounded-full w-4 h-4 text-[10px] flex items-center justify-center text-white">✓</div>
+                          <div className="bg-blue-500 rounded-full w-4 h-4 text-[10px] flex items-center justify-center text-white">
+                            ✓
+                          </div>
                         </div>
                       </motion.div>
 
@@ -114,12 +116,13 @@ export default function TopRatedTravelers({
                       {traveler.currentLocation?.city ? (
                         <div className="flex items-center gap-1 text-sm text-muted-foreground mb-3">
                           <MapPin className="w-3.5 h-3.5" />
-                          {traveler.currentLocation.city}, {traveler.currentLocation.country}
+                          {traveler.currentLocation.city},{" "}
+                          {traveler.currentLocation.country}
                         </div>
                       ) : (
-                         <div className="flex items-center gap-1 text-sm text-muted-foreground mb-3 italic">
+                        <div className="flex items-center gap-1 text-sm text-muted-foreground mb-3 italic">
                           Global Citizen
-                         </div>
+                        </div>
                       )}
 
                       <div className="flex items-center gap-1 mb-6 bg-secondary/50 px-3 py-1 rounded-full">

@@ -1,4 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Accordion,
@@ -9,6 +11,7 @@ import {
 import { HelpCircle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 const faqs = [
   {
@@ -45,9 +48,18 @@ const faqs = [
 
 export default function FAQSection() {
   return (
-    <section className="py-20 bg-accent/30">
-      <div className="container px-4 mx-auto">
-        <div className="max-w-4xl mx-auto">
+    <section className="py-20 bg-muted xl:px-24 lg:px-20 md:px-12 px-6 relative overflow-hidden">
+      {/* Background Shapes */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/80 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/80 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+      <div className="container mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto"
+        >
           <div className="text-center mb-12">
             <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <HelpCircle className="w-7 h-7 text-primary" />
@@ -75,7 +87,7 @@ export default function FAQSection() {
                 ))}
               </Accordion>
 
-              <div className="mt-8 pt-8 border-t text-center">
+              <div className="mt-8 pt-8 border-t text-center ">
                 <p className="text-muted-foreground mb-4">
                   Still have questions? We're here to help!
                 </p>
@@ -85,7 +97,7 @@ export default function FAQSection() {
               </div>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

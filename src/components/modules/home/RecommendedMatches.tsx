@@ -13,9 +13,18 @@ const features = [
   "Community reviews and ratings",
 ];
 
-export default function RecommendedMatches() {
+interface RecommendedMatchesProps {
+  stats?: {
+    activeTravelers: number;
+    destinations: number;
+    completedTrips: number;
+    averageRating: number;
+  };
+}
+
+export default function RecommendedMatches({ stats }: RecommendedMatchesProps) {
   return (
-    <section className="py-20">
+    <section className="py-20 xl:px-24 lg:px-20 md:px-12 px-6">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
           {/* Content */}
@@ -45,9 +54,9 @@ export default function RecommendedMatches() {
             </ul>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link href="/explore-travelers">
+              <Link href="/travel-plans">
                 <Button size="lg" className="w-full sm:w-auto">
-                  Browse Travelers
+                  Browse Trips
                 </Button>
               </Link>
               <Link href="/register">
@@ -67,7 +76,10 @@ export default function RecommendedMatches() {
             <div className="space-y-6">
               <div className="text-center">
                 <div className="text-5xl md:text-6xl font-bold bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-4">
-                  100+
+                  {stats?.activeTravelers
+                    ? Math.floor(stats.activeTravelers).toLocaleString()
+                    : "100"}
+                  +
                 </div>
                 <h3 className="text-xl font-bold mb-2">
                   Active Travel Buddies
@@ -79,12 +91,17 @@ export default function RecommendedMatches() {
 
               <div className="grid grid-cols-2 gap-4 pt-6">
                 <div className="text-center p-4 rounded-xl bg-background/50 backdrop-blur-sm">
-                  <div className="text-3xl font-bold text-primary mb-1">5+</div>
+                  <div className="text-3xl font-bold text-primary mb-1">
+                    {stats?.destinations || "50"}+
+                  </div>
                   <div className="text-sm text-muted-foreground">Countries</div>
                 </div>
                 <div className="text-center p-4 rounded-xl bg-background/50 backdrop-blur-sm">
                   <div className="text-3xl font-bold text-primary mb-1">
-                    98%
+                    {stats?.averageRating
+                      ? ((stats.averageRating / 5) * 100).toFixed(0)
+                      : "98"}
+                    %
                   </div>
                   <div className="text-sm text-muted-foreground">
                     Match Success

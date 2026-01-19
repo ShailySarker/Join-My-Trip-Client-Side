@@ -188,7 +188,7 @@ export default function FAQPage() {
 
   const toggleFAQ = (id: string) => {
     setExpandedItems((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     );
   };
 
@@ -198,13 +198,13 @@ export default function FAQPage() {
         (item) =>
           searchQuery === "" ||
           item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          item.answer.toLowerCase().includes(searchQuery.toLowerCase())
+          item.answer.toLowerCase().includes(searchQuery.toLowerCase()),
       )
-      .map((item) => ({ ...item, category }))
+      .map((item) => ({ ...item, category })),
   );
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen xl:px-24 lg:px-20 md:px-12 px-6 xl:pt-7 lg:pt-5 md:pt-4 pt-3 xl:pb-20 lg:pb-16 md:pb-14 pb-13">
       {/* Hero Section */}
       <div className="bg-primary py-20">
         <div className="container mx-auto px-4">
@@ -466,7 +466,7 @@ export default function FAQPage() {
                               </AnimatePresence>
                             </div>
                           );
-                        }
+                        },
                       )}
                     </div>
                   </CardContent>
@@ -515,7 +515,7 @@ export default function FAQPage() {
                                 <Badge className="mb-2">
                                   {
                                     categories.find(
-                                      (c) => c.id === faq.category
+                                      (c) => c.id === faq.category,
                                     )?.name
                                   }
                                 </Badge>

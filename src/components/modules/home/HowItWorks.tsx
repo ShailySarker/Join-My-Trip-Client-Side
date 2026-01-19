@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { UserPlus, CalendarPlus, Plane, ArrowRight } from "lucide-react";
@@ -8,7 +9,7 @@ import Link from "next/link";
 const steps = [
   {
     icon: UserPlus,
-    title: "Create Profile",
+    title: "1. Create Profile",
     description:
       "Sign up and build your profile. Share your travel interests, preferences, and a cool bio to attract like-minded travelers.",
     color: "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
@@ -16,18 +17,28 @@ const steps = [
   },
   {
     icon: CalendarPlus,
-    title: "Find or Host",
+    title: "2. Get Subscribed",
+    description:
+      "Choose a subscription plan that suits you to unlock premium features, verify your identity, and get unlimited access.",
+    color:
+      "bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400",
+    gradient: "from-purple-500/20 to-purple-600/5",
+  },
+  {
+    icon: Plane,
+    title: "3. Find or Host",
     description:
       "Browse amazing trips created by others or take the lead and post your own dream travel itinerary for others to join.",
     color: "bg-primary/20 text-primary dark:bg-primary/30 dark:text-primary",
     gradient: "from-primary/20 to-primary/5",
   },
   {
-    icon: Plane,
-    title: "Travel Together",
+    icon: UserPlus,
+    title: "4. Travel Together",
     description:
       "Connect with your travel buddies, plan the details, and set off on an unforgettable adventure together. Safe and secure!",
-    color: "bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400",
+    color:
+      "bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400",
     gradient: "from-orange-500/20 to-orange-600/5",
   },
 ];
@@ -56,11 +67,14 @@ export default function HowItWorks() {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-24 bg-muted xl:px-24 lg:px-20 md:px-12 px-6 relative overflow-hidden">
+      {/* Background Shapes */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/80 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/80 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
       {/* Background decoration */}
-      <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent -translate-y-1/2 hidden md:block opacity-30" />
-      
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="absolute top-1/2 left-0 w-full h-px bg-linear-to-r from-transparent via-border to-transparent -translate-y-1/2 hidden md:block opacity-30" />
+
+      <div className="container mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -73,7 +87,7 @@ export default function HowItWorks() {
           </div>
           <h2 className="text-4xl md:text-5xl font-bold">How Works for You</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Your journey to finding the perfect travel companion starts here. 
+            Your journey to finding the perfect travel companion starts here.
             We've made it easy, safe, and fun.
           </p>
         </motion.div>
@@ -83,7 +97,7 @@ export default function HowItWorks() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6"
         >
           {steps.map((step, index) => (
             <motion.div
@@ -93,7 +107,6 @@ export default function HowItWorks() {
             >
               {/* Card */}
               <div className="flex flex-col items-center text-center bg-card border rounded-3xl p-8 hover:shadow-xl transition-all duration-500 hover:-translate-y-2 relative overflow-hidden h-full">
-                
                 {/* Number Watermark */}
                 <div className="absolute top-4 right-6 text-9xl font-bold text-muted/5 group-hover:text-primary/5 transition-colors duration-500 select-none">
                   {index + 1}
@@ -104,10 +117,14 @@ export default function HowItWorks() {
                   className={`relative w-24 h-24 rounded-2xl flex items-center justify-center ${step.color} shadow-lg mb-8 transition-transform group-hover:scale-110 duration-500 z-10 rotate-3 group-hover:rotate-0`}
                 >
                   <step.icon className="w-10 h-10" />
-                  <div className={`absolute inset-0 bg-gradient-to-br ${step.gradient} blur-xl -z-10`} />
+                  <div
+                    className={`absolute inset-0 bg-linear-to-br ${step.gradient} blur-xl -z-10`}
+                  />
                 </div>
 
-                <h3 className="text-2xl font-bold mb-4 relative z-10">{step.title}</h3>
+                <h3 className="text-2xl font-bold mb-4 relative z-10">
+                  {step.title}
+                </h3>
                 <p className="text-muted-foreground leading-relaxed relative z-10">
                   {step.description}
                 </p>
@@ -131,8 +148,11 @@ export default function HowItWorks() {
           className="mt-16 text-center"
         >
           <Link href="/register">
-            <Button size="lg" className="rounded-full px-8 h-12 text-base shadow-lg shadow-primary/20 hover:shadow-primary/40">
-              Start Your Journey Now 
+            <Button
+              size="lg"
+              className="rounded-full px-8 h-12 text-base shadow-lg shadow-primary/20 hover:shadow-primary/40"
+            >
+              Start Your Journey Now
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail } from "lucide-react";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 export default function NewsletterSection() {
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,7 +25,13 @@ export default function NewsletterSection() {
   return (
     <section className="py-20 bg-linear-to-r from-primary to-primary/80">
       <div className="container px-4 mx-auto">
-        <div className="max-w-4xl mx-auto text-center text-primary-foreground">
+        <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-4xl mx-auto text-center text-primary-foreground"
+        >
           <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-6">
             <Mail className="w-8 h-8" />
           </div>
@@ -61,7 +68,7 @@ export default function NewsletterSection() {
           <p className="text-sm opacity-75 mt-4">
             Join 100+ travelers who already subscribed. Unsubscribe anytime.
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

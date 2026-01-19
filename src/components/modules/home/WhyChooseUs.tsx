@@ -1,138 +1,105 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import { Shield, Users, ThumbsUp, Clock, Heart, Globe, CheckCircle2 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { ShieldCheck, HeartHandshake, Infinity } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
-const features = [
+const values = [
   {
-    icon: Shield,
-    title: "Verified Travelers",
+    icon: ShieldCheck,
+    title: "Unmatched Safety",
     description:
-      "All our members are verified to ensure your safety and peace of mind.",
-    color: "text-blue-500 bg-blue-50 dark:bg-blue-900/20",
-    border: "border-blue-200 dark:border-blue-900/50",
+      "We prioritize your safety above all else. With rigorous identity verification and 24/7 support, you can travel with complete peace of mind.",
+    number: "01",
+    gradient: "from-blue-500/20 to-cyan-500/20",
+    iconColor: "text-blue-500",
   },
   {
-    icon: Users,
-    title: "Diverse Community",
+    icon: HeartHandshake,
+    title: "Authentic Connections",
     description:
-      "Connect with travelers from over 50 countries and diverse backgrounds.",
-    color: "text-green-500 bg-green-50 dark:bg-green-900/20",
-    border: "border-green-200 dark:border-green-900/50",
+      "Forget superficial tourism. Our community is built on genuine connections, bringing together like-minded travelers for life-changing experiences.",
+    number: "02",
+    gradient: "from-purple-500/20 to-pink-500/20",
+    iconColor: "text-purple-500",
   },
   {
-    icon: ThumbsUp,
-    title: "Trusted Reviews",
+    icon: Infinity,
+    title: "Limitless Possibilities",
     description:
-      "Read authentic reviews from real travelers who've been there.",
-    color: "text-purple-500 bg-purple-50 dark:bg-purple-900/20",
-    border: "border-purple-200 dark:border-purple-900/50",
-  },
-  {
-    icon: Clock,
-    title: "24/7 Support",
-    description:
-      "Our dedicated support team is here to help you anytime, anywhere.",
-    color: "text-orange-500 bg-orange-50 dark:bg-orange-900/20",
-    border: "border-orange-200 dark:border-orange-900/50",
-  },
-  {
-    icon: Heart,
-    title: "Find Your Buddy",
-    description:
-      "Based on your preferences, filter on interests, travel style, and preferences.",
-    color: "text-red-500 bg-red-50 dark:bg-red-900/20",
-    border: "border-red-200 dark:border-red-900/50",
-  },
-  {
-    icon: Globe,
-    title: "Global Reach",
-    description:
-      "Explore destinations worldwide with local and international buddies.",
-    color: "text-cyan-500 bg-cyan-50 dark:bg-cyan-900/20",
-    border: "border-cyan-200 dark:border-cyan-900/50",
+      "From weekend getaways to year-long expeditions. Create the journey you've always dreamed of with companions who share your vision.",
+    number: "03",
+    gradient: "from-orange-500/20 to-yellow-500/20",
+    iconColor: "text-orange-500",
   },
 ];
 
 export default function WhyChooseUs() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-      },
-    },
-  };
-
   return (
-    <section className="py-24 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#4f46e5_1px,transparent_1px)] [background-size:16px_16px]" />
+    <section className="py-24 bg-muted xl:px-24 lg:px-20 md:px-12 px-6 relative overflow-hidden">
+      {/* Background Shapes */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/80 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/80 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto relative z-10">
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-             <CheckCircle2 className="w-4 h-4" />
-             <span>Why Us</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Why Choose Join My Trip?
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Travel Different, Travel{" "}
+            <span className="text-primary">Better</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
-            We're more than just a travel platform. We're a global community
-            dedicated to making travel accessible, safe, and memorable for
-            everyone.
+          <p className="text-xl text-muted-foreground">
+            We're not just a platform; we're a movement changing how the world
+            explores together.
           </p>
         </motion.div>
 
-        <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
-        >
-          {features.map((feature, index) => (
-            <motion.div key={index} variants={itemVariants}>
-                <Card
-                  className={`group border shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full bg-card hover:border-primary/20`}
-                >
-                  <CardContent className="p-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {values.map((value, index) => (
+            <motion.div
+              key={value.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+            >
+              <Card className="h-full border-none shadow-lg bg-background/50 backdrop-blur-sm hover:bg-background transition-colors duration-300 overflow-hidden group relative">
+                <CardContent className="p-8 h-full flex flex-col items-center text-center relative z-10">
+                  {/* Large Background Number */}
+                  <div className="absolute top-0 right-0 p-4 opacity-[0.03] text-9xl font-black select-none pointer-events-none transition-opacity group-hover:opacity-[0.07]">
+                    {value.number}
+                  </div>
+
+                  {/* Icon with Gradient Blob */}
+                  <div className="relative mb-6">
                     <div
-                      className={`w-16 h-16 rounded-2xl ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm`}
-                    >
-                      <feature.icon className="w-8 h-8" />
+                      className={`absolute inset-0 rounded-full blur-xl bg-linear-to-br ${value.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                    />
+                    <div className="relative w-20 h-20 bg-card rounded-full flex items-center justify-center shadow-sm border group-hover:scale-110 transition-transform duration-300">
+                      <value.icon className={`w-10 h-10 ${value.iconColor}`} />
                     </div>
-                    <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{feature.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </CardContent>
-                </Card>
+                  </div>
+
+                  <h3 className="text-2xl font-bold mb-4">{value.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {value.description}
+                  </p>
+                </CardContent>
+
+                {/* Bottom colored border */}
+                <div
+                  className={`h-1 w-0 group-hover:w-full transition-all duration-500 bg-linear-to-r ${value.gradient} mx-auto`}
+                />
+              </Card>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

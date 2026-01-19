@@ -1,6 +1,16 @@
 import Link from "next/link";
 import React from "react";
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtube, Send } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Youtube,
+  Send,
+} from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
@@ -11,7 +21,7 @@ const Footer = () => {
     <footer className="border-t bg-background">
       <div className="pt-16 pb-8">
         {/* Newsletter Section */}
-        <div className="xl:mx-12 lg:mx-8 md:mx-6 mx-5 mb-12">
+        {/* <div className="xl:mx-12 lg:mx-8 md:mx-6 mx-5 mb-12">
           <div className="max-w-4xl mx-auto text-center p-8 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border">
             <h3 className="text-2xl font-bold mb-2">Stay Updated</h3>
             <p className="text-muted-foreground mb-6">
@@ -28,7 +38,7 @@ const Footer = () => {
               </Button>
             </form>
           </div>
-        </div>
+        </div> */}
 
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 xl:mx-12 lg:mx-8 md:mx-6 mx-5 mb-8">
@@ -41,7 +51,7 @@ const Footer = () => {
               Your trusted platform for finding perfect travel companions and
               creating unforgettable journey experiences around the world.
             </p>
-            
+
             {/* Social Links */}
             <div className="flex gap-2">
               <Link
@@ -188,8 +198,10 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                 <span className="text-muted-foreground">
-                  123 Travel Street<br />
-                  Adventure City, AC 12345<br />
+                  123 Travel Street
+                  <br />
+                  Adventure City, AC 12345
+                  <br />
                   United States
                 </span>
               </li>
@@ -219,17 +231,24 @@ const Footer = () => {
         <div className="border-t pt-8">
           <div className="xl:mx-12 lg:mx-8 md:mx-6 mx-5">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-              <p>
-                &copy; {currentYear} Join My Trip. All Rights Reserved.
-              </p>
+              <p>&copy; {currentYear} Join My Trip. All Rights Reserved.</p>
               <div className="flex gap-6">
-                <Link href="/privacy-policy" className="hover:text-primary transition-colors">
+                <Link
+                  href="/privacy-policy"
+                  className="hover:text-primary transition-colors"
+                >
                   Privacy
                 </Link>
-                <Link href="/terms-of-service" className="hover:text-primary transition-colors">
+                <Link
+                  href="/terms-of-service"
+                  className="hover:text-primary transition-colors"
+                >
                   Terms
                 </Link>
-                <Link href="/contact-us" className="hover:text-primary transition-colors">
+                <Link
+                  href="/contact-us"
+                  className="hover:text-primary transition-colors"
+                >
                   Contact
                 </Link>
               </div>
@@ -242,4 +261,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

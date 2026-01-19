@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, ArrowRight, Calendar, Users, DollarSign, TrendingUp } from "lucide-react";
+import { MapPin, ArrowRight, Calendar, Users, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { ITravelPlan, ITrevelInterest } from "@/types/travelPlan.interface";
@@ -79,12 +79,12 @@ export default function TopDestinations({
   };
 
   return (
-    <section className="py-20 relative overflow-hidden bg-background">
+    <section className="py-20 xl:px-24 lg:px-20 md:px-12 px-6 relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
-      <div className="container px-4 mx-auto relative z-10">
+      <div className="mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,15 +97,15 @@ export default function TopDestinations({
               <TrendingUp className="w-4 h-4" />
               <span>Trending Now</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
-              Popular Destinations
+            <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-linear-to-r from-foreground to-foreground/70">
+              Featured Adventures
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl">
               Discover the most sought-after locations where our community is
               traveling right now.
             </p>
           </div>
-          
+
           <motion.div
             whileHover={{ x: 5 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -157,7 +157,7 @@ export default function TopDestinations({
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80" />
 
                     {/* Floating Badges */}
                     <div className="absolute top-4 left-4">
@@ -197,13 +197,13 @@ export default function TopDestinations({
                     {/* Budget and Seats */}
                     <div className="flex items-center justify-between gap-4 py-1.5">
                       <div className="flex items-center gap-2 text-primary font-medium">
-                         <DollarSign className="w-4 h-4 shrink-0" />
-                        <span>Economy</span>
+                        <span>{dest.budget.toLocaleString()} BDT</span>
                       </div>
                       <div className="flex items-center gap-2 text-muted-foreground">
                         <Users className="w-4 h-4 shrink-0" />
                         <span className="font-medium">
-                          {dest.maxGuest - (dest.participants?.length || 0)} spots left
+                          {dest.maxGuest - (dest.participants?.length || 0)}{" "}
+                          seats left
                         </span>
                       </div>
                     </div>

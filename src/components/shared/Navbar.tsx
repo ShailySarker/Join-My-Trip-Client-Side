@@ -90,7 +90,9 @@ const Navbar = async () => {
           <ThemeToggle />
 
           {accessToken ? (
-            <LogoutButton />
+            <div>
+              <LogoutButton />
+            </div>
           ) : (
             <div className="md:flex gap-2">
               <Link href="/login">
