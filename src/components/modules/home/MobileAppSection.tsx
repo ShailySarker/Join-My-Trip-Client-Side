@@ -17,7 +17,7 @@ export default function FeaturedTripSection({
   if (!featuredTrip) return null;
 
   return (
-    <section className="py-20 xl:px-24 lg:px-20 md:px-12 px-6 bg-background relative overflow-hidden">
+    <section className="xl:py-20 lg:py-16 md:py-14 py-12 xl:px-24 lg:px-20 md:px-12 px-6 bg-background relative overflow-hidden">
       {/* Background Blur */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 

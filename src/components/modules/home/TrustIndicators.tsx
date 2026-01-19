@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function TrustIndicators() {
   return (
-    <section className="py-20 xl:px-24 lg:px-20 md:px-12 px-6 bg-primary text-primary-foreground relative overflow-hidden">
+    <section className="xl:py-20 lg:py-16 md:py-14 py-12 xl:px-24 lg:px-20 md:px-12 px-6 bg-primary text-primary-foreground relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
 

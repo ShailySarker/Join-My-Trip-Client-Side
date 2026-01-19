@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen xl:px-24 lg:px-20 md:px-12 px-6 xl:pt-7 lg:pt-5 md:pt-4 pt-3 xl:pb-20 lg:pb-16 md:pb-14 pb-13">
+    <div className="min-h-screen xl:px-24 lg:px-20 md:px-12 px-6 xl:pt-7 lg:pt-5 md:pt-4 pt-3 xl:pb-24 lg:pb-20 md:pb-16 pb-14">
       {/* 1. Hero Section */}
       <section className="py-32 bg-primary text-white">
         <div className="container mx-auto px-4 text-center">
@@ -28,7 +28,7 @@ export default function ContactPage() {
       </section>
 
       {/* 2. Contact Information Cards */}
-      <section className="py-20">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <Card className="shadow-xl border-0">
@@ -85,7 +85,7 @@ export default function ContactPage() {
       </section>
 
       {/* 3. Contact Form & Map Section */}
-      <section className="py-20 bg-background">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Contact Form */}
@@ -118,7 +118,7 @@ export default function ContactPage() {
       </section>
 
       {/* 4. Support Hours */}
-      <section className="py-20">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold mb-8">Support Availability</h2>
           <div className="flex flex-wrap justify-center gap-8">
@@ -139,7 +139,7 @@ export default function ContactPage() {
       </section>
 
       {/* 5. FAQ Preview */}
-      <section className="py-20 bg-primary text-center text-white">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12 bg-primary text-center text-white">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-3xl font-bold mb-6">Frequent Questions</h2>
           <p className="text-muted mb-8">

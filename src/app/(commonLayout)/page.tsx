@@ -126,10 +126,10 @@ export default async function HomePage() {
       {/* 17. Testimonials */}
       <Testimonials reviews={reviews} />
 
-      {/* 18. FAQ Section */}
-      <FAQSection />
       {/* 19. Newsletter Section */}
       <NewsletterSection />
+      {/* 18. FAQ Section */}
+      <FAQSection />
       {/* </div> */}
     </div>
   );

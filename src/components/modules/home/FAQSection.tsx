@@ -48,10 +48,7 @@ const faqs = [
 
 export default function FAQSection() {
   return (
-    <section className="py-20 bg-muted xl:px-24 lg:px-20 md:px-12 px-6 relative overflow-hidden">
-      {/* Background Shapes */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/80 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/80 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+    <section className="pt-20 xl:pb-24 lg:pb-20 md:pb-16 pb-14 xl:px-24 lg:px-20 md:px-12 px-6">
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

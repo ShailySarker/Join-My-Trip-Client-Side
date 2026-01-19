@@ -23,14 +23,14 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section className="py-20 bg-linear-to-r from-primary to-primary/80">
+    <section className="xl:py-20 lg:py-16 md:py-14 py-12 bg-linear-to-r from-primary to-primary/80">
       <div className="container px-4 mx-auto">
-        <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto text-center text-primary-foreground"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto text-center text-primary-foreground"
         >
           <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-6">
             <Mail className="w-8 h-8" />

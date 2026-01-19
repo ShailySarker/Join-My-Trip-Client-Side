@@ -40,7 +40,7 @@ export default function SuccessStories({ reviews }: { reviews: any[] }) {
 
   if (!validReviews || validReviews.length === 0) {
     return (
-      <section className="py-20 bg-background">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12 bg-background">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Latest Success Stories</h2>
           <p className="text-muted-foreground">
@@ -53,7 +53,7 @@ export default function SuccessStories({ reviews }: { reviews: any[] }) {
   }
 
   return (
-    <section className="py-20 bg-background xl:px-24 lg:px-20 md:px-12 px-6">
+    <section className="xl:py-20 lg:py-16 md:py-14 py-12 bg-background xl:px-24 lg:px-20 md:px-12 px-6">
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

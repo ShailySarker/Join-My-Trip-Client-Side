@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 export default async function ServicesPage() {
   const userInfo = await getUserInfo();
   return (
-    <div className="min-h-screen xl:px-24 lg:px-20 md:px-12 px-6 xl:pt-7 lg:pt-5 md:pt-4 pt-3 xl:pb-20 lg:pb-16 md:pb-14 pb-13">
+    <div className="min-h-screen xl:px-24 lg:px-20 md:px-12 px-6 xl:pt-7 lg:pt-5 md:pt-4 pt-3 xl:pb-24 lg:pb-20 md:pb-16 pb-14">
       {/* 1. Hero Section */}
       <section className="relative py-24 bg-linear-to-br from-primary/80 via-background to-primary/80 overflow-hidden">
         <div className="container mx-auto">
@@ -106,7 +106,7 @@ export default async function ServicesPage() {
       </section>
 
       {/* 2. Core Services */}
-      <section className="py-20">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12">
         <div className="container mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -184,7 +184,7 @@ export default async function ServicesPage() {
       </section>
 
       {/* 3. How It Works Process */}
-      <section className="py-20 bg-accent/30">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12 bg-accent/30">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -250,7 +250,7 @@ export default async function ServicesPage() {
       </section>
 
       {/* 4. Premium Features */}
-      <section className="py-20">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12">
         <div className="container mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <Badge className="mb-4" variant="default">
@@ -328,7 +328,7 @@ export default async function ServicesPage() {
       </section>
 
       {/* 5. Safety & Security */}
-      <section className="py-20 bg-accent/30">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12 bg-accent/30">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -404,7 +404,7 @@ export default async function ServicesPage() {
       </section>
 
       {/* 6. Support Services */}
-      <section className="py-20">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12">
         <div className="container mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -457,7 +457,7 @@ export default async function ServicesPage() {
       </section>
 
       {/* 8. CTA Section */}
-      <section className="py-20 bg-linear-to-r from-primary to-primary/80 text-primary-foreground">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12 bg-linear-to-r from-primary to-primary/80 text-primary-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">

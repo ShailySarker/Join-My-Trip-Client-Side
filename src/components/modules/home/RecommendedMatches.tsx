@@ -24,7 +24,7 @@ interface RecommendedMatchesProps {
 
 export default function RecommendedMatches({ stats }: RecommendedMatchesProps) {
   return (
-    <section className="py-20 xl:px-24 lg:px-20 md:px-12 px-6">
+    <section className="xl:py-20 lg:py-16 md:py-14 py-12 xl:px-24 lg:px-20 md:px-12 px-6">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
           {/* Content */}

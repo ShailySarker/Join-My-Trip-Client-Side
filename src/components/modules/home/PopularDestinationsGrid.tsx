@@ -51,7 +51,7 @@ export default function PopularDestinationsGrid({
   ];
 
   return (
-    <section className="py-20 xl:px-24 lg:px-20 md:px-12 px-6 bg-background">
+    <section className="xl:py-20 lg:py-16 md:py-14 py-12 xl:px-24 lg:px-20 md:px-12 px-6 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

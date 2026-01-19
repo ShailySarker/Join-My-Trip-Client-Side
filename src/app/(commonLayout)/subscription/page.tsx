@@ -11,7 +11,7 @@ const SubscriptionPage = async () => {
   const userInfo = await getUserInfo();
 
   return (
-    <div className="max-w-7xl mx-auto xl:px-24 lg:px-20 md:px-12 px-6 xl:pt-7 lg:pt-5 md:pt-4 pt-3 xl:pb-20 lg:pb-16 md:pb-14 pb-13">
+    <div className="max-w-7xl mx-auto xl:px-24 lg:px-20 md:px-12 px-6 xl:pt-7 lg:pt-5 md:pt-4 pt-3 xl:pb-24 lg:pb-20 md:pb-16 pb-14">
       <div className="mx-auto lg:max-w-2xl mb-16">
         <h2 className="xl:text-3xl lg:text-[28px] md:text-2xl text-xl font-bold text-center text-gray-900 dark:text-gray-100">
           {userInfo?.role === "ADMIN" || userInfo?.role === "SUPER_ADMIN"
@@ -114,7 +114,7 @@ const SubscriptionPage = async () => {
       </div>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-primary text-primary-foreground">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12 bg-primary text-primary-foreground">
         <div className="container mx-auto">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">

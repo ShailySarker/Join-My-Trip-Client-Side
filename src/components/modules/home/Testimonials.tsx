@@ -20,7 +20,7 @@ export default function Testimonials({ reviews = [] }: { reviews?: Review[] }) {
   if (reviews.length === 0) return null;
 
   return (
-    <section className="py-20 xl:px-24 lg:px-20 md:px-12 px-6 relative overflow-hidden">
+    <section className="xl:py-20 lg:py-16 md:py-14 py-12 xl:px-24 lg:px-20 md:px-12 px-6 relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />

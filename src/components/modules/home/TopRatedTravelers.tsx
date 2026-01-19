@@ -39,7 +39,7 @@ export default function TopRatedTravelers({
   };
 
   return (
-    <section className="py-20 xl:px-24 lg:px-20 md:px-12 px-6 relative">
+    <section className="xl:py-20 lg:py-16 md:py-14 py-12 xl:px-24 lg:px-20 md:px-12 px-6 relative">
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import InputFieldError from "@/components/shared/InputFieldError";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
 const LoginForm = ({ redirect }: { redirect?: string }) => {
@@ -58,13 +57,13 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
   };
 
   // Google OAuth handler - uses actual backend endpoint
-  const handleGoogleLogin = () => {
-    const API_URL =
-      process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost:2000/api/v1";
-    const redirectPath = redirect || "/";
-    // Redirect to backend Google OAuth endpoint
-    window.location.href = `${API_URL}/auth/google?redirect=${encodeURIComponent(redirectPath)}`;
-  };
+  // const handleGoogleLogin = () => {
+  //   const API_URL =
+  //     process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost:2000/api/v1";
+  //   const redirectPath = redirect || "/";
+  //   // Redirect to backend Google OAuth endpoint
+  //   window.location.href = `${API_URL}/auth/google?redirect=${encodeURIComponent(redirectPath)}`;
+  // };
 
   return (
     <div className="space-y-6">

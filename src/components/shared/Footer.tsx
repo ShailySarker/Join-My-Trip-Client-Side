@@ -9,10 +9,7 @@ import {
   Instagram,
   Linkedin,
   Youtube,
-  Send,
 } from "lucide-react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -202,7 +199,7 @@ const Footer = () => {
                   <br />
                   Adventure City, AC 12345
                   <br />
-                  United States
+                  Bangladesh
                 </span>
               </li>
               <li>
@@ -220,7 +217,7 @@ const Footer = () => {
                   className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                  +1 (234) 567-890
+                  +880 123 567 89
                 </a>
               </li>
             </ul>

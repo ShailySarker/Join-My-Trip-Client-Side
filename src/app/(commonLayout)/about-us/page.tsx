@@ -44,7 +44,7 @@ export default async function AboutUsPage() {
   const tripCount = tripsData?.meta?.total || 20;
 
   return (
-    <div className="xl:px-24 lg:px-20 md:px-12 px-6 xl:pt-7 lg:pt-5 md:pt-4 pt-3 xl:pb-20 lg:pb-16 md:pb-14 pb-13">
+    <div className="xl:px-24 lg:px-20 md:px-12 px-6 xl:pt-7 lg:pt-5 md:pt-4 pt-3 xl:pb-24 lg:pb-20 md:pb-16 pb-14">
       {/* 1. Hero Section */}
       <section className="relative py-24 overflow-hidden ">
         <div className="container mx-auto max-w-6xl relative z-10">
@@ -89,7 +89,7 @@ export default async function AboutUsPage() {
       </section>
 
       {/* 2. Mission & Vision */}
-      <section className="py-20 bg-primary/30">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12 bg-primary/30">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -220,7 +220,7 @@ export default async function AboutUsPage() {
       </section>
 
       {/* 5. Team/Culture Section */}
-      <section className="py-20">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12">
         <div className="container mx-auto">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -281,7 +281,7 @@ export default async function AboutUsPage() {
       </section>
 
       {/* 6. Why We're Different */}
-      <section className="py-20 bg-primary/30">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12 bg-primary/30">
         <div className="container mx-auto px-8">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -339,7 +339,7 @@ export default async function AboutUsPage() {
       </section>
 
       {/* 7. Community Impact Stories */}
-      <section className="py-20">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -385,7 +385,7 @@ export default async function AboutUsPage() {
       </section>
 
       {/* 8. CTA Section */}
-      <section className="py-20 bg-primary text-primary-foreground">
+      <section className="xl:py-20 lg:py-16 md:py-14 py-12 bg-primary text-primary-foreground">
         <div className="container mx-auto">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
