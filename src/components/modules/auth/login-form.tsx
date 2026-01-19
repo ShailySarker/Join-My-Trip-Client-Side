@@ -89,12 +89,12 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
             <Field>
               <div className="flex items-center justify-between mb-2">
                 <FieldLabel htmlFor="password">Password</FieldLabel>
-                <Link
+                {/* <Link
                   href="/forgot-password"
                   className="text-xs text-primary hover:underline"
                 >
                   Forgot Password?
-                </Link>
+                </Link> */}
               </div>
               <Input
                 ref={passwordRef}
