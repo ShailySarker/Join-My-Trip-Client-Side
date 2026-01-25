@@ -194,7 +194,7 @@ export default function PopularDestinationsGrid({
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="text-center p-6 rounded-2xl border bg-card hover:shadow-lg transition-all duration-300"
+              className="text-center p-6 shadow-md rounded-2xl border bg-card hover:shadow-lg transition-all duration-300"
             >
               <div className="inline-flex p-3 rounded-xl bg-primary/10 mb-3">
                 <stat.icon className="h-6 w-6 text-primary" />

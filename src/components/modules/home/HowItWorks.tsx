@@ -83,7 +83,7 @@ export default function HowItWorks() {
           className="text-center mb-20 space-y-4"
         >
           <div className="inline-flex items-center justify-center p-2 px-4 rounded-full bg-primary/10 text-primary font-medium text-sm mb-4">
-            Simple 3-Step Process
+            Simple 4-Step Process
           </div>
           <h2 className="text-4xl md:text-5xl font-bold">How Works for You</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -106,7 +106,7 @@ export default function HowItWorks() {
               className="relative group"
             >
               {/* Card */}
-              <div className="flex flex-col items-center text-center bg-card border rounded-3xl p-8 hover:shadow-xl transition-all duration-500 hover:-translate-y-2 relative overflow-hidden h-full">
+              <div className="flex flex-col items-center text-center bg-card border rounded-3xl p-8 hover:shadow-xl transition-all duration-500 hover:-translate-y-2 relative overflow-hidden h-full shadow-md">
                 {/* Number Watermark */}
                 <div className="absolute top-4 right-6 text-9xl font-bold text-muted/5 group-hover:text-primary/5 transition-colors duration-500 select-none">
                   {index + 1}

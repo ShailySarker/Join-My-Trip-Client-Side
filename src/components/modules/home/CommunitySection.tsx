@@ -121,7 +121,7 @@ export default function CommunitySection({
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ scale: 1.05, y: -5 }}
-              className="relative p-6 rounded-2xl border bg-card text-center hover:shadow-xl transition-all duration-300 group"
+              className="relative p-6 shadow-md rounded-2xl border bg-card text-center hover:shadow-xl transition-all duration-300 group"
             >
               <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
@@ -146,7 +146,7 @@ export default function CommunitySection({
           transition={{ duration: 0.6 }}
           className="grid md:grid-cols-3 gap-6"
         >
-          <div className="p-6 rounded-2xl border bg-card hover:border-green-500/50 transition-colors duration-300">
+          <div className="p-6 shadow-md rounded-2xl border bg-card hover:border-green-500/50 transition-colors duration-300">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 rounded-lg bg-green-500/10">
                 <div className="h-3 w-3 rounded-full bg-green-500 animate-pulse" />
@@ -161,7 +161,7 @@ export default function CommunitySection({
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl border bg-card hover:border-blue-500/50 transition-colors duration-300">
+          <div className="p-6 shadow-md rounded-2xl border bg-card hover:border-blue-500/50 transition-colors duration-300">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 rounded-lg bg-blue-500/10">
                 <TrendingUp className="h-5 w-5 text-blue-500" />
@@ -176,7 +176,7 @@ export default function CommunitySection({
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl border bg-card hover:border-purple-500/50 transition-colors duration-300">
+          <div className="p-6 shadow-md rounded-2xl border bg-card hover:border-purple-500/50 transition-colors duration-300">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 rounded-lg bg-purple-500/10">
                 <Sparkles className="h-5 w-5 text-purple-500" />

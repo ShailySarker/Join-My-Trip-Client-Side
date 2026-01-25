@@ -54,7 +54,7 @@ export default function LatestTravelPlans({
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -10 }}
-              className="group relative rounded-2xl overflow-hidden border bg-card hover:shadow-2xl transition-all duration-300"
+              className="group relative shadow-md rounded-2xl overflow-hidden border bg-card hover:shadow-2xl transition-all duration-300"
             >
               {/* Image */}
               <div className="relative h-56 overflow-hidden">

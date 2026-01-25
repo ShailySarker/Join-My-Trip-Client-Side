@@ -217,7 +217,11 @@ export default function TravelCategories() {
             const Icon = cat.icon;
 
             return (
-              <motion.div key={index} variants={itemVariants}>
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="shadow-md rounded-2xl"
+              >
                 <Link
                   href={`/travel-plans?interests=${cat.value}`}
                   className="group flex flex-col items-center p-6 rounded-2xl border bg-card hover:border-primary/50 transition-all duration-300 hover:shadow-lg h-full"

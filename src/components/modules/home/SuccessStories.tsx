@@ -87,7 +87,7 @@ export default function SuccessStories({ reviews }: { reviews: any[] }) {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
               whileHover={{ y: -10 }}
-              className="group relative rounded-2xl overflow-hidden border bg-card hover:shadow-2xl transition-all duration-300 flex flex-col h-full"
+              className="group relative shadow-md rounded-2xl overflow-hidden border bg-card hover:shadow-2xl transition-all duration-300 flex flex-col h-full"
             >
               {/* Image */}
               <div className="relative h-48 overflow-hidden shrink-0">
