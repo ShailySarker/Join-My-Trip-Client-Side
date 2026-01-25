@@ -29,9 +29,8 @@ const MyProfilePage = async () => {
 // Separate component for fetching reviews
 async function ReviewsList({ userId }: { userId: string }) {
   const { getUserReviews } = await import("@/services/reviews/reviews.service");
-  const { ReviewCard } = await import(
-    "@/components/modules/reviews/ReviewCard"
-  );
+  const { ReviewCard } =
+    await import("@/components/modules/reviews/ReviewCard");
 
   const reviewsResponse = await getUserReviews(userId);
   const reviews = reviewsResponse?.data || [];

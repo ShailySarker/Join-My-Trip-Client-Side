@@ -185,33 +185,70 @@ function BookingForm() {
 
     setSubmitting(true);
     try {
-      // 1. Add Self
-      const selfParticipant: IParticipantDetails = {
-        name: userInfo.fullname,
-        phone: userInfo.phone,
-        gender: userInfo.gender as IUserGender,
-        age: userInfo.age || 25,
-        userId: userInfo._id,
-      };
+      if (!userInfo.phone || !userInfo.gender || !userInfo.age) {
+        toast.error(
+          "Please complete your profile setup (phone, gender and age required) before joining a travel plan",
+        );
+      }
 
-      // 2. Combine
-      const allParticipants = [selfParticipant, ...extraParticipants];
+      // if (!userInfo.age) {
+      //   toast.error(
+      //     "Please complete your profile (age required) before joining a travel plan",
+      //   );
+      // }
 
-      const bookingPayload = {
-        travelId: travelPlan._id,
-        amount: travelPlan.budget,
-        // amount: travelPlan.budget * allParticipants.length,
-        totalPeople: allParticipants.length,
-        participants: allParticipants,
-      };
+      // if (userInfo.age === null) {
+      //   toast.error(
+      //     "Your need to update your profile age info to join a travel plan",
+      //   );
+      // }
 
-      const result = await createBooking(bookingPayload);
+      if (userInfo.age < 18) {
+        toast.error("You must be at least 18 years old to join a travel plan");
+      }
 
-      if (result.success) {
-        toast.success("Booking confirmed successfully!");
-        router.push("/dashboard/my-bookings");
-      } else {
-        toast.error(result.message || "Failed to confirm booking");
+      if (userInfo.age < (travelPlan.minAge as number)) {
+        toast.error(
+          `${userInfo.fullname} must be at least ${travelPlan.minAge} years old to join this travel plan.`,
+        );
+      }
+
+      if (
+        userInfo.fullname &&
+        userInfo.phone &&
+        userInfo.age &&
+        userInfo.gender &&
+        userInfo.age >= 18 &&
+        userInfo.age >= travelPlan.minAge
+      ) {
+        // 1. Add Self
+        const selfParticipant: IParticipantDetails = {
+          name: userInfo.fullname,
+          phone: userInfo.phone,
+          gender: userInfo.gender as IUserGender,
+          age: userInfo.age || 25,
+          userId: userInfo._id,
+        };
+
+        // 2. Combine
+        const allParticipants = [selfParticipant, ...extraParticipants];
+
+        const bookingPayload = {
+          travelId: travelPlan._id,
+          amount: travelPlan.budget,
+          // amount: travelPlan.budget * allParticipants.length,
+          totalPeople: allParticipants.length,
+          participants: allParticipants,
+        };
+
+        const result = await createBooking(bookingPayload);
+
+        if (result.success) {
+          toast.success("Booking confirmed successfully!");
+          router.push("/dashboard/my-bookings");
+        } else {
+          toast.error(result.message || "Failed to confirm booking");
+        }
       }
     } catch (error: any) {
       console.log(error);

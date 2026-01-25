@@ -320,7 +320,7 @@ export default function CreateTravelPlanPage() {
         toast.error(
           "You must be at least " +
             createdPlan.minAge +
-            " years old to join this travel plan."
+            " years old to join this travel plan.",
         );
         setShowBookingModal(false);
         return;
@@ -675,7 +675,7 @@ export default function CreateTravelPlanPage() {
                         else
                           setValue(
                             "interests",
-                            arr.filter((v: string) => v !== it)
+                            arr.filter((v: string) => v !== it),
                           );
                       }}
                       checked={(watch("interests") ?? []).includes(it)}

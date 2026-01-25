@@ -6,6 +6,7 @@ import EditProfileModal from "./EditProfileModal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Calendar, Phone, Users, Globe, User } from "lucide-react";
+import demoUser from "@/assets/images/demo-user.jpg";
 
 interface ProfileViewProps {
   user: IUser;
@@ -19,7 +20,8 @@ export default function ProfileView({ user }: ProfileViewProps) {
         <CardHeader className="flex flex-col items-center">
           <div className="relative w-32 h-32 mb-4">
             <Image
-              src={user?.profilePhoto || "https://github.com/shadcn.png"}
+              src={user?.profilePhoto || demoUser}
+              // "https://github.com/shadcn.png"
               alt="Profile"
               fill
               className="rounded-full object-cover border-4 border-background shadow-sm"
@@ -159,7 +161,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
                         <Badge key={idx} variant="outline" className="text-sm">
                           {interest}
                         </Badge>
-                      )
+                      ),
                     )}
                   </div>
                 ) : (
