@@ -60,9 +60,17 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
   const handleGoogleLogin = () => {
     const API_URL =
       process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost:2000/api/v1";
+    console.log(API_URL);
     const redirectPath = redirect || "/";
+
+    console.log(redirectPath);
     // Redirect to backend Google OAuth endpoint
+    // window.location.href = `${API_URL}/auth/google?redirect=${encodeURIComponent(redirectPath)}`;
     window.location.href = `${API_URL}/auth/google?redirect=${encodeURIComponent(redirectPath)}`;
+    console.log(
+      "redirect",
+      `${API_URL}/auth/google?redirect=${encodeURIComponent(redirectPath)}`,
+    );
   };
 
   return (
