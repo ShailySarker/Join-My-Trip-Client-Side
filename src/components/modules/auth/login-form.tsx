@@ -57,7 +57,6 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
   };
 
   // Google OAuth handler - uses actual backend endpoint
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleGoogleLogin = () => {
     const API_URL =
       process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost:2000/api/v1";
@@ -134,7 +133,7 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
                 </div>
               </div>
 
-              {/* <div className="relative my-6">
+              <div className="relative my-6">
                 <hr className="border-border" />
                 <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-2 text-xs text-muted-foreground uppercase">
                   Or continue with
@@ -166,16 +165,16 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
                   />
                 </svg>
                 Continue with Google
-              </Button> */}
+              </Button>
 
               <FieldDescription className="px-6 text-center mt-4">
                 Don&apos;t have an account?{" "}
-                <a
+                <Link
                   href="/register"
                   className="text-primary hover:underline font-semibold"
                 >
                   Sign up
-                </a>
+                </Link>
               </FieldDescription>
             </Field>
           </FieldGroup>

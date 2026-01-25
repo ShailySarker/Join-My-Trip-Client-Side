@@ -24,7 +24,6 @@ export default function CommunitySection({
   stats: CommunityStats;
   topTravelers: IUser[];
 }) {
-  console.log(stats);
   const communityStats = [
     {
       label: "Active Members",

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { MapPin, Plane, TrendingUp, Globe2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { IUser } from "@/types/user.interface";
+import { IUser, IUserRole } from "@/types/user.interface";
 
 interface IPopularDestination {
   city: string;
@@ -136,15 +136,38 @@ export default function PopularDestinationsGrid({
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
                   >
-                    <Link
-                      href={`/travel-plans?search=${destination.city}`}
-                      className="w-full h-full flex items-center justify-center"
-                    >
-                      <Button size="lg" className="rounded-full">
-                        <MapPin className="mr-2 h-5 w-5" />
-                        Explore Trips
-                      </Button>
-                    </Link>
+                    {userInfo?.role === IUserRole.ADMIN ||
+                    userInfo?.role === IUserRole.SUPER_ADMIN ? (
+                      <Link
+                        href={`/admin/dashboard/manage-travel-plans?search=${destination.city}`}
+                        className="w-full h-full flex items-center justify-center"
+                      >
+                        <Button size="lg" className="rounded-full">
+                          <MapPin className="mr-2 h-5 w-5" />
+                          Explore Trips
+                        </Button>
+                      </Link>
+                    ) : userInfo?.role === IUserRole.USER ? (
+                      <Link
+                        href={`/dashboard/explore-travel-plans?search=${destination.city}`}
+                        className="w-full h-full flex items-center justify-center"
+                      >
+                        <Button size="lg" className="rounded-full">
+                          <MapPin className="mr-2 h-5 w-5" />
+                          Explore Trips
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Link
+                        href={`/travel-plans?search=${destination.city}`}
+                        className="w-full h-full flex items-center justify-center"
+                      >
+                        <Button size="lg" className="rounded-full">
+                          <MapPin className="mr-2 h-5 w-5" />
+                          Explore Trips
+                        </Button>
+                      </Link>
+                    )}
                   </motion.div>
                 </div>
               </motion.div>
